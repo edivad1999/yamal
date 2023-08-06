@@ -1,14 +1,13 @@
 plugins {
-    kotlin("multiplatform")
     kotlin("native.cocoapods")
-    id("com.android.library")
+    id("yamal.kmm.base")
 }
 
 kotlin {
-    androidTarget()
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
+//    androidTarget()
+//    iosX64()
+//    iosArm64()
+//    iosSimulatorArm64()
 
     cocoapods {
         version = "1.0.0"
@@ -21,38 +20,49 @@ kotlin {
             isStatic = true
         }
     }
+    easyDependencies {
+        commonMain {
+        implementation(libs.ktor.client.core)
+        implementation(libs.ktor.client.contentNegotiation)
+        implementation(libs.ktor.client.serialization.json)
 
-    sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation(libs.ktor.client.core)
-                implementation(libs.ktor.client.contentNegotiation)
-                implementation(libs.ktor.client.serialization.json)
+        implementation(libs.kotlinx.serialization.json)
 
-                implementation(libs.kotlinx.serialization.json)
-
-                implementation(libs.coroutines.core)
-            }
+        implementation(libs.coroutines.core)
         }
-        val androidMain by getting {
-            dependencies {
-                implementation(libs.coroutines.android)
-                implementation(libs.ktor.client.android)
-            }
+        androidMain {
+            implementation(libs.coroutines.android)
+            implementation(libs.ktor.client.android)
         }
-        val iosX64Main by getting
-        val iosArm64Main by getting
-        val iosSimulatorArm64Main by getting
-        val iosMain by creating {
-            dependsOn(commonMain)
-            iosX64Main.dependsOn(this)
-            iosArm64Main.dependsOn(this)
-            iosSimulatorArm64Main.dependsOn(this)
-            dependencies {
-                implementation(libs.ktor.client.darwin)
-            }
+        iosMain {
+            implementation(libs.ktor.client.darwin)
+
         }
     }
+
+//    sourceSets {
+//        val commonMain by getting {
+//            dependencies {
+//
+//            }
+//        }
+//        val androidMain by getting {
+//            dependencies {
+//
+//            }
+//        }
+//        val iosX64Main by getting
+//        val iosArm64Main by getting
+//        val iosSimulatorArm64Main by getting
+//        val iosMain by creating {
+//            dependsOn(commonMain)
+//            iosX64Main.dependsOn(this)
+//            iosArm64Main.dependsOn(this)
+//            iosSimulatorArm64Main.dependsOn(this)
+//            dependencies {
+//            }
+//        }
+//    }
 }
 
 android {
