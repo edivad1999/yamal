@@ -1,0 +1,39 @@
+[versions]
+kotlinVersion = "1.9.0"
+kotlinSerializationVersion = "1.5.1"
+ktorVersion = "2.3.2"
+agpVersion = "8.0.2"
+
+[libraries]
+android-build-gradle = { module ="com.android.tools.build:gradle", version.ref = "agpVersion" }
+kotlin-build-gradle = { module ="org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlinVersion" }
+
+
+kotlin-serialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlinVersion" }
+
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlinVersion" }
+#Coroutines
+coroutines-core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3"
+coroutines-android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
+
+#Ktor
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinSerializationVersion" }
+
+ktor-client-contentNegotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktorVersion" }
+ktor-client-serialization-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktorVersion" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorVersion" }
+ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktorVersion" }
+ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktorVersion" }
+
+
+
+ktor-client-mock = { module = "io.ktor:ktor-client-mock", version.ref = "ktorVersion" }
+
+#Tests
+mockito-kotlin = "org.mockito.kotlin:mockito-kotlin:4.1.0"
+junit = "junit:junit:4.13.2"
+
+
+[plugins]
+
+
