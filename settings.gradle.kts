@@ -2,9 +2,9 @@ rootProject.name = "yamal"
 
 include(":androidApp")
 include(":shared")
+include(":core")
 
 pluginManagement {
-
     repositories {
         google()
         mavenLocal()
@@ -17,6 +17,7 @@ pluginManagement {
 
 }
 dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()
