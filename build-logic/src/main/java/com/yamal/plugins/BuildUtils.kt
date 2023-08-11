@@ -2,22 +2,17 @@ package com.yamal.plugins
 
 import com.android.build.api.dsl.CommonExtension
 import com.android.build.gradle.LibraryExtension
-import com.yamal.plugins.extensions.configureKotlinMultiplatform
-import org.gradle.api.Action
-import org.gradle.api.NamedDomainObjectCollection
-import org.gradle.api.NamedDomainObjectContainer
+import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.api.plugins.ExtensionAware
-import org.gradle.api.provider.Property
-import org.gradle.kotlin.dsl.NamedDomainObjectCollectionDelegateProvider
 import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.create
-import org.gradle.kotlin.dsl.get
+import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.getByType
+import org.gradle.kotlin.dsl.kotlin
+import org.gradle.kotlin.dsl.provideDelegate
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
-import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
-import org.jetbrains.kotlin.gradle.plugin.KotlinDependencyHandler
-import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 
 
 /**
@@ -29,66 +24,88 @@ class KotlinMultiplatformBasePlugin : Plugin<Project> {
             with(pluginManager) {
                 apply("org.jetbrains.kotlin.multiplatform")
                 apply("org.jetbrains.kotlin.native.cocoapods")
-                apply("com.android.library")
+                apply("yamal.android.library")
             }
             extensions.configure<LibraryExtension> {
-                configureKotlinMultiplatform(this)
+                defaultConfig.targetSdk = 33
+
+            }
+        }
+    }
+}
+class AndroidLibraryPlugin : Plugin<Project> {
+    override fun apply(target: Project) {
+        with(target) {
+            with(pluginManager) {
+                apply("com.android.library")
+                apply("org.jetbrains.kotlin.android")
+            }
+
+            extensions.configure<LibraryExtension> {
                 defaultConfig.targetSdk = 33
             }
 
-            val commonMain = extensions.create<EasyCommonMain>("easyDependencies")
-
-
+            configurations.configureEach {
+                resolutionStrategy {}
+            }
+            dependencies {}
         }
     }
 }
 
-interface EasyCommonMain {
-    fun KotlinMultiplatformExtension.commonMain(block: KotlinDependencyHandler.() -> Unit): Unit {
-        sourceSets["commonMain"].dependencies {
-            block()
-        }
-    }
-
-    fun KotlinMultiplatformExtension.iosMain(block: KotlinDependencyHandler.() -> Unit): Unit {
-        iosX64()
-        iosArm64()
-        iosSimulatorArm64()
-        sourceSets {
-            val commonMain = this["commonMain"]
-            val iosX64Main = this["iosX64Main"]
-            val iosArm64Main = this["iosArm64Main"]
-            val iosSimulatorArm64Main = this["iosSimulatorArm64Main"]
-            val iosMain = this.create("iosMain").apply {
-                dependsOn(commonMain)
-                iosX64Main.dependsOn(this)
-                iosArm64Main.dependsOn(this)
-                iosSimulatorArm64Main.dependsOn(this)
-                dependencies {
-                    block()
+class CorePlugin : Plugin<Project> {
+    override fun apply(target: Project) {
+        with(target) {
+            with(pluginManager) {
+                apply("yamal.kmm.base")
+            }
+            extensions.configure<LibraryExtension> {
+                defaultConfig.targetSdk = 33
+                compileSdk = 33
+                compileOptions {
+                    sourceCompatibility = JavaVersion.VERSION_17
+                    targetCompatibility = JavaVersion.VERSION_17
                 }
             }
-
-        }
-
-
-    }
-
-
-    fun KotlinMultiplatformExtension.androidMain(block: KotlinDependencyHandler.() -> Unit): Unit {
-        androidTarget()
-        sourceSets["androidMain"]
-            .dependencies {
-                block()
+            val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
+            dependencies {
+                add("commonMainImplementation", libs.findLibrary("ktor.client.core").get())
+                add("commonMainImplementation", libs.findLibrary("ktor.client.contentNegotiation").get())
+                add("commonMainImplementation", libs.findLibrary("ktor.client.serialization.json").get())
+                add("commonMainImplementation", libs.findLibrary("kotlinx.serialization.json").get())
+                add("commonMainImplementation", libs.findLibrary("coroutines.core").get())
+                add("androidMainImplementation", libs.findLibrary("coroutines.android").get())
+                add("androidMainImplementation", libs.findLibrary("ktor.client.android").get())
+                add("iosMainImplementation", libs.findLibrary("libs.ktor.client.darwin").get())
             }
+        }
     }
-
-    fun KotlinMultiplatformExtension.`sourceSets`(configure: Action<NamedDomainObjectContainer<KotlinSourceSet>>): Unit =
-        (this as ExtensionAware).extensions.configure("sourceSets", configure)
-
-
 }
-
-
-
-
+class DomainPlugin : Plugin<Project> {
+    override fun apply(target: Project) {
+        with(target) {
+            with(pluginManager) {
+                apply("yamal.kmm.base")
+            }
+            extensions.configure<LibraryExtension> {
+                defaultConfig.targetSdk = 33
+                compileSdk = 33
+                compileOptions {
+                    sourceCompatibility = JavaVersion.VERSION_17
+                    targetCompatibility = JavaVersion.VERSION_17
+                }
+            }
+            val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
+            dependencies {
+                add("commonMainImplementation", libs.findLibrary("ktor.client.core").get())
+                add("commonMainImplementation", libs.findLibrary("ktor.client.contentNegotiation").get())
+                add("commonMainImplementation", libs.findLibrary("ktor.client.serialization.json").get())
+                add("commonMainImplementation", libs.findLibrary("kotlinx.serialization.json").get())
+                add("commonMainImplementation", libs.findLibrary("coroutines.core").get())
+                add("androidMainImplementation", libs.findLibrary("coroutines.android").get())
+                add("androidMainImplementation", libs.findLibrary("ktor.client.android").get())
+                add("iosMainImplementation", libs.findLibrary("libs.ktor.client.darwin").get())
+            }
+        }
+    }
+}

@@ -3,6 +3,7 @@ rootProject.name = "yamal"
 include(":androidApp")
 include(":shared")
 include(":core")
+include(":domain")
 
 pluginManagement {
     includeBuild("build-logic")

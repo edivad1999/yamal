@@ -1,13 +1,15 @@
 plugins {
     kotlin("native.cocoapods")
-    id("yamal.kmm.base")
+    kotlin("multiplatform")
+    id("com.android.library")
+
 }
 
 kotlin {
-//    androidTarget()
-//    iosX64()
-//    iosArm64()
-//    iosSimulatorArm64()
+    androidTarget()
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
 
     cocoapods {
         version = "1.0.0"
@@ -20,49 +22,39 @@ kotlin {
             isStatic = true
         }
     }
-    easyDependencies {
-        commonMain {
-        implementation(libs.ktor.client.core)
-        implementation(libs.ktor.client.contentNegotiation)
-        implementation(libs.ktor.client.serialization.json)
 
-        implementation(libs.kotlinx.serialization.json)
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation(libs.ktor.client.core)
+                implementation(libs.ktor.client.contentNegotiation)
+                implementation(libs.ktor.client.serialization.json)
 
-        implementation(libs.coroutines.core)
+                implementation(libs.kotlinx.serialization.json)
+
+                implementation(libs.coroutines.core)
+                implementation(libs.koin.core)
+            }
         }
-        androidMain {
-            implementation(libs.coroutines.android)
-            implementation(libs.ktor.client.android)
+        val androidMain by getting {
+            dependencies {
+                implementation(libs.coroutines.android)
+                implementation(libs.ktor.client.android)
+            }
         }
-        iosMain {
-            implementation(libs.ktor.client.darwin)
-
+        val iosX64Main by getting
+        val iosArm64Main by getting
+        val iosSimulatorArm64Main by getting
+        val iosMain by creating {
+            dependsOn(commonMain)
+            iosX64Main.dependsOn(this)
+            iosArm64Main.dependsOn(this)
+            iosSimulatorArm64Main.dependsOn(this)
+            dependencies {
+                implementation(libs.ktor.client.darwin)
+            }
         }
     }
-
-//    sourceSets {
-//        val commonMain by getting {
-//            dependencies {
-//
-//            }
-//        }
-//        val androidMain by getting {
-//            dependencies {
-//
-//            }
-//        }
-//        val iosX64Main by getting
-//        val iosArm64Main by getting
-//        val iosSimulatorArm64Main by getting
-//        val iosMain by creating {
-//            dependsOn(commonMain)
-//            iosX64Main.dependsOn(this)
-//            iosArm64Main.dependsOn(this)
-//            iosSimulatorArm64Main.dependsOn(this)
-//            dependencies {
-//            }
-//        }
-//    }
 }
 
 android {
@@ -74,10 +66,10 @@ android {
         targetSdk = (findProperty("android.targetSdk") as String).toInt()
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlin {
-        jvmToolchain(11)
+        jvmToolchain(18)
     }
 }
