@@ -1,10 +1,5 @@
 rootProject.name = "yamal"
 
-include(":androidApp")
-include(":shared")
-include(":core")
-include(":domain")
-
 pluginManagement {
 //    includeBuild("build-logic")
     repositories {
@@ -13,16 +8,17 @@ pluginManagement {
         gradlePluginPortal()
 
     }
+}
+
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version "0.7.0"
+}
+
+include(":androidApp")
+include(":shared")
+include(":core")
+include(":domain")
 
 
-}
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
-    repositories {
-      google()
-      mavenCentral()
-      gradlePluginPortal()
-    }
-}
 
 
