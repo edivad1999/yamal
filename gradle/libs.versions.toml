@@ -5,7 +5,6 @@ kotlinSerializationVersion = "1.5.1"
 ktorVersion = "2.3.2"
 agpVersion = "8.0.2"
 composeVersion="1.4.3"
-org-jetbrains-kotlin-jvm = "1.8.0"
 
 [libraries]
 android-gradlePlugin = { module ="com.android.tools.build:gradle", version.ref = "agpVersion" }
@@ -39,6 +38,6 @@ junit = "junit:junit:4.13.2"
 
 
 [plugins]
-org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "org-jetbrains-kotlin-jvm" }
+org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlinVersion" }
 
 
