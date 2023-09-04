@@ -1,20 +1,20 @@
 [versions]
-koinCoreVersion = "3.2.0"
-kotlinVersion = "1.9.0"
+koinCoreVersion = "3.3.2"
+kotlin_version = "1.9.0"
 kotlinSerializationVersion = "1.5.1"
-ktorVersion = "2.3.2"
-agpVersion = "8.0.2"
-composeVersion="1.4.3"
+ktorVersion = "2.3.3"
+agp = "8.1.1"
+compose-version="1.4.3"
 
 [libraries]
-android-gradlePlugin = { module ="com.android.tools.build:gradle", version.ref = "agpVersion" }
+android-gradlePlugin = { module ="com.android.tools.build:gradle", version.ref = "agp" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koinCoreVersion" }
-kotlin-gradlePlugin = { module ="org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlinVersion" }
+kotlin-gradlePlugin = { module ="org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin_version" }
 
 
-kotlin-serialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlinVersion" }
+kotlin-serialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin_version" }
 
-kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlinVersion" }
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin_version" }
 #Coroutines
 coroutines-core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3"
 coroutines-android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
@@ -38,6 +38,11 @@ junit = "junit:junit:4.13.2"
 
 
 [plugins]
-org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlinVersion" }
-
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin_version" }
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin_version" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin_version" }
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin_version" }
+compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "compose_version" }
 

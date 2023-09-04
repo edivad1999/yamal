@@ -1,7 +1,7 @@
 plugins {
-    kotlin("native.cocoapods")
-    kotlin("multiplatform")
-    id("com.android.library")
+  alias(libs.plugins.kotlin.multiplatform)
+  alias(libs.plugins.android.library)
+  kotlin("native.cocoapods")
 
 }
 
@@ -63,7 +63,6 @@ android {
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
         minSdk = (findProperty("android.minSdk") as String).toInt()
-        targetSdk = (findProperty("android.targetSdk") as String).toInt()
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
