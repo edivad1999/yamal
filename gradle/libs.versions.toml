@@ -15,7 +15,7 @@ androidx-test-junit = "1.1.5"
 androidx-espresso-core = "3.5.1"
 kotlin = "1.9.21"
 junit = "4.13.2"
-koin = "3.3.3"
+koin = "3.5.2-RC1"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }

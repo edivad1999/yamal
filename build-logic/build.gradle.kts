@@ -18,6 +18,5 @@ gradlePlugin {
             id = "yamal.compose"
             implementationClass = "com.yamal.plugins.ComposeMultiplatformModulePlugin"
         }
-
     }
 }

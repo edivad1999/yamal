@@ -1,8 +1,5 @@
 plugins {
     id("yamal.compose")
-    id ("kotlin-parcelize")
-
-
 }
 android {
     namespace = "com.yamal.presentation.home"

@@ -118,9 +118,9 @@ CLASSPATH=$APP_HOME/gradle/wrapper/gradle-wrapper.jar
 if [ -n "$JAVA_HOME" ] ; then
     if [ -x "$JAVA_HOME/jre/sh/java" ] ; then
         # IBM's JDK on AIX uses strange locations for the executables
-        JAVACMD=$JAVA_HOME/jre/sh/kotlin
+        JAVACMD=$JAVA_HOME/jre/sh/java
     else
-        JAVACMD=$JAVA_HOME/bin/kotlin
+        JAVACMD=$JAVA_HOME/bin/java
     fi
     if [ ! -x "$JAVACMD" ] ; then
         die "ERROR: JAVA_HOME is set to an invalid directory: $JAVA_HOME
@@ -129,8 +129,8 @@ Please set the JAVA_HOME variable in your environment to match the
 location of your Java installation."
     fi
 else
-    JAVACMD=kotlin
-    if ! command -v kotlin >/dev/null 2>&1
+    JAVACMD=java
+    if ! command -v java >/dev/null 2>&1
     then
         die "ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.
 
@@ -158,7 +158,7 @@ if ! "$cygwin" && ! "$darwin" && ! "$nonstop" ; then
     esac
 fi
 
-# Collect all arguments for the kotlin command, stacking in reverse order:
+# Collect all arguments for the java command, stacking in reverse order:
 #   * args from the command line
 #   * the main class name
 #   * -classpath
@@ -166,7 +166,7 @@ fi
 #   * --module-path (only if needed)
 #   * DEFAULT_JVM_OPTS, JAVA_OPTS, and GRADLE_OPTS environment variables.
 
-# For Cygwin or MSYS, switch paths to Windows format before running kotlin
+# For Cygwin or MSYS, switch paths to Windows format before running java
 if "$cygwin" || "$msys" ; then
     APP_HOME=$( cygpath --path --mixed "$APP_HOME" )
     CLASSPATH=$( cygpath --path --mixed "$CLASSPATH" )
@@ -201,7 +201,7 @@ fi
 # Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
 DEFAULT_JVM_OPTS='"-Xmx64m" "-Xms64m"'
 
-# Collect all arguments for the kotlin command;
+# Collect all arguments for the java command;
 #   * $DEFAULT_JVM_OPTS, $JAVA_OPTS, and $GRADLE_OPTS can contain fragments of
 #     shell script including quotes and variable substitutions, so put them in
 #     double quotes to make sure that they get re-expanded; and
