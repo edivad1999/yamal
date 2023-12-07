@@ -11,12 +11,11 @@ kotlin {
     jvmToolchain(17)
     androidTarget()
     jvm("desktop")
-    val ios = listOf(
+    listOf(
         iosX64(),
         iosArm64(),
         iosSimulatorArm64(),
-    )
-    ios.forEach { iosTarget ->
+    ).forEach { iosTarget ->
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
             isStatic = true
@@ -44,16 +43,12 @@ kotlin {
             implementation(projects.featureManager)
             implementation("io.insert-koin:koin-compose:1.1.1-RC1")
             implementation("com.slack.circuit:circuit-foundation:0.17.1")
-
-        }
-        androidMain.dependencies {
         }
     }
 }
 
 android {
     namespace = "com.edivad1999.yamal"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res")
@@ -61,8 +56,6 @@ android {
 
     defaultConfig {
         applicationId = "com.edivad1999.yamal"
-        minSdk = libs.versions.android.minSdk.get().toInt()
-        targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
         targetSdk = 34
