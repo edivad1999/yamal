@@ -1,6 +1,5 @@
 plugins {
     id("yamal.library")
-
 }
 kotlin {
     sourceSets.commonMain.dependencies {

@@ -34,6 +34,8 @@ kotlin {
             implementation(compose.desktop.currentOs)
         }
         commonMain.dependencies {
+            implementation(projects.mvi)
+
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
@@ -42,7 +44,8 @@ kotlin {
 
             implementation(projects.featureManager)
             implementation(libs.koin.compose)
-            implementation(libs.circuit.foundation)
+            implementation(libs.voyager.navigator)
+            implementation(libs.voyager.koin)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.atomicfu)
         }

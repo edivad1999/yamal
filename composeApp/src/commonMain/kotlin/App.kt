@@ -1,36 +1,24 @@
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.material.Button
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.BottomAppBar
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
-import androidx.compose.ui.unit.dp
+import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.CurrentScreen
+import cafe.adriel.voyager.navigator.Navigator
 import com.yamal.featureManager.AppModules
-import com.yamal.presentation.home.presenter.CounterPresenter
-import com.yamal.presentation.home.presenter.CounterScreen
+import navigator.BottomRoute
+import navigator.BottomRoutes
 import org.jetbrains.compose.resources.ExperimentalResourceApi
-import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.KoinApplication
-import org.koin.compose.koinInject
-import org.koin.core.KoinApplication
+import screen.HomeScreen
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
@@ -39,22 +27,14 @@ fun App() {
         KoinApplication(application = {
             modules(AppModules.exportModules())
         }) {
-            var greetingText by remember { mutableStateOf("Hello World!") }
-            var showImage by remember { mutableStateOf(false) }
-            Column(Modifier.fillMaxWidth(), horizontalAlignment = CenterHorizontally) {
-                Button(onClick = {
-                    greetingText = "Compose: ${Greeting().greet()}"
-                    showImage = !showImage
+            Navigator(HomeScreen) { navigator ->
+                Scaffold(modifier = Modifier.fillMaxSize(), bottomBar = {
+                    BottomBar {
+                        navigator.push(it)
+                    }
                 }) {
-                    Text(greetingText)
-                }
-                AnimatedVisibility(showImage) {
-                    Column {
-                        Image(
-                            painterResource("compose-multiplatform.xml"),
-                            null,
-                        )
-                        Counter()
+                    Column(modifier = Modifier.padding(it)) {
+                        CurrentScreen()
                     }
                 }
             }
@@ -63,22 +43,16 @@ fun App() {
 }
 
 @Composable
-fun Counter(state: CounterScreen.CounterState = koinInject<CounterPresenter>().present()) {
-    Box(Modifier.fillMaxSize()) {
-        Column(Modifier.align(Alignment.Center)) {
-            Text(
-                modifier = Modifier.align(CenterHorizontally),
-                text = "Count: ${state.count}",
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            Button(
-                modifier = Modifier.align(CenterHorizontally),
-                onClick = { state.event(CounterScreen.CounterEvent.Increment) },
-            ) { Icon(rememberVectorPainter(Icons.Filled.Add), "Increment") }
-            Button(
-                modifier = Modifier.align(CenterHorizontally),
-                onClick = { state.event(CounterScreen.CounterEvent.Decrement) },
-            ) { Icon(rememberVectorPainter(Icons.Filled.Delete), "Decrement") }
+fun BottomBar(
+    routes: List<BottomRoute> = remember {
+        BottomRoutes()
+    },
+    onRouteSelected: (Screen) -> Unit,
+) {
+    BottomAppBar {
+        routes.forEach {
+            if (it.icon != null) Icon(it.icon.asPainter(), it.text)
+            Text(it.text, modifier = Modifier.clickable { onRouteSelected(it.screen) })
         }
     }
 }
