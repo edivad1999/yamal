@@ -17,7 +17,7 @@ class LibraryMultiplatformModulePlugin : Plugin<Project> {
 
             extensions.configure<LibraryExtension> {
                 configureKotlinAndroid(this)
-                defaultConfig.targetSdk = 34
+                defaultConfig.targetSdk = libs.findVersion("targetSdk").get().toString().toInt()
             }
             extensions.configure(KotlinMultiplatformExtension::class.java) {
                 listOf(
@@ -26,12 +26,17 @@ class LibraryMultiplatformModulePlugin : Plugin<Project> {
                     iosSimulatorArm64(),
                 )
 
-                jvmToolchain(17)
+                jvmToolchain(libs.findVersion("jdk").get().toString().toInt())
                 androidTarget()
                 jvm("desktop")
                 sourceSets.commonMain.dependencies {
                     implementation(libs.findLibrary("koin-core").get())
-                    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+                    implementation(libs.findLibrary("kotlinx-coroutines-core").get())
+                }
+                sourceSets.create("nativeMain") {
+                    dependencies {
+                        implementation(libs.findLibrary("atomicfu").get())
+                    }
                 }
             }
         }

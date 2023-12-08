@@ -6,7 +6,7 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
-class ComposeMultiplatformModulePlugin : Plugin<Project> {
+class PresentationMultiplatformModulePlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             with(pluginManager) {
@@ -16,10 +16,10 @@ class ComposeMultiplatformModulePlugin : Plugin<Project> {
             }
             extensions.configure<LibraryExtension> {
                 configureKotlinAndroid(this)
-                defaultConfig.targetSdk = 34
+                defaultConfig.targetSdk = libs.findVersion("targetSdk").get().toString().toInt()
             }
             extensions.configure(KotlinMultiplatformExtension::class.java) {
-                jvmToolchain(17)
+                jvmToolchain(libs.findVersion("jdk").get().toString().toInt())
                 iosX64()
                 iosArm64()
                 iosSimulatorArm64()
@@ -27,8 +27,13 @@ class ComposeMultiplatformModulePlugin : Plugin<Project> {
                 jvm("desktop")
                 sourceSets.commonMain.dependencies {
                     implementation(libs.findLibrary("koin-core").get())
-                    implementation("com.slack.circuit:circuit-foundation:0.17.1")
-                    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0-RC")
+                    implementation(libs.findLibrary("circuit-foundation").get())
+                    implementation(libs.findLibrary("kotlinx-coroutines-core").get())
+                }
+                sourceSets.create("nativeMain") {
+                    dependencies {
+                        implementation(libs.findLibrary("atomicfu").get())
+                    }
                 }
             }
         }

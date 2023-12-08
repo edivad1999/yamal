@@ -14,9 +14,9 @@ gradlePlugin {
             id = "yamal.library"
             implementationClass = "com.yamal.plugins.LibraryMultiplatformModulePlugin"
         }
-        register("kotlinMultiplatformComposePlugin") {
-            id = "yamal.compose"
-            implementationClass = "com.yamal.plugins.ComposeMultiplatformModulePlugin"
+        register("kotlinMultiplatformPresentationPlugin") {
+            id = "yamal.presentation"
+            implementationClass = "com.yamal.plugins.PresentationMultiplatformModulePlugin"
         }
     }
 }

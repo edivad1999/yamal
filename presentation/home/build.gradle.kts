@@ -1,5 +1,5 @@
 plugins {
-    id("yamal.compose")
+    id("yamal.presentation")
 }
 android {
     namespace = "com.yamal.presentation.home"
