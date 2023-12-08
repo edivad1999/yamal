@@ -8,7 +8,7 @@ plugins {
 }
 
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(libs.versions.jdk.get().toInt())
     androidTarget()
     jvm("desktop")
     listOf(
@@ -41,8 +41,10 @@ kotlin {
             implementation(compose.components.resources)
 
             implementation(projects.featureManager)
-            implementation("io.insert-koin:koin-compose:1.1.1-RC1")
-            implementation("com.slack.circuit:circuit-foundation:0.17.1")
+            implementation(libs.koin.compose)
+            implementation(libs.circuit.foundation)
+            implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.atomicfu)
         }
     }
 }
@@ -58,15 +60,10 @@ android {
         applicationId = "com.edivad1999.yamal"
         versionCode = 1
         versionName = "1.0"
-        targetSdk = 34
-        minSdk = 27
+        targetSdk = libs.versions.targetSdk.get().toInt()
+        minSdk = libs.versions.minSdk.get().toInt()
     }
-    compileSdk = 34
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
+    compileSdk = libs.versions.compileSdk.get().toInt()
     buildFeatures {
         compose = true
     }

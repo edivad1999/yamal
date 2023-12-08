@@ -1,11 +1,16 @@
 [versions]
+atomicfu = "0.23.1"
+circuitFoundation = "0.17.1"
 compose = "1.5.4"
 compose-plugin = "1.5.11"
 compose-compiler = "1.5.5"
 agp = "8.2.0"
-android-minSdk = "24"
-android-compileSdk = "34"
-android-targetSdk = "34"
+koinCompose = "1.1.1-RC1"
+kotlinxCoroutinesCore = "1.8.0-RC"
+minSdk = "24"
+compileSdk = "34"
+targetSdk = "34"
+jdk = "17"
 androidx-activityCompose = "1.8.1"
 androidx-core-ktx = "1.12.0"
 androidx-appcompat = "1.6.1"
@@ -18,6 +23,9 @@ junit = "4.13.2"
 koin = "3.5.2-RC1"
 
 [libraries]
+atomicfu = { module = "org.jetbrains.kotlinx:atomicfu", version.ref = "atomicfu" }
+circuit-foundation = { module = "com.slack.circuit:circuit-foundation", version.ref = "circuitFoundation" }
+koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koinCompose" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -39,6 +47,7 @@ kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.
 android-gradle = { module = "com.android.tools.build:gradle", version.ref = "agp" }
 
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
 
 
 [bundles]
