@@ -1,24 +1,29 @@
 [versions]
 atomicfu = "0.23.1"
-circuitFoundation = "0.17.1"
 compose = "1.5.4"
 compose-plugin = "1.5.11"
 compose-compiler = "1.5.5"
 agp = "8.2.0"
-koinCompose = "1.1.1-RC1"
+koinCompose = "1.0.4"
 kotlinxCoroutinesCore = "1.8.0-RC"
+kotlinxSerializationJson = "1.6.2"
 minSdk = "24"
 compileSdk = "34"
 targetSdk = "34"
 jdk = "17"
 androidx-activityCompose = "1.8.1"
-kotlin = "1.9.21"
+kotlin = "2.0.0-Beta1"
 junit = "4.13.2"
-koin = "3.5.2-RC1"
+koin = "3.4.3"
+voyagerVersion = "1.0.0-rc10"
 
 [libraries]
 atomicfu = { module = "org.jetbrains.kotlinx:atomicfu", version.ref = "atomicfu" }
-circuit-foundation = { module = "com.slack.circuit:circuit-foundation", version.ref = "circuitFoundation" }
+
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyagerVersion" }
+voyager-koin = { module = "cafe.adriel.voyager:voyager-koin", version.ref = "voyagerVersion" }
+
 koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koinCompose" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
@@ -43,3 +48,4 @@ jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

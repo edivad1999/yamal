@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 class HomeRepositoryImpl : HomeRepository {
 
-    val cachedCounter: MutableStateFlow<CounterModel> = MutableStateFlow(CounterModel(0))
+    private val cachedCounter: MutableStateFlow<CounterModel> = MutableStateFlow(CounterModel(0))
     override fun counterFlow(): Flow<CounterModel> = cachedCounter
     override suspend fun setCounter(number: Int) {
         cachedCounter.emit(CounterModel(number))
