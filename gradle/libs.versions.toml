@@ -12,10 +12,11 @@ compileSdk = "34"
 targetSdk = "34"
 jdk = "17"
 androidx-activityCompose = "1.8.1"
-kotlin = "2.0.0-Beta1"
+kotlin = "1.9.21"
 junit = "4.13.2"
 koin = "3.4.3"
 voyagerVersion = "1.0.0-rc10"
+ktor = "2.3.7"
 
 [libraries]
 atomicfu = { module = "org.jetbrains.kotlinx:atomicfu", version.ref = "atomicfu" }
@@ -40,6 +41,9 @@ android-gradle = { module = "com.android.tools.build:gradle", version.ref = "agp
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
 
+ktor-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
+ktor-ios = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
 
 [bundles]
 

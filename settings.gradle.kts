@@ -23,8 +23,16 @@ dependencyResolutionManagement {
 }
 
 include(":composeApp")
-include(":presentation:home")
-include(":feature:home:api")
-include(":feature:home:implementation")
+
 include(":feature-manager")
 include(":mvi")
+include(":build-config")
+
+// Presentation
+include(":presentation:home")
+// Features
+include(":feature:home:api")
+include(":feature:home:implementation")
+
+include(":feature:network:api")
+include(":feature:network:implementation")

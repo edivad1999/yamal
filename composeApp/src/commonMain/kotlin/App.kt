@@ -36,6 +36,7 @@ fun App() {
                     Column(modifier = Modifier.padding(it)) {
                         CurrentScreen()
                     }
+
                 }
             }
         }

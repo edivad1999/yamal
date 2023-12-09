@@ -6,4 +6,6 @@ plugins {
     alias(libs.plugins.androidLibrary) apply false
     alias(libs.plugins.kotlinMultiplatform) apply false
     alias(libs.plugins.kotlinSerialization) apply false
+    id("com.codingfeline.buildkonfig") version "0.15.1" apply false
 }
+

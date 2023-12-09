@@ -19,6 +19,7 @@ class LibraryMultiplatformModulePlugin : Plugin<Project> {
                 configureKotlinAndroid(this)
                 defaultConfig.targetSdk = libs.findVersion("targetSdk").get().toString().toInt()
             }
+
             extensions.configure(KotlinMultiplatformExtension::class.java) {
                 listOf(
                     iosX64(),
