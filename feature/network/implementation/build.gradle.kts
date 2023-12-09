@@ -1,12 +1,11 @@
 import com.codingfeline.buildkonfig.compiler.FieldSpec
-import org.jetbrains.compose.internal.utils.localPropertiesFile
 import java.util.Properties
+import org.jetbrains.compose.internal.utils.localPropertiesFile
 
 plugins {
     id("yamal.library")
     kotlin("plugin.serialization")
     id("com.codingfeline.buildkonfig")
-
 }
 val localProperties = Properties().apply {
     load(localPropertiesFile.reader())
@@ -17,6 +16,8 @@ kotlin {
         implementation(projects.feature.network.api)
         implementation(libs.ktor.core)
         implementation(libs.kotlinx.serialization.json)
+        implementation(libs.ktor.contentNegotiation)
+        implementation(libs.ktor.contentNegotiation.json)
     }
     sourceSets.androidMain.dependencies {
         implementation(libs.ktor.cio)
@@ -36,9 +37,9 @@ buildkonfig {
 
     defaultConfigs {
         buildConfigField(
-            FieldSpec.Type.STRING, "malClientId", localProperties.getProperty("malClientId")
+            type = FieldSpec.Type.STRING,
+            name = "malClientId",
+            value = localProperties.getProperty("malClientId")
         )
-
     }
-
 }

@@ -26,7 +26,6 @@ include(":composeApp")
 
 include(":feature-manager")
 include(":mvi")
-include(":build-config")
 
 // Presentation
 include(":presentation:home")
