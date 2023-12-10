@@ -4,10 +4,19 @@ plugins {
 kotlin {
 
     sourceSets.commonMain.dependencies {
+        // Presentation
+        api(projects.presentation.home)
+        api(projects.presentation.login)
 
+        // Features
         implementation(projects.feature.home.implementation)
         api(projects.feature.home.api)
-        api(projects.presentation.home)
+
+        api(projects.feature.network.api)
+        implementation(projects.feature.network.implementation)
+
+        api(projects.feature.login.api)
+        implementation(projects.feature.login.implementation)
     }
 }
 android {

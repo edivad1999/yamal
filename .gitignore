@@ -76,3 +76,4 @@ gradle.deps
 !.idea/inspectionProfiles/
 !.idea/ktlint.xml
 !.idea/detekt.xml
+/composeApp/cache/

@@ -35,6 +35,7 @@ kotlin {
         }
         commonMain.dependencies {
             implementation(projects.mvi)
+            implementation(projects.featureManager)
 
             implementation(compose.runtime)
             implementation(compose.foundation)
@@ -42,12 +43,12 @@ kotlin {
             @OptIn(ExperimentalComposeLibrary::class)
             implementation(compose.components.resources)
 
-            implementation(projects.featureManager)
             implementation(libs.koin.compose)
             implementation(libs.voyager.navigator)
             implementation(libs.voyager.koin)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.atomicfu)
+            implementation("io.github.kevinnzou:compose-webview-multiplatform:1.7.6")
         }
     }
 }

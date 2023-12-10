@@ -8,6 +8,7 @@ pluginManagement {
         google()
         gradlePluginPortal()
         mavenCentral()
+        maven("https://jogamp.org/deployment/maven")
     }
 }
 plugins {
@@ -19,6 +20,7 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+        maven("https://jogamp.org/deployment/maven")
     }
 }
 
@@ -29,9 +31,15 @@ include(":mvi")
 
 // Presentation
 include(":presentation:home")
+include(":presentation:login")
 // Features
 include(":feature:home:api")
 include(":feature:home:implementation")
 
 include(":feature:network:api")
 include(":feature:network:implementation")
+
+include(":feature:login:api")
+include(":feature:login:implementation")
+
+include(":feature:core")

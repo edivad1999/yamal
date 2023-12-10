@@ -17,6 +17,7 @@ junit = "4.13.2"
 koin = "3.4.3"
 voyagerVersion = "1.0.0-rc10"
 ktor = "2.3.7"
+jetbrainsKotlinJvm = "1.9.10"
 
 [libraries]
 atomicfu = { module = "org.jetbrains.kotlinx:atomicfu", version.ref = "atomicfu" }
