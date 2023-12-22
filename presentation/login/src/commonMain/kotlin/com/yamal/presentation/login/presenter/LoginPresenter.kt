@@ -3,16 +3,19 @@ package com.yamal.presentation.login.presenter
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import cafe.adriel.voyager.core.model.screenModelScope
 import com.yamal.feature.login.api.LoginRepository
 import com.yamal.mvi.Presenter
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 
 object LoginScreen {
 
     data class LoginState(
+        val authMessage: String,
         val isLoggedIn: Boolean,
         val authorizationUrl: String,
         val onIntent: (LoginIntent) -> Unit,
@@ -20,30 +23,40 @@ object LoginScreen {
 
     sealed interface LoginIntent {
 
-        data class UrlChanged(val authCode: String) : LoginIntent
+        data class OpenLoginBrowser(val url: String) : LoginIntent
+        data class AuthorizationComplete(val url: String) : LoginIntent
+    }
+
+    sealed interface LoginEffect {
+        data class OpenBrowser(val url: String) : LoginEffect
+        data class AuthorizationParameters(val url: String) : LoginEffect
     }
 }
 
-class LoginPresenter(private val loginRepository: LoginRepository) : Presenter<LoginScreen.LoginState, Nothing> {
+class LoginPresenter(private val loginRepository: LoginRepository) : Presenter<LoginScreen.LoginState, LoginScreen.LoginEffect> {
 
-    override val effects: Flow<Nothing> = flowOf()
+    override val effects: MutableSharedFlow<LoginScreen.LoginEffect> = MutableSharedFlow()
 
     @Composable
     override fun present(): LoginScreen.LoginState {
         val isLoggedIn by loginRepository.isUserAuthenticated().collectAsState(false)
 
+        var authMessage by remember { mutableStateOf("") }
         return LoginScreen.LoginState(
+            authMessage = authMessage,
             isLoggedIn = isLoggedIn,
             authorizationUrl = loginRepository.getAuthorizationUrl(),
             onIntent = {
                 when (it) {
-                    is LoginScreen.LoginIntent.UrlChanged -> {
+                    is LoginScreen.LoginIntent.OpenLoginBrowser -> {
                         screenModelScope.launch {
-                            println("AuthCode: " + it.authCode)
-                            if (it.authCode.contains("yamal://yamal")) {
-                                loginRepository.authenticate(it.authCode)
-                            }
+                            effects.emit(LoginScreen.LoginEffect.OpenBrowser(it.url))
                         }
+                    }
+
+                    is LoginScreen.LoginIntent.AuthorizationComplete -> {
+                        println(it.url)
+                        authMessage = it.url
                     }
                 }
             }

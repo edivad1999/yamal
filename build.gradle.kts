@@ -7,5 +7,6 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform) apply false
     alias(libs.plugins.kotlinSerialization) apply false
     id("com.codingfeline.buildkonfig") version "0.15.1" apply false
+    id("com.google.gms.google-services") version "4.4.0" apply false
 }
 

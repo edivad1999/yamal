@@ -13,29 +13,23 @@ import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.CurrentScreen
 import cafe.adriel.voyager.navigator.Navigator
-import com.yamal.featureManager.AppModules
 import navigator.BottomRoute
 import navigator.BottomRoutes
 import org.jetbrains.compose.resources.ExperimentalResourceApi
-import org.koin.compose.KoinApplication
 import screen.HomeScreen
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 fun App() {
     MaterialTheme {
-        KoinApplication(application = {
-            modules(AppModules.exportModules())
-        }) {
-            Navigator(HomeScreen) { navigator ->
-                Scaffold(modifier = Modifier.fillMaxSize(), bottomBar = {
-                    BottomBar {
-                        navigator.push(it)
-                    }
-                }) {
-                    Column(modifier = Modifier.padding(it)) {
-                        CurrentScreen()
-                    }
+        Navigator(HomeScreen) { navigator ->
+            Scaffold(modifier = Modifier.fillMaxSize(), bottomBar = {
+                BottomBar {
+                    navigator.push(it)
+                }
+            }) {
+                Column(modifier = Modifier.padding(it)) {
+                    CurrentScreen()
                 }
             }
         }

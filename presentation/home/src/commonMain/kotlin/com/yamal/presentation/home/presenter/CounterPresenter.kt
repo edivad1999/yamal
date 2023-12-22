@@ -3,6 +3,7 @@ package com.yamal.presentation.home.presenter
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import cafe.adriel.voyager.core.model.coroutineScope
 import cafe.adriel.voyager.core.model.screenModelScope
 import com.yamal.feature.home.api.HomeRepository
 import com.yamal.feature.home.api.model.CounterModel

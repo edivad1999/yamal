@@ -16,7 +16,7 @@ classes/
 # Files for the dex VM
 *.dex
 
-# Intellij project files
+# Intellij project filÏes
 .idea/*
 *.iml
 *.ipr

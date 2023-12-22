@@ -5,6 +5,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.multiplatform")
     id("org.jetbrains.compose")
+    id("com.google.gms.google-services")
 }
 
 kotlin {
@@ -26,9 +27,12 @@ kotlin {
         val desktopMain by getting
 
         androidMain.dependencies {
+            implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
+            implementation("com.google.firebase:firebase-analytics")
             implementation(libs.compose.ui)
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
+            implementation("io.insert-koin:koin-android:3.4.3")
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -54,14 +58,14 @@ kotlin {
 }
 
 android {
-    namespace = "com.edivad1999.yamal"
+    namespace = "com.yamal"
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res")
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
     defaultConfig {
-        applicationId = "com.edivad1999.yamal"
+        applicationId = "com.yamal"
         versionCode = 1
         versionName = "1.0"
         targetSdk = libs.versions.targetSdk.get().toInt()
@@ -97,7 +101,7 @@ compose.desktop {
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "com.edivad1999.yamal"
+            packageName = "com.yamal"
             packageVersion = "1.0.0"
         }
     }
