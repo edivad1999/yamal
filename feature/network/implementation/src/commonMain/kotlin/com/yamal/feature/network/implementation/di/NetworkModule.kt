@@ -17,11 +17,13 @@ object NetworkModule {
         }
         single {
             Json {
-                // TODO JSON settings
+                coerceInputValues = true
+                isLenient = true
+                ignoreUnknownKeys = true
             }
         }
         single<KtorFactory> {
-            KtorFactoryImpl(json = get())
+            KtorFactoryImpl(json = get(), preferencesDatasource = get(), buildConstants = get())
         }
         single<ApiService> {
             ApiServiceImpl(httpClient = get<KtorFactory>().createClient())

@@ -1,6 +1,7 @@
 package com.yamal
 
 import App
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -11,14 +12,21 @@ import screen.login.LoginUtilities
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        if (intent.data?.toString()?.startsWith("yamal") == true) {
-            intent.data?.let { LoginUtilities.parseUrlResult(it.toString()) }
-        }
-
         super.onCreate(savedInstanceState)
         setContent {
             App()
         }
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        if (intent?.data?.toString()?.startsWith("yamal") == true) {
+            intent.data?.getQueryParameter("code")?.let {
+                LoginUtilities.parseUrlResult(it)
+            }
+        }
+
+        println(intent?.data.toString())
+        super.onNewIntent(intent)
     }
 }
 

@@ -8,7 +8,7 @@ object LoginModule {
 
     operator fun invoke() = module {
         single<LoginRepository> {
-            LoginRepositoryImpl(buildConstants = get(), apiService = get())
+            LoginRepositoryImpl(buildConstants = get(), apiService = get(), preferencesDatasource = get())
         }
     }
 }

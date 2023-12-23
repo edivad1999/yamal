@@ -15,7 +15,6 @@ object LoginScreen : Screen {
     @Composable
     override fun Content() {
         val loginPresenter: LoginPresenter = getScreenModel()
-
         val uiState = loginPresenter.present()
         LaunchedEffect(Unit) {
             loginPresenter.effects.collect {

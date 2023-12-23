@@ -14,10 +14,13 @@ val localProperties = Properties().apply {
 kotlin {
     sourceSets.commonMain.dependencies {
         implementation(projects.feature.network.api)
+        implementation(projects.feature.preferences.api)
         implementation(libs.ktor.core)
         implementation(libs.kotlinx.serialization.json)
         implementation(libs.ktor.contentNegotiation)
         implementation(libs.ktor.contentNegotiation.json)
+        implementation(libs.ktor.auth)
+        implementation(libs.ktor.logging)
     }
     sourceSets.androidMain.dependencies {
         implementation(libs.ktor.cio)

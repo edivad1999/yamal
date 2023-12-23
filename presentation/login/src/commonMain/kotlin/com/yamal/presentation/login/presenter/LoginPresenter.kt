@@ -24,7 +24,7 @@ object LoginScreen {
     sealed interface LoginIntent {
 
         data class OpenLoginBrowser(val url: String) : LoginIntent
-        data class AuthorizationComplete(val url: String) : LoginIntent
+        data class AuthorizationComplete(val code: String) : LoginIntent
     }
 
     sealed interface LoginEffect {
@@ -55,8 +55,10 @@ class LoginPresenter(private val loginRepository: LoginRepository) : Presenter<L
                     }
 
                     is LoginScreen.LoginIntent.AuthorizationComplete -> {
-                        println(it.url)
-                        authMessage = it.url
+                        screenModelScope.launch {
+                            loginRepository.authenticate(it.code)
+                            println(it.code)
+                        }
                     }
                 }
             }

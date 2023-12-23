@@ -6,6 +6,7 @@ kotlin {
         implementation(projects.feature.login.api)
         implementation(projects.feature.network.api)
         implementation(projects.feature.core)
+        implementation(projects.feature.preferences.api)
     }
 }
 android {

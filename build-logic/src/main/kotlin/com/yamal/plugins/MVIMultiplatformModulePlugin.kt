@@ -29,11 +29,16 @@ class MVIMultiplatformModulePlugin : Plugin<Project> {
                 sourceSets.getByName("desktopMain").dependencies {
                     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.8.0-RC")
                 }
+                sourceSets.androidMain.dependencies {
+                    implementation(libs.findLibrary("koin-android").get())
+                }
                 sourceSets.commonMain.dependencies {
                     implementation(libs.findLibrary("koin-core").get())
                     implementation(libs.findLibrary("voyager-navigator").get())
                     implementation(libs.findLibrary("voyager-koin").get())
                     implementation(libs.findLibrary("kotlinx-coroutines-core").get())
+                    implementation(libs.findBundle("arrow").get())
+                    implementation(libs.findLibrary("napier").get())
                 }
                 sourceSets.create("nativeMain") {
                     dependencies {

@@ -5,7 +5,6 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.multiplatform")
     id("org.jetbrains.compose")
-    id("com.google.gms.google-services")
 }
 
 kotlin {
@@ -27,12 +26,12 @@ kotlin {
         val desktopMain by getting
 
         androidMain.dependencies {
-            implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
-            implementation("com.google.firebase:firebase-analytics")
             implementation(libs.compose.ui)
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
-            implementation("io.insert-koin:koin-android:3.4.3")
+            implementation(libs.koin.android)
+            implementation(libs.androidx.browser)
+
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -52,6 +51,7 @@ kotlin {
             implementation(libs.voyager.koin)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.atomicfu)
+            implementation(libs.napier)
             implementation("io.github.kevinnzou:compose-webview-multiplatform:1.7.6")
         }
     }

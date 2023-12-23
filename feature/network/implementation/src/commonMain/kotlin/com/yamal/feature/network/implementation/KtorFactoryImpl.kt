@@ -1,16 +1,29 @@
 package com.yamal.feature.network.implementation
 
+import com.yamal.feature.network.api.BuildConstants
 import com.yamal.feature.network.api.KtorFactory
+import com.yamal.feature.preferences.api.PreferencesDatasource
+import io.github.aakira.napier.Napier
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.DefaultRequest
 import io.ktor.client.plugins.HttpTimeout
+import io.ktor.client.plugins.auth.Auth
+import io.ktor.client.plugins.auth.providers.BearerTokens
+import io.ktor.client.plugins.auth.providers.bearer
 import io.ktor.client.plugins.cache.HttpCache
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.logging.LogLevel
+import io.ktor.client.plugins.logging.Logger
+import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.request.header
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
-class KtorFactoryImpl(private val json: Json) : KtorFactory {
+class KtorFactoryImpl(
+    private val json: Json,
+    private val preferencesDatasource: PreferencesDatasource,
+    private val buildConstants: BuildConstants,
+) : KtorFactory {
 
     override fun createClient() = HttpClient {
         install(ContentNegotiation) {
@@ -23,10 +36,37 @@ class KtorFactoryImpl(private val json: Json) : KtorFactory {
             connectTimeoutMillis = Int.MAX_VALUE.toLong()
             requestTimeoutMillis = Int.MAX_VALUE.toLong()
         }
-        // TODO install logging with napier
+        install(Logging) {
+            logger = object : Logger {
+                override fun log(message: String) {
+                    Napier.i(message, tag = "HttpClient")
+                }
+            }
+            level = LogLevel.ALL
+        }
+
+        install(Auth) {
+            bearer {
+                loadTokens {
+                    val accessToken = preferencesDatasource.getAccessToken() ?: return@loadTokens null
+                    BearerTokens(accessToken.accessToken, accessToken.refreshToken)
+                }
+                refreshTokens {
+                    val oldRefreshToken = oldTokens?.refreshToken ?: return@refreshTokens null
+                    client.refreshToken(
+                        clientId = buildConstants.malClientId,
+                        refreshToken = oldRefreshToken
+                    ) {
+                        markAsRefreshTokenRequest()
+                    }.let {
+                        preferencesDatasource.setAccessToken(it)
+                        BearerTokens(it.accessToken, it.refreshToken)
+                    }
+                }
+            }
+        }
         install(DefaultRequest) {
             header("X-MAL-CLIENT-ID", BuildKonfig.malClientId)
-//                header(HttpHeaders.Authorization, "Bearer TODO") TODO AUTH TOKEN INJECTION
         }
     }
 }

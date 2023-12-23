@@ -1,6 +1,5 @@
 package screen.login
 
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.koin.core.component.KoinComponent
 
@@ -14,5 +13,5 @@ abstract class AuthCodeHandler {
 
 expect object LoginUtilities : KoinComponent, AuthCodeHandler {
 
-    suspend fun launchBrowser(url: String)
+    fun launchBrowser(url: String)
 }

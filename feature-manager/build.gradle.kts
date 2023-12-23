@@ -17,6 +17,9 @@ kotlin {
 
         api(projects.feature.login.api)
         implementation(projects.feature.login.implementation)
+
+        api(projects.feature.preferences.api)
+        implementation(projects.feature.preferences.implementation)
     }
 }
 android {

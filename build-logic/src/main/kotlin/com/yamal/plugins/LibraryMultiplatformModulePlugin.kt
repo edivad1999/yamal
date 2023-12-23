@@ -33,6 +33,13 @@ class LibraryMultiplatformModulePlugin : Plugin<Project> {
                 sourceSets.commonMain.dependencies {
                     implementation(libs.findLibrary("koin-core").get())
                     implementation(libs.findLibrary("kotlinx-coroutines-core").get())
+                    implementation(libs.findBundle("arrow").get())
+                    implementation(libs.findLibrary("napier").get())
+
+                }
+                sourceSets.androidMain.dependencies {
+                    implementation(libs.findLibrary("koin-android").get())
+
                 }
                 sourceSets.create("nativeMain") {
                     dependencies {

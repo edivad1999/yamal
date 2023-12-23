@@ -13,8 +13,14 @@ class PresentationMultiplatformModulePlugin : Plugin<Project> {
             }
 
             extensions.configure(KotlinMultiplatformExtension::class.java) {
+                sourceSets.androidMain.dependencies {
+                    implementation(libs.findLibrary("koin-android").get())
+                }
                 sourceSets.commonMain.dependencies {
                     implementation(project(":mvi"))
+                    implementation(libs.findBundle("arrow").get())
+                    implementation(libs.findLibrary("napier").get())
+
                 }
             }
         }

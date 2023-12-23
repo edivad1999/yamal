@@ -39,6 +39,9 @@ include(":feature:home:implementation")
 include(":feature:network:api")
 include(":feature:network:implementation")
 
+include(":feature:preferences:api")
+include(":feature:preferences:implementation")
+
 include(":feature:login:api")
 include(":feature:login:implementation")
 
