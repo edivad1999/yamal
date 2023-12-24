@@ -1,6 +1,7 @@
 package com.yamal.feature.network.api
 
 import com.yamal.feature.network.api.model.AccessToken
+import com.yamal.feature.network.api.model.AnimeRanking
 
 interface ApiService {
 
@@ -15,4 +16,6 @@ interface ApiService {
         clientId: String,
         refreshToken: String,
     ): AccessToken
+
+    suspend fun getAnimeRanking(): AnimeRanking
 }

@@ -2,10 +2,12 @@ package com.yamal.feature.network.implementation
 
 import com.yamal.feature.network.api.ApiService
 import com.yamal.feature.network.api.model.AccessToken
+import com.yamal.feature.network.api.model.AnimeRanking
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
-import io.ktor.client.request.HttpRequestBuilder
 import io.ktor.client.request.forms.FormDataContent
+import io.ktor.client.request.get
+import io.ktor.client.request.parameter
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.http.Parameters
@@ -15,6 +17,7 @@ class ApiServiceImpl(private val httpClient: HttpClient) : ApiService {
     companion object {
 
         val authBaseUrl: String = "https://myanimelist.net/v1/oauth2"
+        val malBaseUrl: String = "https://api.myanimelist.net/v2"
     }
 
     override suspend fun getAccessToken(
@@ -40,24 +43,10 @@ class ApiServiceImpl(private val httpClient: HttpClient) : ApiService {
         clientId: String,
         refreshToken: String,
     ): AccessToken = httpClient.refreshToken(clientId, refreshToken)
+
+    override suspend fun getAnimeRanking(): AnimeRanking =
+        httpClient.get("$malBaseUrl/anime/ranking") {
+            parameter("ranking_type", "all")
+        }.body()
 }
 
-suspend fun HttpClient.refreshToken(
-    clientId: String,
-    refreshToken: String,
-    block: HttpRequestBuilder.() -> Unit = {},
-): AccessToken = post("${ApiServiceImpl.authBaseUrl}token") {
-    block()
-    setBody(
-        FormDataContent(
-            Parameters.build {
-                append("client_id", clientId)
-                append("refresh_token", refreshToken)
-                append("grant_type", "refresh_token")
-            },
-        ),
-    )
-}.body()
-
-val ApiServiceImpl.authBaseUrl: String
-    get() = "https://myanimelist.net/v1/oauth2"

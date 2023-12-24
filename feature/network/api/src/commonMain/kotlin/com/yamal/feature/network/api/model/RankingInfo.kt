@@ -5,5 +5,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class RankingInfo(
     val rank: Int,
-    val previous_rank: Int?
+    val previous_rank: Int? = null
 )

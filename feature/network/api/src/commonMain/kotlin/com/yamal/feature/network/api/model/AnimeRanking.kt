@@ -4,6 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class AnimeRanking(
-    val data: List<Data>,
+    val data: List<RankedAnime>,
     val paging: Paging
 )
