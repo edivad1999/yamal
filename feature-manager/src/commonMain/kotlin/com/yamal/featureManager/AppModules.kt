@@ -1,5 +1,6 @@
 package com.yamal.featureManager
 
+import com.yamal.feature.anime.implementation.di.AnimeModule
 import com.yamal.feature.home.implementation.di.HomeModule
 import com.yamal.feature.login.implementation.di.LoginModule
 import com.yamal.feature.network.implementation.di.NetworkModule
@@ -13,6 +14,7 @@ object AppModules {
         HomeModule(),
         HomePresentationModule(),
         LoginModule(),
+        AnimeModule(),
         LoginPresentationModule(),
         NetworkModule(),
         PreferencesModule()

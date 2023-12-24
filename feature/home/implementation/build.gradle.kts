@@ -7,5 +7,5 @@ kotlin {
     }
 }
 android {
-    namespace = "com.yamal.feature.home.api"
+    namespace = "com.yamal.feature.home.implementation"
 }

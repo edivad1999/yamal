@@ -7,5 +7,6 @@ android {
 kotlin {
     sourceSets.commonMain.dependencies {
         implementation(projects.feature.home.api)
+        implementation(projects.feature.anime.api)
     }
 }

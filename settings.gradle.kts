@@ -44,4 +44,7 @@ include(":feature:preferences:implementation")
 include(":feature:login:api")
 include(":feature:login:implementation")
 
+include(":feature:anime:api")
+include(":feature:anime:implementation")
+
 include(":feature:core")

@@ -1,11 +1,15 @@
 package com.yamal.presentation.home.presenter
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import cafe.adriel.voyager.core.model.screenModelScope
-import com.yamal.feature.home.api.HomeRepository
-import com.yamal.feature.home.api.model.CounterModel
+import com.yamal.feature.anime.api.AnimeRepository
+import com.yamal.feature.anime.api.model.AnimeRanking
 import com.yamal.mvi.Presenter
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
@@ -14,7 +18,8 @@ import kotlinx.coroutines.launch
 object CounterScreen {
 
     data class CounterState(
-        val count: Int,
+        val animeRanking: List<AnimeRanking> = emptyList(),
+        val error: String? = null,
         val event: (CounterIntent) -> Unit,
     )
 
@@ -24,22 +29,29 @@ object CounterScreen {
     }
 }
 
-class CounterPresenter(private val homeRepository: HomeRepository) : Presenter<CounterScreen.CounterState, Nothing> {
+class CounterPresenter(private val animeRepository: AnimeRepository) : Presenter<CounterScreen.CounterState, Nothing> {
 
     override val effects: Flow<Nothing> = flowOf()
 
     @Composable
     override fun present(): CounterScreen.CounterState {
-        val counter by homeRepository.counterFlow().collectAsState(CounterModel(0))
+        var animeRanking: List<AnimeRanking> by remember { mutableStateOf(emptyList()) }
+        var error: String? by remember { mutableStateOf(null) }
+        LaunchedEffect(Unit) {
+            animeRepository.getRanking().onLeft {
+                error = it
+            }.onRight {
+                error = null
+                animeRanking = it
+            }
+        }
 
-        return CounterScreen.CounterState(counter.number) { event ->
+        return CounterScreen.CounterState(animeRanking, error) { event ->
             when (event) {
                 CounterScreen.CounterIntent.Increment -> screenModelScope.launch {
-                    homeRepository.setCounter(counter.number + 1)
                 }
 
                 CounterScreen.CounterIntent.Decrement -> screenModelScope.launch {
-                    homeRepository.setCounter(counter.number - 1)
                 }
             }
         }
