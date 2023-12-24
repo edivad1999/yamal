@@ -1,3 +1,3 @@
-import androidx.compose.ui.window.ComposeUIViewController
+import com.moriatsushi.insetsx.WindowInsetsUIViewController
 
-fun MainViewController() = ComposeUIViewController { App() }
+fun MainViewController() = WindowInsetsUIViewController { App() }

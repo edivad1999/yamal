@@ -24,8 +24,6 @@ class MainActivity : ComponentActivity() {
                 LoginUtilities.parseUrlResult(it)
             }
         }
-
-        println(intent?.data.toString())
         super.onNewIntent(intent)
     }
 }

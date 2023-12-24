@@ -17,8 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
-import com.multiplatform.webview.web.WebView
-import com.multiplatform.webview.web.rememberWebViewState
 import com.yamal.presentation.home.presenter.CounterPresenter
 import com.yamal.presentation.home.presenter.CounterScreen
 import org.koin.compose.koinInject
@@ -32,7 +30,6 @@ object HomeScreen : Screen {
 @Composable
 private fun HomeScreen(state: CounterScreen.CounterState = koinInject<CounterPresenter>().present()) {
     Box(Modifier.fillMaxSize()) {
-
         Column(Modifier.align(Alignment.Center)) {
             Text(
                 modifier = Modifier.align(Alignment.CenterHorizontally),

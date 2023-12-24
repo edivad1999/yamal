@@ -31,20 +31,15 @@ class LibraryMultiplatformModulePlugin : Plugin<Project> {
                 androidTarget()
                 jvm("desktop")
                 sourceSets.commonMain.dependencies {
+                    implementation(project.dependencies.platform(libs.findLibrary("koin-bom").get()))
                     implementation(libs.findLibrary("koin-core").get())
                     implementation(libs.findLibrary("kotlinx-coroutines-core").get())
                     implementation(libs.findBundle("arrow").get())
                     implementation(libs.findLibrary("napier").get())
-
+                    implementation(libs.findLibrary("stately-common").get())
                 }
                 sourceSets.androidMain.dependencies {
                     implementation(libs.findLibrary("koin-android").get())
-
-                }
-                sourceSets.create("nativeMain") {
-                    dependencies {
-                        implementation(libs.findLibrary("atomicfu").get())
-                    }
                 }
             }
         }

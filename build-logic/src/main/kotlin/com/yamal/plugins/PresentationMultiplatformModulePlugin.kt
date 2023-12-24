@@ -17,9 +17,12 @@ class PresentationMultiplatformModulePlugin : Plugin<Project> {
                     implementation(libs.findLibrary("koin-android").get())
                 }
                 sourceSets.commonMain.dependencies {
+                    implementation(project.dependencies.platform(libs.findLibrary("koin-bom").get()))
                     implementation(project(":mvi"))
                     implementation(libs.findBundle("arrow").get())
                     implementation(libs.findLibrary("napier").get())
+                    implementation(libs.findLibrary("stately-common").get())
+
 
                 }
             }

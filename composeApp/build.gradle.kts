@@ -31,7 +31,6 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             implementation(libs.koin.android)
             implementation(libs.androidx.browser)
-
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -39,20 +38,20 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.mvi)
             implementation(projects.featureManager)
+            implementation(project.dependencies.platform(libs.koin.bom))
 
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
             @OptIn(ExperimentalComposeLibrary::class)
             implementation(compose.components.resources)
-
+            implementation(libs.insetsx)
             implementation(libs.koin.compose)
             implementation(libs.voyager.navigator)
             implementation(libs.voyager.koin)
             implementation(libs.kotlinx.coroutines.core)
-            implementation(libs.atomicfu)
             implementation(libs.napier)
-            implementation("io.github.kevinnzou:compose-webview-multiplatform:1.7.6")
+            implementation(libs.stately.common)
         }
     }
 }
