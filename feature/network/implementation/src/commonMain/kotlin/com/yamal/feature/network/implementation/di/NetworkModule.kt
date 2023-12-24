@@ -12,7 +12,6 @@ import org.koin.dsl.module
 
 object NetworkModule {
 
-    @OptIn(ExperimentalSerializationApi::class)
     operator fun invoke() = module {
         single<BuildConstants> {
             BuildConstantsImpl()
@@ -28,7 +27,7 @@ object NetworkModule {
             KtorFactoryImpl(json = get(), preferencesDatasource = get(), buildConstants = get())
         }
         single<ApiService> {
-            ApiServiceImpl(httpClient = get<KtorFactory>().createClient())
+            ApiServiceImpl(httpClient = get<KtorFactory>().createClient(), buildConstants = get())
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.yamal.feature.network.implementation
 
 import com.yamal.feature.network.api.ApiService
+import com.yamal.feature.network.api.BuildConstants
 import com.yamal.feature.network.api.model.AccessToken
 import com.yamal.feature.network.api.model.AnimeRanking
 import io.ktor.client.HttpClient
@@ -12,7 +13,10 @@ import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.http.Parameters
 
-class ApiServiceImpl(private val httpClient: HttpClient) : ApiService {
+class ApiServiceImpl(
+    private val httpClient: HttpClient,
+    private val buildConstants: BuildConstants,
+) : ApiService {
 
     companion object {
 
@@ -21,7 +25,6 @@ class ApiServiceImpl(private val httpClient: HttpClient) : ApiService {
     }
 
     override suspend fun getAccessToken(
-        clientId: String,
         code: String,
         codeChallenge: String,
         grantType: String,
@@ -30,7 +33,7 @@ class ApiServiceImpl(private val httpClient: HttpClient) : ApiService {
             setBody(
                 FormDataContent(
                     Parameters.build {
-                        append("client_id", clientId)
+                        append("client_id", buildConstants.malClientId)
                         append("code", code)
                         append("code_verifier", codeChallenge)
                         append("grant_type", grantType)
@@ -40,13 +43,11 @@ class ApiServiceImpl(private val httpClient: HttpClient) : ApiService {
         }.body()
 
     override suspend fun refreshToken(
-        clientId: String,
         refreshToken: String,
-    ): AccessToken = httpClient.refreshToken(clientId, refreshToken)
+    ): AccessToken = httpClient.refreshToken(buildConstants.malClientId, refreshToken)
 
     override suspend fun getAnimeRanking(): AnimeRanking =
         httpClient.get("$malBaseUrl/anime/ranking") {
             parameter("ranking_type", "all")
         }.body()
 }
-

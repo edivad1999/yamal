@@ -36,7 +36,6 @@ class LoginRepositoryImpl(
     override suspend fun authenticate(authorizationCode: String) {
         apiCallScope {
             apiService.getAccessToken(
-                clientId = buildConstants.malClientId,
                 code = authorizationCode,
                 codeChallenge = codeChallenge,
                 grantType = GRANT_TYPE

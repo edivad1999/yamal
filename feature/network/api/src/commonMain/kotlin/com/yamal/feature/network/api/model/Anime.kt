@@ -8,7 +8,7 @@ data class Anime(
     val title: String,
     val main_picture: Picture?,
     val alternative_titles: AlternativeTitles? = null,
-    val start_date: String?  = null,
+    val start_date: String? = null,
     val end_date: String? = null,
     val synopsis: String? = null,
     val mean: Float? = null,
@@ -29,5 +29,5 @@ data class Anime(
     val source: String? = null,
     val average_episode_duration: Int? = null,
     val rating: String? = null,
-    val studios: List<AnimeStudio> = emptyList()
+    val studios: List<AnimeStudio> = emptyList(),
 )
