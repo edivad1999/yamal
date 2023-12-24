@@ -77,3 +77,4 @@ gradle.deps
 !.idea/ktlint.xml
 !.idea/detekt.xml
 /composeApp/cache/
+/iosApp/iosApp.xcodeproj/
