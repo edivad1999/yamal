@@ -37,7 +37,7 @@ kotlin {
         }
         commonMain.dependencies {
             implementation(projects.mvi)
-            implementation(projects.featureManager)
+            implementation(projects.shared)
             implementation(project.dependencies.platform(libs.koin.bom))
 
             implementation(compose.runtime)

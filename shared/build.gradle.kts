@@ -9,8 +9,6 @@ kotlin {
         api(projects.presentation.login)
 
         // Features
-        implementation(projects.feature.home.implementation)
-        api(projects.feature.home.api)
 
         api(projects.feature.network.api)
         implementation(projects.feature.network.implementation)
@@ -26,5 +24,5 @@ kotlin {
     }
 }
 android {
-    namespace = "com.yamal.feature.manager"
+    namespace = "com.yamal.shared"
 }

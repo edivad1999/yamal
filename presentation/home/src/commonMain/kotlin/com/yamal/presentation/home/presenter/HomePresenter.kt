@@ -2,7 +2,6 @@ package com.yamal.presentation.home.presenter
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -15,9 +14,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 
-object CounterScreen {
+object HomeScreen {
 
-    data class CounterState(
+    data class HomeState(
         val animeRanking: List<AnimeRanking> = emptyList(),
         val error: String? = null,
         val event: (CounterIntent) -> Unit,
@@ -29,12 +28,12 @@ object CounterScreen {
     }
 }
 
-class CounterPresenter(private val animeRepository: AnimeRepository) : Presenter<CounterScreen.CounterState, Nothing> {
+class HomePresenter(private val animeRepository: AnimeRepository) : Presenter<HomeScreen.HomeState, Nothing> {
 
     override val effects: Flow<Nothing> = flowOf()
 
     @Composable
-    override fun present(): CounterScreen.CounterState {
+    override fun present(): HomeScreen.HomeState {
         var animeRanking: List<AnimeRanking> by remember { mutableStateOf(emptyList()) }
         var error: String? by remember { mutableStateOf(null) }
         LaunchedEffect(Unit) {
@@ -46,12 +45,12 @@ class CounterPresenter(private val animeRepository: AnimeRepository) : Presenter
             }
         }
 
-        return CounterScreen.CounterState(animeRanking, error) { event ->
+        return HomeScreen.HomeState(animeRanking, error) { event ->
             when (event) {
-                CounterScreen.CounterIntent.Increment -> screenModelScope.launch {
+                HomeScreen.CounterIntent.Increment -> screenModelScope.launch {
                 }
 
-                CounterScreen.CounterIntent.Decrement -> screenModelScope.launch {
+                HomeScreen.CounterIntent.Decrement -> screenModelScope.launch {
                 }
             }
         }
