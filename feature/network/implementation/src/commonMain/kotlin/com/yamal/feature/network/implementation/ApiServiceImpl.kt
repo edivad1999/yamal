@@ -3,7 +3,7 @@ package com.yamal.feature.network.implementation
 import com.yamal.feature.network.api.ApiService
 import com.yamal.feature.network.api.BuildConstants
 import com.yamal.feature.network.api.model.AccessToken
-import com.yamal.feature.network.api.model.AnimeRanking
+import com.yamal.feature.network.api.model.AnimeRankingNetwork
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.forms.FormDataContent
@@ -46,8 +46,10 @@ class ApiServiceImpl(
         refreshToken: String,
     ): AccessToken = httpClient.refreshToken(buildConstants.malClientId, refreshToken)
 
-    override suspend fun getAnimeRanking(): AnimeRanking =
+    override suspend fun getAnimeRanking(limit: Int, offset: Int): AnimeRankingNetwork =
         httpClient.get("$malBaseUrl/anime/ranking") {
             parameter("ranking_type", "all")
+            parameter("offset", offset)
+            parameter("limit", limit)
         }.body()
 }

@@ -1,9 +1,10 @@
 package com.yamal.feature.anime.api
 
-import arrow.core.Either
 import com.yamal.feature.anime.api.model.AnimeRanking
+import com.yamal.feature.anime.api.model.MalPagingSource
+import com.yamal.feature.network.api.model.RankedAnime
 
 interface AnimeRepository {
 
-    suspend fun getRanking(): Either<String, List<AnimeRanking>>
+    fun getRanking(): MalPagingSource<RankedAnime, AnimeRanking>
 }

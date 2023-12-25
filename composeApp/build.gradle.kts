@@ -52,6 +52,9 @@ kotlin {
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.napier)
             implementation(libs.stately.common)
+            implementation(libs.paging.runtime)
+            implementation("app.cash.paging:paging-compose-common:3.3.0-alpha02-0.4.0")
+
         }
     }
 }

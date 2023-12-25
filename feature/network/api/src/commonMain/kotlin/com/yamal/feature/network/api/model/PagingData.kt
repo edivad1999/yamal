@@ -15,7 +15,7 @@ import kotlinx.serialization.Serializable
 
 typealias AnimeList = PagingData<RelatedAnimeEdge>
 
-typealias AnimeRanking = PagingData<RankedAnime>
+typealias AnimeRankingNetwork = PagingData<RankedAnime>
 
 typealias SeasonalAnime = PagingData<Anime>
 

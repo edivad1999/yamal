@@ -21,6 +21,7 @@ arrow = "1.2.0"
 multiplatform-settings = "1.1.1"
 napier = "2.6.1"
 stately = "2.0.6"
+paging = "3.3.0-alpha02"
 
 [libraries]
 androidx-browser = { module = "androidx.browser:browser", version.ref = "browser" }
@@ -62,6 +63,9 @@ arrow-fx-coroutines = { module = "io.arrow-kt:arrow-fx-coroutines", version.ref 
 
 napier = { module = "io.github.aakira:napier", version.ref = "napier" }
 stately-common = { module = "co.touchlab:stately-common", version.ref = "stately"}
+
+paging-runtime = { group = "androidx.paging", name = "paging-common", version.ref = "paging" }
+paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging" }
 
 [bundles]
 arrow = ["arrow-core", "arrow-fx-coroutines"]
