@@ -31,6 +31,8 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             implementation(libs.koin.android)
             implementation(libs.androidx.browser)
+            api(libs.ktor.cio)
+
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -54,6 +56,15 @@ kotlin {
             implementation(libs.stately.common)
             implementation(libs.paging.runtime)
             implementation("app.cash.paging:paging-compose-common:3.3.0-alpha02-0.4.0")
+
+            implementation("io.coil-kt.coil3:coil:3.0.0-SNAPSHOT")
+            implementation("io.coil-kt.coil3:coil-network:3.0.0-SNAPSHOT")
+            implementation("io.coil-kt.coil3:coil-compose:3.0.0-SNAPSHOT")
+
+        }
+
+        sourceSets.iosMain.dependencies {
+            api(libs.ktor.ios)
 
         }
     }
