@@ -32,3 +32,25 @@ data class Anime(
     @SerialName("rating") val rating: String? = null,
     @SerialName("studios") val studios: List<AnimeStudio> = emptyList(),
 )
+
+enum class AnimeRequestField(val serializableValue: String) {
+    Mean("mean"),
+    NumScoringUsers("num_scoring_users"),
+    MyListStatus("my_list_status"),
+    MediaType("media_type"),
+    NumListUsers("num_list_users"),
+    StartDate("start_date"),
+    EndDate("end_date"),
+    NumberOfEpisodes("num_episodes")
+
+    ;
+
+    companion object {
+
+        fun animeRankingFields(): List<AnimeRequestField> = listOf(
+            Mean, NumListUsers, MyListStatus, MediaType, StartDate, EndDate, NumberOfEpisodes
+        )
+    }
+}
+
+fun List<AnimeRequestField>.mergeToRequestString() = joinToString(",") { it.serializableValue }

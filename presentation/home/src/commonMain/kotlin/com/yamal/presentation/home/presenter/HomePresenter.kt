@@ -10,6 +10,7 @@ import com.yamal.feature.anime.api.AnimeRepository
 import com.yamal.feature.anime.api.model.AnimeRanking
 import com.yamal.mvi.Presenter
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flowOf
 
 object HomeScreen {
@@ -27,6 +28,7 @@ class HomePresenter(private val animeRepository: AnimeRepository) : Presenter<Ho
     private val animeRanking = Pager(PagingConfig(10), pagingSourceFactory = {
         animeRepository.getRanking()
     }).flow.cachedIn(screenModelScope)
+
 
     @Composable override fun present(): HomeScreen.HomeState {
         return HomeScreen.HomeState(animeRanking) { _ ->

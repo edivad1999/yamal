@@ -7,4 +7,6 @@ import com.yamal.feature.network.api.model.RankedAnime
 interface AnimeRepository {
 
     fun getRanking(): MalPagingSource<RankedAnime, AnimeRanking>
+
+    fun getAnimeDetails(id: Int)
 }

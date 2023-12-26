@@ -4,6 +4,8 @@ import com.yamal.feature.network.api.ApiService
 import com.yamal.feature.network.api.BuildConstants
 import com.yamal.feature.network.api.model.AccessToken
 import com.yamal.feature.network.api.model.AnimeRankingNetwork
+import com.yamal.feature.network.api.model.AnimeRequestField
+import com.yamal.feature.network.api.model.mergeToRequestString
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.forms.FormDataContent
@@ -51,5 +53,6 @@ class ApiServiceImpl(
             parameter("ranking_type", "all")
             parameter("offset", offset)
             parameter("limit", limit)
+            parameter("fields", AnimeRequestField.animeRankingFields().mergeToRequestString())
         }.body()
 }
