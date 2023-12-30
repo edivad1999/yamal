@@ -18,16 +18,17 @@ class LoginRepositoryImpl(
     private val apiService: ApiService,
     private val preferencesDatasource: PreferencesDatasource,
 ) : LoginRepository {
-
-    val codeChallenge = PKCEGenerator.generate(PKCE_LENGTH)
-    val userAuthenticated = flow {
-        while (true) {
-            emit(preferencesDatasource.getAccessToken())
-            kotlinx.coroutines.delay(100)
-        }
-    }.flowOn(Dispatchers.IO)
+    private val codeChallenge = PKCEGenerator.generate(PKCE_LENGTH)
+    private val userAuthenticated =
+        flow {
+            while (true) {
+                emit(preferencesDatasource.getAccessToken())
+                kotlinx.coroutines.delay(100)
+            }
+        }.flowOn(Dispatchers.IO)
 
     override fun isUserAuthenticated(): Flow<Boolean> = userAuthenticated.map { it != null }
+
     override fun getAuthorizationUrl() =
         "$MAL_AUTH_URL?response_type=$RESPONSE_TYPE_PARAM" +
             "&client_id=${buildConstants.malClientId}" +
@@ -38,7 +39,7 @@ class LoginRepositoryImpl(
             apiService.getAccessToken(
                 code = authorizationCode,
                 codeChallenge = codeChallenge,
-                grantType = GRANT_TYPE
+                grantType = GRANT_TYPE,
             )
         }.onRight {
             preferencesDatasource.setAccessToken(it)
@@ -46,7 +47,6 @@ class LoginRepositoryImpl(
     }
 
     companion object {
-
         const val MAL_AUTH_URL = "https://myanimelist.net/v1/oauth2/authorize"
         const val RESPONSE_TYPE_PARAM = "code"
         const val PKCE_LENGTH = 128

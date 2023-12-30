@@ -12,6 +12,8 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
@@ -19,26 +21,31 @@ import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import app.cash.paging.compose.collectAsLazyPagingItems
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.koin.getScreenModel
 import coil3.annotation.ExperimentalCoilApi
 import coil3.compose.AsyncImage
 import coil3.compose.LocalPlatformContext
 import coil3.fetch.NetworkFetcher
 import coil3.request.ImageRequest
 import com.yamal.presentation.home.presenter.HomePresenter
-import com.yamal.presentation.home.presenter.HomeScreen
-import org.koin.compose.koinInject
+import com.yamal.presentation.home.presenter.HomeState
 
 object HomeScreen : Screen {
-
-    @Composable override fun Content() = HomeScreen()
+    @Composable
+    override fun Content() {
+        val presenter: HomePresenter = getScreenModel()
+        val state by presenter.state.collectAsState()
+        HomeScreen(state)
+    }
 }
 
 @OptIn(ExperimentalCoilApi::class)
-@Composable private fun HomeScreen(state: HomeScreen.HomeState = koinInject<HomePresenter>().present()) {
+@Composable
+private fun HomeScreen(state: HomeState) {
     val items = state.animeRanking.collectAsLazyPagingItems()
 
     Box(Modifier.fillMaxSize()) {
-        LazyColumn() {
+        LazyColumn {
             items(items.itemCount) {
                 items[it]?.let {
                     Column {
@@ -46,13 +53,14 @@ object HomeScreen : Screen {
 
                         Row {
                             AsyncImage(
-                                model = ImageRequest.Builder(LocalPlatformContext.current)
-                                    .fetcherFactory(NetworkFetcher.Factory())
-                                    .data(it.mainPicture?.large ?: it.mainPicture?.medium)
-                                    .build(),
+                                model =
+                                    ImageRequest.Builder(LocalPlatformContext.current)
+                                        .fetcherFactory(NetworkFetcher.Factory())
+                                        .data(it.mainPicture?.large ?: it.mainPicture?.medium)
+                                        .build(),
                                 contentDescription = "animeImage",
                                 modifier = Modifier.size(150.dp),
-                                contentScale = ContentScale.Fit
+                                contentScale = ContentScale.Fit,
                             )
                             Text(
                                 modifier = Modifier,
@@ -62,7 +70,6 @@ object HomeScreen : Screen {
                         Spacer(modifier = Modifier.height(16.dp))
                         Divider()
                     }
-
                 }
             }
             if (items.loadState.isAnyLoading) {
@@ -71,7 +78,6 @@ object HomeScreen : Screen {
                 }
             }
         }
-
     }
 }
 

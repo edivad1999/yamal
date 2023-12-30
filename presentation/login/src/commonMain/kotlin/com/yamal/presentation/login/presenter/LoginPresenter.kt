@@ -1,67 +1,57 @@
 package com.yamal.presentation.login.presenter
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import cafe.adriel.voyager.core.model.screenModelScope
 import com.yamal.feature.login.api.LoginRepository
 import com.yamal.mvi.Presenter
-import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-object LoginScreen {
+data class LoginState(
+    val isLoggedIn: Boolean,
+    val authorizationUrl: String,
+)
 
-    data class LoginState(
-        val authMessage: String,
-        val isLoggedIn: Boolean,
-        val authorizationUrl: String,
-        val onIntent: (LoginIntent) -> Unit,
-    )
+sealed interface LoginIntent {
+    data class OpenLoginBrowser(val url: String) : LoginIntent
 
-    sealed interface LoginIntent {
-
-        data class OpenLoginBrowser(val url: String) : LoginIntent
-        data class AuthorizationComplete(val code: String) : LoginIntent
-    }
-
-    sealed interface LoginEffect {
-        data class OpenBrowser(val url: String) : LoginEffect
-        data class AuthorizationParameters(val url: String) : LoginEffect
-    }
+    data class AuthorizationComplete(val code: String) : LoginIntent
 }
 
-class LoginPresenter(private val loginRepository: LoginRepository) : Presenter<LoginScreen.LoginState, LoginScreen.LoginEffect> {
+sealed interface LoginEffect {
+    data class OpenBrowser(val url: String) : LoginEffect
+}
 
-    override val effects: MutableSharedFlow<LoginScreen.LoginEffect> = MutableSharedFlow()
+class LoginPresenter(private val loginRepository: LoginRepository) : Presenter<LoginState, LoginState, LoginIntent, LoginEffect>() {
+    private val isLoggedIn = loginRepository.isUserAuthenticated()
 
-    @Composable
-    override fun present(): LoginScreen.LoginState {
-        val isLoggedIn by loginRepository.isUserAuthenticated().collectAsState(false)
+    override val state: StateFlow<LoginState> =
+        isLoggedIn.map {
+            LoginState(it, loginRepository.getAuthorizationUrl())
+        }.stateIn(
+            scope = screenModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = initialInternalState(),
+        )
 
-        var authMessage by remember { mutableStateOf("") }
-        return LoginScreen.LoginState(
-            authMessage = authMessage,
-            isLoggedIn = isLoggedIn,
-            authorizationUrl = loginRepository.getAuthorizationUrl(),
-            onIntent = {
-                when (it) {
-                    is LoginScreen.LoginIntent.OpenLoginBrowser -> {
-                        screenModelScope.launch {
-                            effects.emit(LoginScreen.LoginEffect.OpenBrowser(it.url))
-                        }
-                    }
+    override fun initialInternalState(): LoginState = LoginState(false, loginRepository.getAuthorizationUrl())
 
-                    is LoginScreen.LoginIntent.AuthorizationComplete -> {
-                        screenModelScope.launch {
-                            loginRepository.authenticate(it.code)
-                            println(it.code)
-                        }
-                    }
+    override fun processIntent(intent: LoginIntent) {
+        when (intent) {
+            is LoginIntent.OpenLoginBrowser -> {
+                launchEffect {
+                    LoginEffect.OpenBrowser(intent.url)
                 }
             }
-        )
+
+            is LoginIntent.AuthorizationComplete -> {
+                screenModelScope.launch {
+                    loginRepository.authenticate(intent.code)
+                    println(intent.code)
+                }
+            }
+        }
     }
 }

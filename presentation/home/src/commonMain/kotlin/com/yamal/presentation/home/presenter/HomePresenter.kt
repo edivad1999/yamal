@@ -1,6 +1,6 @@
 package com.yamal.presentation.home.presenter
 
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -11,28 +11,22 @@ import com.yamal.feature.anime.api.model.AnimeRanking
 import com.yamal.mvi.Presenter
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.flow
 
-object HomeScreen {
+@Stable
+data class HomeState(
+    val animeRanking: Flow<PagingData<AnimeRanking>>,
+)
 
-    data class HomeState(
-        val animeRanking: Flow<PagingData<AnimeRanking>>,
-        val event: (Nothing) -> Unit,
-    )
-}
+class HomePresenter(private val animeRepository: AnimeRepository) : Presenter<HomeState, HomeState, Nothing, Nothing>() {
+    private val animeRanking =
+        Pager(PagingConfig(10), pagingSourceFactory = {
+            animeRepository.getRanking()
+        }).flow.cachedIn(screenModelScope)
 
-class HomePresenter(private val animeRepository: AnimeRepository) : Presenter<HomeScreen.HomeState, Nothing> {
+    override fun initialInternalState(): HomeState = HomeState(animeRanking)
 
-    override val effects: Flow<Nothing> = flowOf()
+    override val state: StateFlow<HomeState> = getInternalState()
 
-    private val animeRanking = Pager(PagingConfig(10), pagingSourceFactory = {
-        animeRepository.getRanking()
-    }).flow.cachedIn(screenModelScope)
-
-
-    @Composable override fun present(): HomeScreen.HomeState {
-        return HomeScreen.HomeState(animeRanking) { _ ->
-
-        }
-    }
+    override fun processIntent(intent: Nothing) {}
 }
