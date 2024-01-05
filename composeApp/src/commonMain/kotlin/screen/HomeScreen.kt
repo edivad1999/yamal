@@ -33,9 +33,6 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.getScreenModel
 import coil3.annotation.ExperimentalCoilApi
 import coil3.compose.AsyncImage
-import coil3.compose.LocalPlatformContext
-import coil3.fetch.NetworkFetcher
-import coil3.request.ImageRequest
 import com.yamal.feature.anime.api.model.GenericAnime
 import com.yamal.presentation.home.presenter.HomePresenter
 import com.yamal.presentation.home.presenter.HomeState
@@ -125,11 +122,7 @@ fun GenericAnimeCard(genericAnime: GenericAnime) {
 
         Row {
             AsyncImage(
-                model =
-                    ImageRequest.Builder(LocalPlatformContext.current)
-                        .fetcherFactory(NetworkFetcher.Factory())
-                        .data(genericAnime.mainPicture?.large ?: genericAnime.mainPicture?.medium)
-                        .build(),
+                model = genericAnime.mainPicture?.large ?: genericAnime.mainPicture?.medium,
                 contentDescription = "animeImage",
                 modifier = Modifier.size(150.dp),
                 contentScale = ContentScale.Fit,

@@ -56,9 +56,9 @@ kotlin {
             implementation(libs.paging.runtime)
             implementation(libs.paging.compose.common)
 
-            implementation("io.coil-kt.coil3:coil:3.0.0-alpha01")
-            implementation("io.coil-kt.coil3:coil-network:3.0.0-alpha01")
-            implementation("io.coil-kt.coil3:coil-compose:3.0.0-alpha01")
+            implementation(libs.coil)
+            implementation(libs.coil.network)
+            implementation(libs.coil.compose)
         }
 
         sourceSets.iosMain.dependencies {

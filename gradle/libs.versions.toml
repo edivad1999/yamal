@@ -1,5 +1,6 @@
 [versions]
 browser = "1.7.0"
+coil = "3.0.0-alpha01"
 compose = "1.5.4"
 compose-plugin = "1.5.11"
 compose-compiler = "1.5.5"
@@ -27,6 +28,9 @@ paging = "3.3.0-alpha02"
 [libraries]
 androidx-browser = { module = "androidx.browser:browser", version.ref = "browser" }
 
+coil = { module = "io.coil-kt.coil3:coil", version.ref = "coil" }
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
+coil-network = { module = "io.coil-kt.coil3:coil-network", version.ref = "coil" }
 insetsx = { module = "com.moriatsushi.insetsx:insetsx", version.ref = "insetsx" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 paging-compose-common = { module = "app.cash.paging:paging-compose-common", version.ref = "pagingComposeCommon" }

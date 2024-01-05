@@ -13,14 +13,25 @@ import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.CurrentScreen
 import cafe.adriel.voyager.navigator.Navigator
+import coil3.ImageLoader
+import coil3.annotation.ExperimentalCoilApi
+import coil3.compose.setSingletonImageLoaderFactory
+import coil3.fetch.NetworkFetcher
 import navigator.BottomRoute
 import navigator.BottomRoutes
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import screen.HomeScreen
 
-@OptIn(ExperimentalResourceApi::class)
+@OptIn(ExperimentalResourceApi::class, ExperimentalCoilApi::class)
 @Composable
 fun App() {
+    setSingletonImageLoaderFactory { context ->
+        ImageLoader.Builder(context)
+            .components {
+                add(NetworkFetcher.Factory())
+            }
+            .build()
+    }
     MaterialTheme {
         Navigator(HomeScreen) { navigator ->
             Scaffold(modifier = Modifier.fillMaxSize(), bottomBar = {
@@ -38,9 +49,10 @@ fun App() {
 
 @Composable
 fun BottomBar(
-    routes: List<BottomRoute> = remember {
-        BottomRoutes()
-    },
+    routes: List<BottomRoute> =
+        remember {
+            BottomRoutes()
+        },
     onRouteSelected: (Screen) -> Unit,
 ) {
     BottomAppBar {
