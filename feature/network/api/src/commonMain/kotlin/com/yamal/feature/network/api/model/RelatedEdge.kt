@@ -5,8 +5,8 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class RelatedAnimeEdge(
     val node: Anime,
-    val relation_type: String?,
-    val relation_type_formatted: String?,
+    val relation_type: String? = null,
+    val relation_type_formatted: String? = null,
 )
 
 @Serializable
@@ -15,4 +15,3 @@ data class RelatedMangaEdge(
     val relation_type: String?,
     val relation_type_formatted: String?,
 )
-

@@ -19,9 +19,9 @@ suspend fun HttpClient.refreshToken(
         setBody(
             FormDataContent(
                 Parameters.build {
-                    this.append("client_id", clientId)
-                    this.append("refresh_token", refreshToken)
-                    this.append("grant_type", "refresh_token")
+                    append("client_id", clientId)
+                    append("refresh_token", refreshToken)
+                    append("grant_type", "refresh_token")
                 },
             ),
         )

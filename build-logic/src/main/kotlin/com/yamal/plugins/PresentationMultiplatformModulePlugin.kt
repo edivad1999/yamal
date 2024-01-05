@@ -5,7 +5,6 @@ import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 class PresentationMultiplatformModulePlugin : Plugin<Project> {
-
     override fun apply(target: Project) {
         with(target) {
             with(pluginManager) {
@@ -22,8 +21,7 @@ class PresentationMultiplatformModulePlugin : Plugin<Project> {
                     implementation(libs.findBundle("arrow").get())
                     implementation(libs.findLibrary("napier").get())
                     implementation(libs.findLibrary("stately-common").get())
-
-
+                    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
                 }
             }
         }
