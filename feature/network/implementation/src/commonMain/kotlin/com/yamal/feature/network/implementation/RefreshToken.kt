@@ -13,15 +13,16 @@ suspend fun HttpClient.refreshToken(
     clientId: String,
     refreshToken: String,
     block: HttpRequestBuilder.() -> Unit = {},
-): AccessToken = post("${ApiServiceImpl.authBaseUrl}token") {
-    block()
-    setBody(
-        FormDataContent(
-            Parameters.build {
-                append("client_id", clientId)
-                append("refresh_token", refreshToken)
-                append("grant_type", "refresh_token")
-            },
-        ),
-    )
-}.body()
+): AccessToken =
+    post("${ApiServiceImpl.authBaseUrl}/token") {
+        block()
+        setBody(
+            FormDataContent(
+                Parameters.build {
+                    this.append("client_id", clientId)
+                    this.append("refresh_token", refreshToken)
+                    this.append("grant_type", "refresh_token")
+                },
+            ),
+        )
+    }.body()

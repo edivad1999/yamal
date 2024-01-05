@@ -3,12 +3,13 @@ browser = "1.7.0"
 compose = "1.5.4"
 compose-plugin = "1.5.11"
 compose-compiler = "1.5.5"
-agp = "8.2.0"
+agp = "8.2.1"
 insetsx = "0.1.0-alpha10"
 kotlinxCoroutinesCore = "1.8.0-RC2"
 kotlinxSerializationJson = "1.6.2"
 minSdk = "24"
 compileSdk = "34"
+pagingComposeCommon = "3.3.0-alpha02-0.4.0"
 targetSdk = "34"
 jdk = "17"
 androidx-activityCompose = "1.8.2"
@@ -16,7 +17,7 @@ kotlin = "1.9.21"
 junit = "4.13.2"
 koin = "3.5.3"
 voyagerVersion = "1.0.0"
-ktor = "3.0.0-wasm2" #move that to something like beta when coil problems with ktor stable are fixed
+ktor = "2.3.7"
 arrow = "1.2.0"
 multiplatform-settings = "1.1.1"
 napier = "2.6.1"
@@ -28,6 +29,7 @@ androidx-browser = { module = "androidx.browser:browser", version.ref = "browser
 
 insetsx = { module = "com.moriatsushi.insetsx:insetsx", version.ref = "insetsx" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+paging-compose-common = { module = "app.cash.paging:paging-compose-common", version.ref = "pagingComposeCommon" }
 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyagerVersion" }
 voyager-koin = { module = "cafe.adriel.voyager:voyager-koin", version.ref = "voyagerVersion" }
 
