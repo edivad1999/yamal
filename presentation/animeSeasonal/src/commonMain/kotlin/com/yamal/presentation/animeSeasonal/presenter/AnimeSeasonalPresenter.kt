@@ -23,7 +23,7 @@ data class AnimeSeasonalUi(
 
 class AnimeSeasonalPresenter(private val animeRepository: AnimeRepository) : Presenter<AnimeSeasonalUi, AnimeSeasonalUi, Nothing, Nothing>() {
     private val animeSeasons =
-        AnimeSeason.generateAnimeSeasons(100).map {
+        AnimeSeason.generateAnimeSeasons(5).map {
             it to
                 Pager(PagingConfig(10), pagingSourceFactory = {
                     animeRepository.getSeasonal(it.season, it.year)
