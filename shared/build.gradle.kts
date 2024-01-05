@@ -7,6 +7,9 @@ kotlin {
         // Presentation
         api(projects.presentation.home)
         api(projects.presentation.login)
+        api(projects.presentation.animeRanking)
+        api(projects.presentation.animeSeasonal)
+        api(projects.presentation.userAnimeList)
 
         // Features
 

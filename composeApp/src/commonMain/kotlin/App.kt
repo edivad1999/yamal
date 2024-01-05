@@ -20,7 +20,7 @@ import coil3.fetch.NetworkFetcher
 import navigator.BottomRoute
 import navigator.BottomRoutes
 import org.jetbrains.compose.resources.ExperimentalResourceApi
-import screen.HomeScreen
+import screen.home.HomeScreen
 
 @OptIn(ExperimentalResourceApi::class, ExperimentalCoilApi::class)
 @Composable

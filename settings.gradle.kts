@@ -33,6 +33,9 @@ include(":mvi")
 
 // Presentation
 include(":presentation:home")
+include(":presentation:animeRanking")
+include(":presentation:animeSeasonal")
+include(":presentation:userAnimeList")
 include(":presentation:login")
 // Features
 include(":feature:network:api")
