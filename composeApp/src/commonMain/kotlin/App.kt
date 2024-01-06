@@ -2,6 +2,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.BottomAppBar
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -56,9 +58,11 @@ fun BottomBar(
     onRouteSelected: (Screen) -> Unit,
 ) {
     BottomAppBar {
-        routes.forEach {
-            if (it.icon != null) Icon(it.icon.asPainter(), it.text)
-            Text(it.text, modifier = Modifier.clickable { onRouteSelected(it.screen) })
+        LazyRow {
+            items(routes) {
+                if (it.icon != null) Icon(it.icon.asPainter(), it.text)
+                Text(it.text, modifier = Modifier.clickable { onRouteSelected(it.screen) })
+            }
         }
     }
 }

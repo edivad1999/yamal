@@ -1,14 +1,12 @@
 package com.yamal.presentation.animeRanking.presenter
 
 import androidx.compose.runtime.Stable
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import androidx.paging.cachedIn
 import cafe.adriel.voyager.core.model.screenModelScope
 import com.yamal.feature.anime.api.AnimeRepository
 import com.yamal.feature.anime.api.model.GenericAnime
 import com.yamal.mvi.Presenter
+import com.yamal.presentation.core.presenterPager
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -18,10 +16,7 @@ data class AnimeRankingUi(
 )
 
 class AnimeRankingPresenter(private val animeRepository: AnimeRepository) : Presenter<AnimeRankingUi, AnimeRankingUi, Nothing, Nothing>() {
-    private val animeRanking =
-        Pager(PagingConfig(10), pagingSourceFactory = {
-            animeRepository.getRanking()
-        }).flow.cachedIn(screenModelScope)
+    private val animeRanking: Flow<PagingData<GenericAnime>> = animeRepository.getRanking().presenterPager(screenModelScope)
 
     override fun initialInternalState(): AnimeRankingUi = AnimeRankingUi(animeRanking)
 

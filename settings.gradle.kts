@@ -37,6 +37,7 @@ include(":presentation:animeRanking")
 include(":presentation:animeSeasonal")
 include(":presentation:userAnimeList")
 include(":presentation:login")
+include(":presentation:core")
 // Features
 include(":feature:network:api")
 include(":feature:network:implementation")

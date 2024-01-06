@@ -7,7 +7,7 @@ object UserAnimeListPresentationModule {
     operator fun invoke() =
         module {
             single {
-                UserAnimeListPresenter(get())
+                UserAnimeListPresenter(get(), get())
             }
         }
 }

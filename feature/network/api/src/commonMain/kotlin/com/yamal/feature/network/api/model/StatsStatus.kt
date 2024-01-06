@@ -3,7 +3,8 @@ package com.yamal.feature.network.api.model
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-@Serializable data class Status(
+@Serializable
+data class StatsStatus(
     @SerialName("watching") val watching: Int,
     @SerialName("completed") val completed: Int,
     @SerialName("on_hold") val onHold: Int,

@@ -8,6 +8,7 @@ import com.yamal.feature.network.api.model.AnimeRequestField
 import com.yamal.feature.network.api.model.PagingData
 import com.yamal.feature.network.api.model.RelatedAnimeEdge
 import com.yamal.feature.network.api.model.SeasonalAnime
+import com.yamal.feature.network.api.model.UserListAnime
 import com.yamal.feature.network.api.model.mergeToRequestString
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -68,6 +69,24 @@ class ApiServiceImpl(
             parameter("offset", offset)
             parameter("limit", limit)
             parameter("sort", "anime_num_list_users")
+            parameter("fields", AnimeRequestField.animeRankingFields().mergeToRequestString())
+        }.body<PagingData<RelatedAnimeEdge>>().let {
+            PagingData(
+                data = it.data.map { it.node },
+                it.paging,
+            )
+        }
+
+    override suspend fun getUserAnimeList(
+        userListStatus: String,
+        limit: Int,
+        offset: Int,
+    ): UserListAnime =
+        httpClient.get("$malBaseUrl/users/@me/animelist") {
+            parameter("offset", offset)
+            parameter("limit", limit)
+            parameter("status", userListStatus)
+            parameter("sort", "anime_start_date")
             parameter("fields", AnimeRequestField.animeRankingFields().mergeToRequestString())
         }.body<PagingData<RelatedAnimeEdge>>().let {
             PagingData(

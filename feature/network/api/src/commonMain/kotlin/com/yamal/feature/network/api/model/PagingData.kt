@@ -20,3 +20,5 @@ typealias AnimeRankingNetwork = PagingData<RankedAnime>
 typealias SeasonalAnime = PagingData<Anime>
 
 typealias SuggestedAnime = PagingData<Anime>
+
+typealias UserListAnime = PagingData<Anime>
