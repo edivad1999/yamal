@@ -1,6 +1,7 @@
 package com.yamal.feature.network.api
 
 import com.yamal.feature.network.api.model.AccessToken
+import com.yamal.feature.network.api.model.AnimeDetails
 import com.yamal.feature.network.api.model.AnimeRankingNetwork
 import com.yamal.feature.network.api.model.SeasonalAnime
 import com.yamal.feature.network.api.model.UserListAnime
@@ -31,4 +32,8 @@ interface ApiService {
         limit: Int,
         offset: Int,
     ): UserListAnime
+
+    suspend fun getAnimeDetails(
+        anime_id: Int,
+    ): AnimeDetails
 }

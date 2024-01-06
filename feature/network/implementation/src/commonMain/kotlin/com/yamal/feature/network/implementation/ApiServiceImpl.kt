@@ -3,6 +3,7 @@ package com.yamal.feature.network.implementation
 import com.yamal.feature.network.api.ApiService
 import com.yamal.feature.network.api.BuildConstants
 import com.yamal.feature.network.api.model.AccessToken
+import com.yamal.feature.network.api.model.AnimeDetails
 import com.yamal.feature.network.api.model.AnimeRankingNetwork
 import com.yamal.feature.network.api.model.AnimeRequestField
 import com.yamal.feature.network.api.model.PagingData
@@ -23,7 +24,9 @@ class ApiServiceImpl(
     private val httpClient: HttpClient,
     private val buildConstants: BuildConstants,
 ) : ApiService {
+
     companion object {
+
         val authBaseUrl: String = "https://myanimelist.net/v1/oauth2"
         val malBaseUrl: String = "https://api.myanimelist.net/v2"
     }
@@ -94,4 +97,11 @@ class ApiServiceImpl(
                 it.paging,
             )
         }
+
+    override suspend fun getAnimeDetails(
+        anime_id: Int
+    ): AnimeDetails =
+        httpClient.get("$malBaseUrl/anime/$anime_id") {
+            parameter("fields", AnimeRequestField.animeDetailsFields().mergeToRequestString())
+        }.body()
 }
