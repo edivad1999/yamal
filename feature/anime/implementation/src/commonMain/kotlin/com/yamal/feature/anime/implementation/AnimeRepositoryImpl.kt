@@ -13,6 +13,7 @@ import com.yamal.feature.network.api.model.Anime
 import com.yamal.feature.network.api.model.RankedAnime
 
 class AnimeRepositoryImpl(private val apiService: ApiService) : AnimeRepository {
+
     override fun getRanking(): MalPagingSource<RankedAnime, GenericAnime> =
         MalPagingSource(apiCall = { pageSize, offset ->
             apiCallScope {
@@ -79,7 +80,8 @@ class AnimeRepositoryImpl(private val apiService: ApiService) : AnimeRepository 
             )
         })
 
-    override fun getAnimeDetails(id: Int) {
-        TODO("Not yet implemented")
-    }
+    override suspend fun getAnimeDetails(id: Int) =
+        apiCallScope {
+            apiService.getAnimeDetails(id)
+        }
 }
