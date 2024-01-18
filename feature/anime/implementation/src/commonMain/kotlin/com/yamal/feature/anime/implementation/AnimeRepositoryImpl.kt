@@ -5,6 +5,7 @@ import com.yamal.feature.anime.api.model.GenericAnime
 import com.yamal.feature.anime.api.model.MediaType
 import com.yamal.feature.anime.api.model.Season
 import com.yamal.feature.anime.api.model.UserListStatus
+import com.yamal.feature.anime.api.model.toDomain
 import com.yamal.feature.anime.implementation.mapping.toModel
 import com.yamal.feature.core.MalPagingSource
 import com.yamal.feature.network.api.ApiService
@@ -23,12 +24,12 @@ class AnimeRepositoryImpl(private val apiService: ApiService) : AnimeRepository 
             GenericAnime(
                 id = it.node.id,
                 title = it.node.title,
-                mainPicture = it.node.mainPicture?.toModel(),
+                mainPicture = it.node.mainPictureNetwork?.toModel(),
                 rank = it.ranking.rank,
                 mediaType = MediaType.fromSerializedValue(it.node.mediaType),
                 members = it.node.numListUsers,
                 mean = it.node.mean,
-                userVote = it.node.myListStatus?.score,
+                userVote = it.node.myListStatusNetwork?.score,
                 startDate = it.node.startDate,
                 endDate = it.node.endDate,
                 numberOfEpisodes = it.node.numEpisodes,
@@ -47,12 +48,12 @@ class AnimeRepositoryImpl(private val apiService: ApiService) : AnimeRepository 
             GenericAnime(
                 id = it.id,
                 title = it.title,
-                mainPicture = it.mainPicture?.toModel(),
+                mainPicture = it.mainPictureNetwork?.toModel(),
                 rank = it.rank,
                 mediaType = MediaType.fromSerializedValue(it.mediaType),
                 members = it.numListUsers,
                 mean = it.mean,
-                userVote = it.myListStatus?.score,
+                userVote = it.myListStatusNetwork?.score,
                 startDate = it.startDate,
                 endDate = it.endDate,
                 numberOfEpisodes = it.numEpisodes,
@@ -68,12 +69,12 @@ class AnimeRepositoryImpl(private val apiService: ApiService) : AnimeRepository 
             GenericAnime(
                 id = it.id,
                 title = it.title,
-                mainPicture = it.mainPicture?.toModel(),
+                mainPicture = it.mainPictureNetwork?.toModel(),
                 rank = it.rank,
                 mediaType = MediaType.fromSerializedValue(it.mediaType),
                 members = it.numListUsers,
                 mean = it.mean,
-                userVote = it.myListStatus?.score,
+                userVote = it.myListStatusNetwork?.score,
                 startDate = it.startDate,
                 endDate = it.endDate,
                 numberOfEpisodes = it.numEpisodes,
@@ -82,6 +83,6 @@ class AnimeRepositoryImpl(private val apiService: ApiService) : AnimeRepository 
 
     override suspend fun getAnimeDetails(id: Int) =
         apiCallScope {
-            apiService.getAnimeDetails(id)
-        }
+            apiService.getAnimeDetails(id).toDomain()
+        }.mapLeft { it.throwable.message }
 }

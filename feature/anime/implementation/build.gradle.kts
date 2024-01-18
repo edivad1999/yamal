@@ -10,3 +10,6 @@ kotlin {
 android {
     namespace = "com.yamal.feature.anime.implementation"
 }
+dependencies {
+    implementation(project(":feature:core"))
+}

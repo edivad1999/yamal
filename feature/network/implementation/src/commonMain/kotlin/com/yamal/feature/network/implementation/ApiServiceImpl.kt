@@ -3,7 +3,7 @@ package com.yamal.feature.network.implementation
 import com.yamal.feature.network.api.ApiService
 import com.yamal.feature.network.api.BuildConstants
 import com.yamal.feature.network.api.model.AccessToken
-import com.yamal.feature.network.api.model.AnimeDetails
+import com.yamal.feature.network.api.model.AnimeDetailsNetwork
 import com.yamal.feature.network.api.model.AnimeRankingNetwork
 import com.yamal.feature.network.api.model.AnimeRequestField
 import com.yamal.feature.network.api.model.PagingData
@@ -99,9 +99,9 @@ class ApiServiceImpl(
         }
 
     override suspend fun getAnimeDetails(
-        anime_id: Int
-    ): AnimeDetails =
-        httpClient.get("$malBaseUrl/anime/$anime_id") {
+        animeId: Int
+    ): AnimeDetailsNetwork =
+        httpClient.get("$malBaseUrl/anime/$animeId") {
             parameter("fields", AnimeRequestField.animeDetailsFields().mergeToRequestString())
         }.body()
 }
