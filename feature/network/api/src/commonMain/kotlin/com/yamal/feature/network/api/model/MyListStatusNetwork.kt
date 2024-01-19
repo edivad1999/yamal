@@ -3,7 +3,7 @@ package com.yamal.feature.network.api.model
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-@Serializable data class MyListStatus(
+@Serializable data class MyListStatusNetwork(
     @SerialName("status") val status: String? = null,
     @SerialName("score") val score: Int? = null,
     @SerialName("num_episode_watched") val numEpisodeWatched: Int? = null,

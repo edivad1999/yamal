@@ -3,7 +3,7 @@ package com.yamal.feature.anime.api.model
 data class GenericAnime(
     val id: Int,
     val title: String,
-    val mainPicture: AnimeMainPicture?,
+    val mainPicture: Picture?,
     val rank: Int?,
     val members: Int?,
     val mean: Float?,
@@ -14,7 +14,7 @@ data class GenericAnime(
     val numberOfEpisodes: Int?,
 )
 
-data class AnimeMainPicture(
+data class Picture(
     val large: String?,
     val medium: String,
 )
@@ -48,5 +48,5 @@ enum class Season(val serialName: String) {
     Winter("winter"),
     Spring("spring"),
     Summer("summer"),
-    Fall("fall"),
+    Fall("fall")
 }

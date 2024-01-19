@@ -1,6 +1,6 @@
 package com.yamal.feature.anime.implementation.mapping
 
-import com.yamal.feature.anime.api.model.AnimeMainPicture
-import com.yamal.feature.network.api.model.Picture
+import com.yamal.feature.anime.api.model.Picture
+import com.yamal.feature.network.api.model.PictureNetwork
 
-fun Picture.toModel() = AnimeMainPicture(large = large, medium = medium)
+fun PictureNetwork.toModel() = Picture(large = large, medium = medium)
