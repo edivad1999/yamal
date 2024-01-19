@@ -114,7 +114,7 @@ enum class RelationType(val serialName: String) {
 }
 
 fun PictureNetwork.toPicture() = Picture(
-    large = this.large ?: "",
+    large = this.large,
     medium = this.medium
 )
 
@@ -130,7 +130,15 @@ fun GenreNetwork.toGenre() = Genre(
 )
 
 fun MyListStatusNetwork.toMyListStatus() = MyListStatus(
-    status, score, numEpisodeWatched, isRewatching, startDate, finishDate, priority, numTimesRewatched, rewatchValue
+    status = status,
+    score = score,
+    numEpisodeWatched = numEpisodeWatched,
+    isRewatching = isRewatching,
+    startDate = startDate,
+    finishDate = finishDate,
+    priority = priority,
+    numTimesRewatched = numTimesRewatched,
+    rewatchValue = rewatchValue
 )
 
 fun BroadcastNetwork.toBroadcast() = Broadcast(

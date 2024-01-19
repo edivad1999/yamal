@@ -20,5 +20,5 @@ interface AnimeRepository {
 
     fun getUserAnimeList(status: UserListStatus): MalPagingSource<Anime, GenericAnime>
 
-    suspend fun getAnimeDetails(id: Int): Either<String?, AnimeDetails>
+    suspend fun getAnimeDetails(id: Int): Either<String, AnimeDetails>
 }
