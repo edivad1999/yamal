@@ -84,5 +84,5 @@ class AnimeRepositoryImpl(private val apiService: ApiService) : AnimeRepository 
     override suspend fun getAnimeDetails(id: Int) =
         apiCallScope {
             apiService.getAnimeDetails(id).toDomain()
-        }.mapLeft { it.throwable.message?: "Error retrieving anime details" }
+        }.mapLeft { it.throwable.message ?: "Error retrieving anime details" }
 }

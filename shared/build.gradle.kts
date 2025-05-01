@@ -5,17 +5,12 @@ kotlin {
 
     sourceSets.commonMain.dependencies {
         // Presentation
-        api(projects.presentation.home)
-        api(projects.presentation.login)
-        api(projects.presentation.animeRanking)
-        api(projects.presentation.animeDetails)
-        api(projects.presentation.animeSeasonal)
-        api(projects.presentation.userAnimeList)
+        api(projects.presentation)
 
         // Features
 
-        api(projects.feature.network.api)
-        implementation(projects.feature.network.implementation)
+        api(projects.core.network.api)
+        implementation(projects.core.network.implementation)
 
         api(projects.feature.login.api)
         implementation(projects.feature.login.implementation)
@@ -23,8 +18,9 @@ kotlin {
         api(projects.feature.anime.api)
         implementation(projects.feature.anime.implementation)
 
-        api(projects.feature.preferences.api)
-        implementation(projects.feature.preferences.implementation)
+        api(projects.core.preferences.api)
+        implementation(projects.core.preferences.implementation)
+        api(projects.feature.designSystem)
     }
 }
 android {

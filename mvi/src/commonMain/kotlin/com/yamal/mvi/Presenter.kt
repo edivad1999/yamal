@@ -1,7 +1,8 @@
 package com.yamal.mvi
 
-import cafe.adriel.voyager.core.model.ScreenModel
-import cafe.adriel.voyager.core.model.screenModelScope
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -10,7 +11,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-abstract class Presenter<InternalState, UiState, Intent, Effect> : ScreenModel {
+abstract class Presenter<InternalState, UiState, Intent, Effect> : ViewModel() {
+
     abstract fun initialInternalState(): InternalState
 
     private val internalState: MutableStateFlow<InternalState> by lazy {
@@ -30,7 +32,7 @@ abstract class Presenter<InternalState, UiState, Intent, Effect> : ScreenModel {
     private val effects: MutableSharedFlow<Effect> = MutableSharedFlow()
 
     fun launchEffect(effectBlock: suspend () -> Effect) {
-        screenModelScope.launch {
+        viewModelScope.launch {
             effects.emit(effectBlock())
         }
     }

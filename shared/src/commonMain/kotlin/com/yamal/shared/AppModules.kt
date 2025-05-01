@@ -12,6 +12,7 @@ import com.yamal.presentation.login.di.LoginPresentationModule
 import com.yamal.presentation.userAnimeList.di.UserAnimeListPresentationModule
 
 object AppModules {
+
     fun exportModules() =
         listOf(
             HomePresentationModule(),

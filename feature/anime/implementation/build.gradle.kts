@@ -4,12 +4,12 @@ plugins {
 kotlin {
     sourceSets.commonMain.dependencies {
         implementation(projects.feature.anime.api)
-        implementation(projects.feature.network.api)
+        implementation(projects.core.network.api)
     }
 }
 android {
     namespace = "com.yamal.feature.anime.implementation"
 }
 dependencies {
-    implementation(project(":feature:core"))
+    implementation(projects.core.utils)
 }

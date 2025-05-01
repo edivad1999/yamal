@@ -4,7 +4,7 @@ build/
 
 # Local configuration file (sdk path, etc)
 local.properties
-
+/myanimelistclone
 # Generated files
 bin/
 gen/
@@ -15,7 +15,7 @@ classes/
 *.class
 # Files for the dex VM
 *.dex
-
+.kotlin
 # Intellij project filÏes
 .idea/*
 *.iml

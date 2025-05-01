@@ -30,6 +30,7 @@ enum class MediaType {
     ;
 
     companion object {
+
         fun fromSerializedValue(string: String?) =
             when (string) {
                 "unknown" -> Unknown

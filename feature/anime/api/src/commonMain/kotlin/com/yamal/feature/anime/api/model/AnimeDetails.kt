@@ -189,7 +189,7 @@ fun RelatedAnimeEdge.toRelatedAnime() = RelatedItem<GenericAnime>(
         endDate = node.endDate,
         numberOfEpisodes = node.numEpisodes
     ),
-    relation = Relation(RelationType.entries.first{it.serialName == relation_type}, relation_type_formatted?: "")
+    relation = Relation(RelationType.entries.first { it.serialName == relation_type }, relation_type_formatted ?: "")
 )
 
 fun RelatedMangaEdge.toRelatedManga() = RelatedItem<GenericManga>(
@@ -207,7 +207,7 @@ fun RelatedMangaEdge.toRelatedManga() = RelatedItem<GenericManga>(
         numberOfVolumes = node.numVolumes,
         numberOfChapters = node.numChapters
     ),
-    relation = Relation(RelationType.entries.first{it.serialName == relation_type}, relation_type_formatted?: "")
+    relation = Relation(RelationType.entries.first { it.serialName == relation_type }, relation_type_formatted ?: "")
 )
 
 fun AnimeDetailsNetwork.toDomain() = AnimeDetails(

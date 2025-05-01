@@ -17,7 +17,6 @@ class LibraryMultiplatformModulePlugin : Plugin<Project> {
 
             extensions.configure<LibraryExtension> {
                 configureKotlinAndroid(this)
-                defaultConfig.targetSdk = libs.findVersion("targetSdk").get().toString().toInt()
             }
 
             extensions.configure(KotlinMultiplatformExtension::class.java) {
@@ -36,7 +35,6 @@ class LibraryMultiplatformModulePlugin : Plugin<Project> {
                     implementation(libs.findLibrary("kotlinx-coroutines-core").get())
                     implementation(libs.findBundle("arrow").get())
                     implementation(libs.findLibrary("napier").get())
-                    implementation(libs.findLibrary("stately-common").get())
                 }
                 sourceSets.androidMain.dependencies {
                     implementation(libs.findLibrary("koin-android").get())

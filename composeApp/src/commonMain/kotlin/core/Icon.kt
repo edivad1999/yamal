@@ -4,16 +4,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 
 sealed interface Icon {
 
-    data class Drawable(val drawable: String) : Icon {
+    data class Drawable(val drawable: DrawableResource) : Icon {
 
         @OptIn(ExperimentalResourceApi::class)
         @Composable
-        override fun asPainter() = painterResource(res = drawable)
+        override fun asPainter() = painterResource(resource = drawable)
     }
 
     data class Vector(val imageVector: ImageVector) : Icon {

@@ -32,19 +32,13 @@ include(":shared")
 include(":mvi")
 
 // Presentation
-include(":presentation:home")
-include(":presentation:animeRanking")
-include(":presentation:animeDetails")
-include(":presentation:animeSeasonal")
-include(":presentation:userAnimeList")
-include(":presentation:login")
-include(":presentation:core")
+include(":presentation")
 // Features
-include(":feature:network:api")
-include(":feature:network:implementation")
+include(":core:network:api")
+include(":core:network:implementation")
 
-include(":feature:preferences:api")
-include(":feature:preferences:implementation")
+include(":core:preferences:api")
+include(":core:preferences:implementation")
 
 include(":feature:login:api")
 include(":feature:login:implementation")
@@ -52,4 +46,5 @@ include(":feature:login:implementation")
 include(":feature:anime:api")
 include(":feature:anime:implementation")
 
-include(":feature:core")
+include(":core:utils")
+include(":feature:designSystem")

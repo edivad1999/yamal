@@ -7,6 +7,8 @@ android {
 kotlin {
     sourceSets.commonMain.dependencies {
         api(compose.runtime)
+        api(libs.lifecycle.viewmodel.compose)
+
         implementation(compose.foundation)
     }
 }
