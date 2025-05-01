@@ -6,7 +6,6 @@ import com.yamal.feature.network.api.KtorFactory
 import com.yamal.feature.network.implementation.ApiServiceImpl
 import com.yamal.feature.network.implementation.BuildConstantsImpl
 import com.yamal.feature.network.implementation.KtorFactoryImpl
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
 

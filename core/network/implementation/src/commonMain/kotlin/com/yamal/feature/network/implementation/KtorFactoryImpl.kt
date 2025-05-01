@@ -27,6 +27,7 @@ class KtorFactoryImpl(
     private val preferencesDatasource: PreferencesDatasource,
     private val buildConstants: BuildConstants,
 ) : KtorFactory {
+
     override fun createClient() =
         HttpClient {
             install(ContentNegotiation) {

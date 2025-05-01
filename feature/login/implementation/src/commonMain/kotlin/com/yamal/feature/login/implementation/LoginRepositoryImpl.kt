@@ -18,6 +18,7 @@ class LoginRepositoryImpl(
     private val apiService: ApiService,
     private val preferencesDatasource: PreferencesDatasource,
 ) : LoginRepository {
+
     private val codeChallenge = PKCEGenerator.generate(PKCE_LENGTH)
     private val userAuthenticated =
         flow {
@@ -47,6 +48,7 @@ class LoginRepositoryImpl(
     }
 
     companion object {
+
         const val MAL_AUTH_URL = "https://myanimelist.net/v1/oauth2/authorize"
         const val RESPONSE_TYPE_PARAM = "code"
         const val PKCE_LENGTH = 128

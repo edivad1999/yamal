@@ -32,13 +32,7 @@ include(":shared")
 include(":mvi")
 
 // Presentation
-include(":presentation:home")
-include(":presentation:animeRanking")
-include(":presentation:animeDetails")
-include(":presentation:animeSeasonal")
-include(":presentation:userAnimeList")
-include(":presentation:login")
-include(":presentation:core")
+include(":presentation")
 // Features
 include(":core:network:api")
 include(":core:network:implementation")

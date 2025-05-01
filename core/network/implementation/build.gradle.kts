@@ -1,6 +1,6 @@
 import com.codingfeline.buildkonfig.compiler.FieldSpec
-import java.util.Properties
 import org.jetbrains.compose.internal.utils.localPropertiesFile
+import java.util.Properties
 
 plugins {
     id("yamal.library")

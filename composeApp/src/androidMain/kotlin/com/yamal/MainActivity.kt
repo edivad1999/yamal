@@ -7,7 +7,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import screen.login.LoginUtilities
+import core.LoginUtilities
 
 class MainActivity : ComponentActivity() {
 
@@ -18,8 +18,8 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    override fun onNewIntent(intent: Intent?) {
-        if (intent?.data?.toString()?.startsWith("yamal") == true) {
+    override fun onNewIntent(intent: Intent) {
+        if (intent.data?.toString()?.startsWith("yamal") == true) {
             intent.data?.getQueryParameter("code")?.let {
                 LoginUtilities.parseUrlResult(it)
             }

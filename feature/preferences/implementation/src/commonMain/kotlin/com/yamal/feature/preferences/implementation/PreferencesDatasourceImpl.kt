@@ -6,6 +6,7 @@ import com.yamal.feature.preferences.api.PreferencesDatasource
 import com.yamal.feature.preferences.implementation.extensions.string
 
 class PreferencesDatasourceImpl(settings: Settings) : PreferencesDatasource {
+
     private var access: String by settings.string()
     private var refresh: String by settings.string()
 

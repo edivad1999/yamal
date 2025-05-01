@@ -6,16 +6,17 @@ compose-plugin = "1.7.3"
 agp = "8.2.2"
 insetsx = "0.1.0-alpha10"
 kotlinxCoroutinesCore = "1.9.0"
+kotlinxDatetime = "0.6.1"
 kotlinxSerializationJson = "1.7.3"
+lifecycleViewmodelCompose = "2.8.2"
 minSdk = "24"
-compileSdk = "34"
-targetSdk = "34"
+compileSdk = "35"
+targetSdk = "35"
 jdk = "17"
 androidx-activityCompose = "1.10.1"
 kotlin = "2.1.0"
 junit = "4.13.2"
 koin = "3.5.3"
-voyagerVersion = "1.0.0"
 ktor = "3.0.2"
 arrow = "1.2.0"
 multiplatform-settings = "1.1.1"
@@ -29,9 +30,9 @@ coil = { module = "io.coil-kt.coil3:coil", version.ref = "coil" }
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
 coil-network = { module = "io.coil-kt.coil3:coil-network", version.ref = "coil" }
 insetsx = { module = "com.moriatsushi.insetsx:insetsx", version.ref = "insetsx" }
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
-voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyagerVersion" }
-voyager-koin = { module = "cafe.adriel.voyager:voyager-koin", version.ref = "voyagerVersion" }
+
 
 koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin" }
 koin-core = { module = "io.insert-koin:koin-core" }
@@ -48,6 +49,7 @@ androidx-activity-compose = { module = "androidx.activity:activity-compose", ver
 
 kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 android-gradle = { module = "com.android.tools.build:gradle", version.ref = "agp" }
+lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
 multiplatform-settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatform-settings" }
 
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }

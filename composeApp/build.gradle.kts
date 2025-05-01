@@ -47,11 +47,11 @@ kotlin {
             implementation(compose.components.resources)
             implementation(libs.insetsx)
             implementation(libs.koin.compose)
-            implementation(libs.voyager.navigator)
-            implementation(libs.voyager.koin)
+
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.napier)
             implementation(libs.paging.runtime)
+            implementation(libs.lifecycle.viewmodel.compose)
 
             implementation(libs.coil)
             implementation(libs.coil.network)

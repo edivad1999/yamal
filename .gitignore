@@ -15,7 +15,7 @@ classes/
 *.class
 # Files for the dex VM
 *.dex
-
+.kotlin
 # Intellij project filÏes
 .idea/*
 *.iml

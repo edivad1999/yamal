@@ -99,7 +99,7 @@ class ApiServiceImpl(
         }
 
     override suspend fun getAnimeDetails(
-        animeId: Int
+        animeId: Int,
     ): AnimeDetailsNetwork =
         httpClient.get("$malBaseUrl/anime/$animeId") {
             parameter("fields", AnimeRequestField.animeDetailsFields().mergeToRequestString())

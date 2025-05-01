@@ -10,6 +10,7 @@ class MalPagingSource<T : Any, R : Any>(
     private val apiCall: suspend (pageSize: Int, offset: Int) -> Either<ApiError, PagingData<T>>,
     private val map: (T) -> R,
 ) : PagingSource<Int, R>() {
+
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, R> {
         val offset = params.key ?: 0
         val pageSize = params.loadSize
