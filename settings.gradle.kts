@@ -40,8 +40,8 @@ include(":presentation:userAnimeList")
 include(":presentation:login")
 include(":presentation:core")
 // Features
-include(":feature:network:api")
-include(":feature:network:implementation")
+include(":core:network:api")
+include(":core:network:implementation")
 
 include(":feature:preferences:api")
 include(":feature:preferences:implementation")
@@ -52,4 +52,4 @@ include(":feature:login:implementation")
 include(":feature:anime:api")
 include(":feature:anime:implementation")
 
-include(":feature:core")
+include(":feature:utils")

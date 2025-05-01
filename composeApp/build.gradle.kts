@@ -2,9 +2,10 @@ import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.multiplatform")
-    id("org.jetbrains.compose")
+    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.kotlinCompose)
 }
 
 kotlin {
@@ -18,7 +19,6 @@ kotlin {
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
-            isStatic = true
         }
     }
 
@@ -37,7 +37,6 @@ kotlin {
             implementation(compose.desktop.currentOs)
         }
         commonMain.dependencies {
-            implementation(projects.mvi)
             implementation(projects.shared)
             implementation(project.dependencies.platform(libs.koin.bom))
 
@@ -52,9 +51,7 @@ kotlin {
             implementation(libs.voyager.koin)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.napier)
-            implementation(libs.stately.common)
             implementation(libs.paging.runtime)
-            implementation(libs.paging.compose.common)
 
             implementation(libs.coil)
             implementation(libs.coil.network)
@@ -86,9 +83,7 @@ android {
         compose = true
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
-    }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"

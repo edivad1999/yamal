@@ -14,8 +14,8 @@ kotlin {
 
         // Features
 
-        api(projects.feature.network.api)
-        implementation(projects.feature.network.implementation)
+        api(projects.core.network.api)
+        implementation(projects.core.network.implementation)
 
         api(projects.feature.login.api)
         implementation(projects.feature.login.implementation)

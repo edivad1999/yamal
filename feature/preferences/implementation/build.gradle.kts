@@ -5,7 +5,7 @@ plugins {
 kotlin {
     sourceSets.commonMain.dependencies {
         implementation(projects.feature.preferences.api)
-        implementation(projects.feature.network.api)
+        implementation(projects.core.network.api)
         implementation(libs.multiplatform.settings)
     }
 }

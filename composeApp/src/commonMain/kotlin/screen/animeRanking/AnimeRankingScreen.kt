@@ -32,9 +32,7 @@ fun AnimeRankingScreen(state: AnimeRankingUi) =
         val items = state.ranking.collectAsLazyPagingItems()
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(items.itemCount) {
-                items[it]?.let {
-                    GenericAnimeCard(it)
-                }
+                // someItem
             }
             if (items.loadState.isAnyLoading) {
                 item {

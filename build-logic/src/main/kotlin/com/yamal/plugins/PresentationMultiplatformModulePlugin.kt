@@ -20,7 +20,6 @@ class PresentationMultiplatformModulePlugin : Plugin<Project> {
                     implementation(project(":mvi"))
                     implementation(libs.findBundle("arrow").get())
                     implementation(libs.findLibrary("napier").get())
-                    implementation(libs.findLibrary("stately-common").get())
 
                     implementation(libs.findLibrary("paging-runtime").get())
                     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")

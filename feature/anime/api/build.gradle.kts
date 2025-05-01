@@ -7,7 +7,7 @@ android {
 
 kotlin {
     sourceSets.commonMain.dependencies {
-        implementation(projects.feature.network.api)
-        api(projects.feature.core)
+        implementation(projects.core.network.api)
+        api(projects.feature.utils)
     }
 }

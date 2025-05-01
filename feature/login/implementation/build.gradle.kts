@@ -4,8 +4,8 @@ plugins {
 kotlin {
     sourceSets.commonMain.dependencies {
         implementation(projects.feature.login.api)
-        implementation(projects.feature.network.api)
-        implementation(projects.feature.core)
+        implementation(projects.core.network.api)
+        implementation(projects.feature.utils)
         implementation(projects.feature.preferences.api)
     }
 }

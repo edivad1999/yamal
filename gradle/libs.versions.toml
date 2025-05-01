@@ -1,29 +1,26 @@
 [versions]
-browser = "1.7.0"
+browser = "1.8.0"
 coil = "3.0.0-alpha01"
-compose = "1.5.4"
-compose-plugin = "1.5.11"
-compose-compiler = "1.5.5"
-agp = "8.2.1"
+compose = "1.8.0"
+compose-plugin = "1.7.3"
+agp = "8.2.2"
 insetsx = "0.1.0-alpha10"
-kotlinxCoroutinesCore = "1.8.0-RC2"
-kotlinxSerializationJson = "1.6.2"
+kotlinxCoroutinesCore = "1.9.0"
+kotlinxSerializationJson = "1.7.3"
 minSdk = "24"
 compileSdk = "34"
-pagingComposeCommon = "3.3.0-alpha02-0.4.0"
 targetSdk = "34"
 jdk = "17"
-androidx-activityCompose = "1.8.2"
-kotlin = "1.9.21"
+androidx-activityCompose = "1.10.1"
+kotlin = "2.1.0"
 junit = "4.13.2"
 koin = "3.5.3"
 voyagerVersion = "1.0.0"
-ktor = "2.3.7"
+ktor = "3.0.2"
 arrow = "1.2.0"
 multiplatform-settings = "1.1.1"
 napier = "2.6.1"
-stately = "2.0.6"
-paging = "3.3.0-alpha02"
+paging = "3.3.6"
 
 [libraries]
 androidx-browser = { module = "androidx.browser:browser", version.ref = "browser" }
@@ -33,7 +30,6 @@ coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" 
 coil-network = { module = "io.coil-kt.coil3:coil-network", version.ref = "coil" }
 insetsx = { module = "com.moriatsushi.insetsx:insetsx", version.ref = "insetsx" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
-paging-compose-common = { module = "app.cash.paging:paging-compose-common", version.ref = "pagingComposeCommon" }
 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyagerVersion" }
 voyager-koin = { module = "cafe.adriel.voyager:voyager-koin", version.ref = "voyagerVersion" }
 
@@ -68,7 +64,6 @@ arrow-core = { module = "io.arrow-kt:arrow-core", version.ref = "arrow" }
 arrow-fx-coroutines = { module = "io.arrow-kt:arrow-fx-coroutines", version.ref = "arrow" }
 
 napier = { module = "io.github.aakira:napier", version.ref = "napier" }
-stately-common = { module = "co.touchlab:stately-common", version.ref = "stately"}
 
 paging-runtime = { group = "androidx.paging", name = "paging-common", version.ref = "paging" }
 paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging" }
@@ -77,6 +72,7 @@ paging-compose = { group = "androidx.paging", name = "paging-compose", version.r
 arrow = ["arrow-core", "arrow-fx-coroutines"]
 [plugins]
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
+kotlinCompose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }

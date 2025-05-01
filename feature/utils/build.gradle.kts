@@ -8,6 +8,6 @@ android {
 kotlin {
     sourceSets.commonMain.dependencies {
         implementation(libs.paging.runtime)
-        implementation(projects.feature.network.api)
+        implementation(projects.core.network.api)
     }
 }

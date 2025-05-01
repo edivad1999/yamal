@@ -8,8 +8,8 @@ android {
 
 kotlin {
     sourceSets.commonMain.dependencies {
-        implementation(projects.feature.core)
-        implementation(projects.feature.network.api)
+        implementation(projects.feature.utils)
+        implementation(projects.core.network.api)
         implementation(libs.paging.runtime)
         api(compose.runtime)
         implementation(compose.foundation)
