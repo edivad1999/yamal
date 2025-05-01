@@ -18,7 +18,6 @@ class MVIMultiplatformModulePlugin : Plugin<Project> {
             }
             extensions.configure<LibraryExtension> {
                 configureKotlinAndroid(this)
-                defaultConfig.targetSdk = libs.findVersion("targetSdk").get().toString().toInt()
             }
             extensions.configure(KotlinMultiplatformExtension::class.java) {
                 jvmToolchain(libs.findVersion("jdk").get().toString().toInt())

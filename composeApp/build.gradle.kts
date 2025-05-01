@@ -26,8 +26,7 @@ kotlin {
         val desktopMain by getting
 
         androidMain.dependencies {
-            implementation(libs.compose.ui)
-            implementation(libs.compose.ui.tooling.preview)
+
             implementation(libs.androidx.activity.compose)
             implementation(libs.koin.android)
             implementation(libs.androidx.browser)
@@ -43,7 +42,6 @@ kotlin {
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
-            @OptIn(ExperimentalComposeLibrary::class)
             implementation(compose.components.resources)
             implementation(libs.insetsx)
             implementation(libs.koin.compose)
@@ -75,7 +73,6 @@ android {
         applicationId = "com.yamal"
         versionCode = 1
         versionName = "1.0"
-        targetSdk = libs.versions.targetSdk.get().toInt()
         minSdk = libs.versions.minSdk.get().toInt()
     }
     compileSdk = libs.versions.compileSdk.get().toInt()
@@ -95,9 +92,6 @@ android {
         }
     }
 
-    dependencies {
-        debugImplementation(libs.compose.ui.tooling)
-    }
 }
 
 compose.desktop {
