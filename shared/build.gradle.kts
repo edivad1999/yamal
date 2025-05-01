@@ -18,8 +18,9 @@ kotlin {
         api(projects.feature.anime.api)
         implementation(projects.feature.anime.implementation)
 
-        api(projects.feature.preferences.api)
-        implementation(projects.feature.preferences.implementation)
+        api(projects.core.preferences.api)
+        implementation(projects.core.preferences.implementation)
+        api(projects.feature.designSystem)
     }
 }
 android {

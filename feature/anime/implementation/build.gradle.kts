@@ -11,5 +11,5 @@ android {
     namespace = "com.yamal.feature.anime.implementation"
 }
 dependencies {
-    implementation(project(":feature:utils"))
+    implementation(projects.core.utils)
 }

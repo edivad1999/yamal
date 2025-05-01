@@ -8,6 +8,6 @@ android {
 kotlin {
     sourceSets.commonMain.dependencies {
         implementation(projects.core.network.api)
-        api(projects.feature.utils)
+        api(projects.core.utils)
     }
 }

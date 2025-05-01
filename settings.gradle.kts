@@ -37,8 +37,8 @@ include(":presentation")
 include(":core:network:api")
 include(":core:network:implementation")
 
-include(":feature:preferences:api")
-include(":feature:preferences:implementation")
+include(":core:preferences:api")
+include(":core:preferences:implementation")
 
 include(":feature:login:api")
 include(":feature:login:implementation")
@@ -46,4 +46,5 @@ include(":feature:login:implementation")
 include(":feature:anime:api")
 include(":feature:anime:implementation")
 
-include(":feature:utils")
+include(":core:utils")
+include(":feature:designSystem")

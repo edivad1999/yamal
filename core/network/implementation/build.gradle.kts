@@ -14,7 +14,7 @@ val localProperties = Properties().apply {
 kotlin {
     sourceSets.commonMain.dependencies {
         implementation(projects.core.network.api)
-        implementation(projects.feature.preferences.api)
+        implementation(projects.core.preferences.api)
         implementation(libs.ktor.core)
         implementation(libs.kotlinx.serialization.json)
         implementation(libs.ktor.contentNegotiation)
