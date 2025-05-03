@@ -17,10 +17,14 @@ indent_size = 2
 indent_size = 2
 
 [{*.kt,*.kts}]
-ktlint_function_signature_body_expression_wrapping = multiline
-ktlint_ignore_back_ticked_identifier = true
+ktlint_code_style = ktlint
+ktlint_standard_ij_kotlin_packages_to_use_import_on_demand = disabled #to be enabled
+ktlint_custom-rule-set = enabled # Enable all rules in the `custom-rule-set` rule set (not provided by KtLint)
 ij_kotlin_allow_trailing_comma = true
 ktlint_function_naming_ignore_when_annotated_with = Composable
+compose_preview_naming_enabled = true
+compose_preview_naming_strategy = suffix
+compose_disallow_unstable_collections = true
 
 [gradlew.bat]
 end_of_line = crlf
