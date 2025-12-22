@@ -1,4 +1,4 @@
-package com.yamal.feature.preferences.implementation.factory
+package com.yamal.platform.storage.implementation.factory
 
 import com.russhwolf.settings.PreferencesSettings
 import com.russhwolf.settings.Settings

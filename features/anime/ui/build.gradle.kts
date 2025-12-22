@@ -26,7 +26,7 @@ kotlin {
         implementation(libs.kotlinx.datetime)
         implementation(libs.coil)
         implementation(libs.coil.compose)
-        implementation(libs.coil.network)
+        implementation(libs.coil.network.ktor3)
     }
 
     sourceSets.androidMain.dependencies {

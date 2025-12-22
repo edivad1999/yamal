@@ -26,7 +26,6 @@ kotlin {
         val desktopMain by getting
 
         androidMain.dependencies {
-
             implementation(libs.androidx.activity.compose)
             implementation(libs.koin.android)
             implementation(libs.androidx.browser)
@@ -61,7 +60,7 @@ kotlin {
             implementation(libs.navigation.compose)
 
             implementation(libs.coil)
-            implementation(libs.coil.network)
+            implementation(libs.coil.network.ktor3)
             implementation(libs.coil.compose)
         }
 

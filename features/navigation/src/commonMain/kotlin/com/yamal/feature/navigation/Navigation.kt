@@ -2,11 +2,10 @@ package com.yamal.feature.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
+import androidx.navigation.toRoute
 import com.yamal.feature.anime.ui.animeDetails.screen.AnimeDetailsScreen
 import com.yamal.feature.anime.ui.animeRanking.screen.AnimeRankingScreen
 import com.yamal.feature.anime.ui.animeSeasonal.screen.AnimeSeasonalScreen
@@ -14,25 +13,33 @@ import com.yamal.feature.anime.ui.home.screen.HomeScreen
 import com.yamal.feature.anime.ui.userAnimeList.screen.UserAnimeListScreen
 import com.yamal.feature.login.ui.screen.LoginScreen
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.serialization.Serializable
 
 /**
- * Navigation routes for the app
+ * Type-safe navigation routes using Kotlinx Serialization
  */
-object Routes {
-    const val LOGIN = "login"
-    const val HOME = "home"
-    const val ANIME_SEASONAL = "anime_seasonal"
-    const val ANIME_RANKING = "anime_ranking"
-    const val USER_ANIME_LIST = "user_anime_list"
-    const val ANIME_DETAILS = "anime_details/{animeId}"
+@Serializable
+object Home
 
-    fun animeDetails(animeId: Int) = "anime_details/$animeId"
-}
+@Serializable
+object Login
+
+@Serializable
+object UserAnimeList
+
+@Serializable
+object AnimeSeasonal
+
+@Serializable
+object AnimeRanking
+
+@Serializable
+data class AnimeDetails(val animeId: Int)
 
 @Composable
 fun YamalNavGraph(
     navController: NavHostController = rememberNavController(),
-    startDestination: String = Routes.LOGIN,
+    startDestination: Any = Login,
     authCodeFlow: StateFlow<String?>,
     launchBrowser: (String) -> Unit
 ) {
@@ -40,11 +47,11 @@ fun YamalNavGraph(
         navController = navController,
         startDestination = startDestination
     ) {
-        composable(Routes.LOGIN) {
+        composable<Login> {
             LoginScreen(
                 onLoginSuccess = {
-                    navController.navigate(Routes.HOME) {
-                        popUpTo(Routes.LOGIN) { inclusive = true }
+                    navController.navigate(Home) {
+                        popUpTo<Login> { inclusive = true }
                     }
                 },
                 authCodeFlow = authCodeFlow,
@@ -52,62 +59,57 @@ fun YamalNavGraph(
             )
         }
 
-        composable(Routes.HOME) {
+        composable<Home> {
             HomeScreen(
                 onNavigateToSeasonal = {
-                    navController.navigate(Routes.ANIME_SEASONAL)
+                    navController.navigate(AnimeSeasonal)
                 },
                 onNavigateToRanking = {
-                    navController.navigate(Routes.ANIME_RANKING)
+                    navController.navigate(AnimeRanking)
                 },
                 onNavigateToUserList = {
-                    navController.navigate(Routes.USER_ANIME_LIST)
+                    navController.navigate(UserAnimeList)
                 }
             )
         }
 
-        composable(Routes.ANIME_SEASONAL) {
+        composable<AnimeSeasonal> {
             AnimeSeasonalScreen(
                 onNavigateBack = {
                     navController.popBackStack()
                 },
                 onAnimeClick = { animeId ->
-                    navController.navigate(Routes.animeDetails(animeId))
+                    navController.navigate(AnimeDetails(animeId))
                 }
             )
         }
 
-        composable(Routes.ANIME_RANKING) {
+        composable<AnimeRanking> {
             AnimeRankingScreen(
                 onNavigateBack = {
                     navController.popBackStack()
                 },
                 onAnimeClick = { animeId ->
-                    navController.navigate(Routes.animeDetails(animeId))
+                    navController.navigate(AnimeDetails(animeId))
                 }
             )
         }
 
-        composable(Routes.USER_ANIME_LIST) {
+        composable<UserAnimeList> {
             UserAnimeListScreen(
                 onNavigateBack = {
                     navController.popBackStack()
                 },
                 onAnimeClick = { animeId ->
-                    navController.navigate(Routes.animeDetails(animeId))
+                    navController.navigate(AnimeDetails(animeId))
                 }
             )
         }
 
-        composable(
-            route = Routes.ANIME_DETAILS,
-            arguments = listOf(
-                navArgument("animeId") { type = NavType.IntType }
-            )
-        ) { backStackEntry ->
-            val animeId = backStackEntry.arguments?.getInt("animeId") ?: 0
+        composable<AnimeDetails> { backStackEntry ->
+            val animeDetails: AnimeDetails = backStackEntry.toRoute()
             AnimeDetailsScreen(
-                animeId = animeId,
+                animeId = animeDetails.animeId,
                 onNavigateBack = {
                     navController.popBackStack()
                 }

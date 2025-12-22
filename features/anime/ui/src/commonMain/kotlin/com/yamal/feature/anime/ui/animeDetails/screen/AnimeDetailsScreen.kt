@@ -149,7 +149,7 @@ private fun AnimeDetailsContent(anime: AnimeDetails) {
                         )
                         Spacer(modifier = Modifier.width(4.dp))
                         Text(
-                            text = "%.2f".format(score),
+                            text = ((score * 100).toInt() / 100.0).toString(),
                             style = MaterialTheme.typography.body1,
                             fontWeight = FontWeight.Bold
                         )

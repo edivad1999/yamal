@@ -6,10 +6,11 @@ import androidx.navigation.compose.rememberNavController
 import coil3.ImageLoader
 import coil3.annotation.ExperimentalCoilApi
 import coil3.compose.setSingletonImageLoaderFactory
-import coil3.fetch.NetworkFetcher
+import coil3.request.crossfade
 import com.yamal.designSystem.theme.YamalTheme
 import com.yamal.feature.login.ui.presenter.LoginPresenter
-import com.yamal.feature.navigation.Routes
+import com.yamal.feature.navigation.Home
+import com.yamal.feature.navigation.Login
 import com.yamal.feature.navigation.YamalNavGraph
 import core.LoginUtilities
 import org.jetbrains.compose.resources.ExperimentalResourceApi
@@ -19,10 +20,9 @@ import org.koin.compose.koinInject
 @Composable
 fun App() {
     setSingletonImageLoaderFactory { context ->
-        ImageLoader.Builder(context)
-            .components {
-                add(NetworkFetcher.Factory())
-            }
+        ImageLoader
+            .Builder(context)
+            .crossfade(true)
             .build()
     }
 
@@ -36,17 +36,17 @@ fun App() {
         // If user is logged in, navigate to home
         LaunchedEffect(loginState.isLoggedIn) {
             if (loginState.isLoggedIn) {
-                navController.navigate(Routes.HOME) {
-                    popUpTo(Routes.LOGIN) { inclusive = true }
+                navController.navigate(Home) {
+                    popUpTo<Login> { inclusive = true }
                 }
             }
         }
 
         YamalNavGraph(
             navController = navController,
-            startDestination = if (loginState.isLoggedIn) Routes.HOME else Routes.LOGIN,
+            startDestination = if (loginState.isLoggedIn) Home else Login,
             authCodeFlow = LoginUtilities.authCode,
-            launchBrowser = { url -> LoginUtilities.launchBrowser(url) }
+            launchBrowser = { url -> LoginUtilities.launchBrowser(url) },
         )
     }
 }

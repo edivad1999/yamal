@@ -1,5 +1,6 @@
 plugins {
     id("yamal.mvi")
+    alias(libs.plugins.kotlinSerialization)
 }
 
 android {
@@ -14,6 +15,9 @@ kotlin {
 
         // Navigation
         implementation(libs.navigation.compose)
+
+        // Serialization for type-safe navigation
+        implementation(libs.kotlinx.serialization.json)
 
         // Feature UI modules
         implementation(projects.features.anime.ui)

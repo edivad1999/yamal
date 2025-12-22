@@ -1,7 +1,7 @@
-package com.yamal.feature.preferences.implementation.di
+package com.yamal.platform.storage.implementation.di
 
-import com.yamal.feature.preferences.implementation.factory.SettingsFactory
-import com.yamal.feature.preferences.implementation.factory.SettingsFactoryIOS
+import com.yamal.platform.storage.implementation.factory.SettingsFactory
+import com.yamal.platform.storage.implementation.factory.SettingsFactoryIOS
 import org.koin.core.definition.KoinDefinition
 import org.koin.core.module.Module
 
