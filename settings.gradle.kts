@@ -12,7 +12,7 @@ pluginManagement {
     }
 }
 plugins {
-    id("org.gradle.toolchains.foojay-resolver-convention") version "0.7.0"
+    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
 dependencyResolutionManagement {
@@ -29,22 +29,25 @@ dependencyResolutionManagement {
 include(":composeApp")
 
 include(":shared")
-include(":mvi")
 
-// Presentation
-include(":presentation")
+// Platform
+include(":platform:mvi")
+include(":platform:utils")
+include(":platform:designsystem")
+
+include(":platform:network:api")
+include(":platform:network:implementation")
+
+include(":platform:storage:api")
+include(":platform:storage:implementation")
+
 // Features
-include(":core:network:api")
-include(":core:network:implementation")
+include(":features:navigation")
 
-include(":core:preferences:api")
-include(":core:preferences:implementation")
+include(":features:login:api")
+include(":features:login:implementation")
+include(":features:login:ui")
 
-include(":feature:login:api")
-include(":feature:login:implementation")
-
-include(":feature:anime:api")
-include(":feature:anime:implementation")
-
-include(":core:utils")
-include(":feature:designSystem")
+include(":features:anime:api")
+include(":features:anime:implementation")
+include(":features:anime:ui")

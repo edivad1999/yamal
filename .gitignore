@@ -77,4 +77,12 @@ gradle.deps
 !.idea/ktlint.xml
 !.idea/detekt.xml
 /composeApp/cache/
-/iosApp/iosApp.xcodeproj/
+
+# iOS/Tuist specific
+/iosApp/**/*.xcodeproj
+/iosApp/**/*.xcworkspace
+/iosApp/.tuist-bin
+/iosApp/.tuist-generated
+/iosApp/Tuist/Dependencies
+/iosApp/Derived/
+/iosApp/xcuserdata/

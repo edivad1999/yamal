@@ -1,0 +1,247 @@
+package com.yamal.feature.anime.ui.animeDetails.screen
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Card
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
+import com.yamal.feature.anime.api.model.AnimeDetails
+import com.yamal.feature.anime.ui.animeDetails.presenter.AnimeDetailsIntent
+import com.yamal.feature.anime.ui.animeDetails.presenter.AnimeDetailsPresenter
+import org.koin.compose.koinInject
+import org.koin.core.parameter.parametersOf
+
+@Composable
+fun AnimeDetailsScreen(
+    animeId: Int,
+    onNavigateBack: () -> Unit,
+    presenter: AnimeDetailsPresenter = koinInject { parametersOf(animeId) },
+) {
+    val state by presenter.state.collectAsState()
+
+    LaunchedEffect(animeId) {
+        presenter.processIntent(AnimeDetailsIntent.Refresh)
+    }
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(
+                        text = state.anime?.title ?: "Anime Details",
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                },
+                navigationIcon = {
+                    IconButton(onClick = onNavigateBack) {
+                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                    }
+                },
+                backgroundColor = MaterialTheme.colors.primary
+            )
+        }
+    ) { paddingValues ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+        ) {
+            when {
+                state.loading -> {
+                    CircularProgressIndicator(
+                        modifier = Modifier.align(Alignment.Center)
+                    )
+                }
+                state.error != null -> {
+                    Text(
+                        text = "Error: ${state.error}",
+                        color = MaterialTheme.colors.error,
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .padding(16.dp)
+                    )
+                }
+                state.anime != null -> {
+                    AnimeDetailsContent(anime = state.anime!!)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun AnimeDetailsContent(anime: AnimeDetails) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+            .padding(16.dp)
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Card(
+                elevation = 4.dp
+            ) {
+                AsyncImage(
+                    model = anime.mainPicture?.large ?: anime.mainPicture?.medium,
+                    contentDescription = anime.title,
+                    modifier = Modifier
+                        .width(150.dp)
+                        .height(220.dp),
+                    contentScale = ContentScale.Crop
+                )
+            }
+
+            Spacer(modifier = Modifier.width(16.dp))
+
+            Column(
+                modifier = Modifier.weight(1f)
+            ) {
+                Text(
+                    text = anime.title,
+                    style = MaterialTheme.typography.h6,
+                    fontWeight = FontWeight.Bold
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                anime.mean?.let { score ->
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Star,
+                            contentDescription = null,
+                            tint = MaterialTheme.colors.primary,
+                            modifier = Modifier.size(20.dp)
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text(
+                            text = ((score * 100).toInt() / 100.0).toString(),
+                            style = MaterialTheme.typography.body1,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                InfoRow("Type", anime.mediaType.name)
+                InfoRow("Episodes", anime.numEpisodes.toString())
+                InfoRow("Status", anime.status)
+                anime.startSeason?.let {
+                    InfoRow("Season", "${it.season.name} ${it.year}")
+                }
+                anime.rating?.let {
+                    InfoRow("Rating", it)
+                }
+            }
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        if (anime.genre.isNotEmpty()) {
+            Text(
+                text = "Genres",
+                style = MaterialTheme.typography.subtitle1,
+                fontWeight = FontWeight.Bold
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = anime.genre.joinToString(", ") { it.name },
+                style = MaterialTheme.typography.body2
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+        }
+
+        if (anime.studios.isNotEmpty()) {
+            Text(
+                text = "Studios",
+                style = MaterialTheme.typography.subtitle1,
+                fontWeight = FontWeight.Bold
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = anime.studios.joinToString(", ") { it.name },
+                style = MaterialTheme.typography.body2
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+        }
+
+        anime.synopsis?.let { synopsis ->
+            Text(
+                text = "Synopsis",
+                style = MaterialTheme.typography.subtitle1,
+                fontWeight = FontWeight.Bold
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = synopsis,
+                style = MaterialTheme.typography.body2
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+        }
+
+        anime.background?.let { background ->
+            Text(
+                text = "Background",
+                style = MaterialTheme.typography.subtitle1,
+                fontWeight = FontWeight.Bold
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = background,
+                style = MaterialTheme.typography.body2
+            )
+        }
+    }
+}
+
+@Composable
+private fun InfoRow(label: String, value: String) {
+    Row(
+        modifier = Modifier.padding(vertical = 2.dp)
+    ) {
+        Text(
+            text = "$label: ",
+            style = MaterialTheme.typography.caption,
+            color = MaterialTheme.colors.onSurface.copy(alpha = 0.7f)
+        )
+        Text(
+            text = value,
+            style = MaterialTheme.typography.caption
+        )
+    }
+}
