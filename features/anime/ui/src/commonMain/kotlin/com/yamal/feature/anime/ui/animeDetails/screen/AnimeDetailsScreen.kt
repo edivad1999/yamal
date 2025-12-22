@@ -1,6 +1,5 @@
 package com.yamal.feature.anime.ui.animeDetails.screen
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -60,7 +59,7 @@ fun AnimeDetailsScreen(
                     Text(
                         text = state.anime?.title ?: "Anime Details",
                         maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
+                        overflow = TextOverflow.Ellipsis,
                     )
                 },
                 navigationIcon = {
@@ -68,30 +67,34 @@ fun AnimeDetailsScreen(
                         Icon(Icons.Default.ArrowBack, contentDescription = "Back")
                     }
                 },
-                backgroundColor = MaterialTheme.colors.primary
+                backgroundColor = MaterialTheme.colors.primary,
             )
-        }
+        },
     ) { paddingValues ->
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues),
         ) {
             when {
                 state.loading -> {
                     CircularProgressIndicator(
-                        modifier = Modifier.align(Alignment.Center)
+                        modifier = Modifier.align(Alignment.Center),
                     )
                 }
+
                 state.error != null -> {
                     Text(
                         text = "Error: ${state.error}",
                         color = MaterialTheme.colors.error,
-                        modifier = Modifier
-                            .align(Alignment.Center)
-                            .padding(16.dp)
+                        modifier =
+                            Modifier
+                                .align(Alignment.Center)
+                                .padding(16.dp),
                     )
                 }
+
                 state.anime != null -> {
                     AnimeDetailsContent(anime = state.anime!!)
                 }
@@ -103,55 +106,57 @@ fun AnimeDetailsScreen(
 @Composable
 private fun AnimeDetailsContent(anime: AnimeDetails) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .padding(16.dp)
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .padding(16.dp),
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         ) {
             Card(
-                elevation = 4.dp
+                elevation = 4.dp,
             ) {
                 AsyncImage(
                     model = anime.mainPicture?.large ?: anime.mainPicture?.medium,
                     contentDescription = anime.title,
-                    modifier = Modifier
-                        .width(150.dp)
-                        .height(220.dp),
-                    contentScale = ContentScale.Crop
+                    modifier =
+                        Modifier
+                            .width(150.dp)
+                            .height(220.dp),
+                    contentScale = ContentScale.Crop,
                 )
             }
 
             Spacer(modifier = Modifier.width(16.dp))
 
             Column(
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f),
             ) {
                 Text(
                     text = anime.title,
                     style = MaterialTheme.typography.h6,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
 
                 anime.mean?.let { score ->
                     Row(
-                        verticalAlignment = Alignment.CenterVertically
+                        verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Icon(
                             imageVector = Icons.Default.Star,
                             contentDescription = null,
                             tint = MaterialTheme.colors.primary,
-                            modifier = Modifier.size(20.dp)
+                            modifier = Modifier.size(20.dp),
                         )
                         Spacer(modifier = Modifier.width(4.dp))
                         Text(
                             text = ((score * 100).toInt() / 100.0).toString(),
                             style = MaterialTheme.typography.body1,
-                            fontWeight = FontWeight.Bold
+                            fontWeight = FontWeight.Bold,
                         )
                     }
                 }
@@ -176,12 +181,12 @@ private fun AnimeDetailsContent(anime: AnimeDetails) {
             Text(
                 text = "Genres",
                 style = MaterialTheme.typography.subtitle1,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = anime.genre.joinToString(", ") { it.name },
-                style = MaterialTheme.typography.body2
+                style = MaterialTheme.typography.body2,
             )
             Spacer(modifier = Modifier.height(16.dp))
         }
@@ -190,12 +195,12 @@ private fun AnimeDetailsContent(anime: AnimeDetails) {
             Text(
                 text = "Studios",
                 style = MaterialTheme.typography.subtitle1,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = anime.studios.joinToString(", ") { it.name },
-                style = MaterialTheme.typography.body2
+                style = MaterialTheme.typography.body2,
             )
             Spacer(modifier = Modifier.height(16.dp))
         }
@@ -204,12 +209,12 @@ private fun AnimeDetailsContent(anime: AnimeDetails) {
             Text(
                 text = "Synopsis",
                 style = MaterialTheme.typography.subtitle1,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = synopsis,
-                style = MaterialTheme.typography.body2
+                style = MaterialTheme.typography.body2,
             )
             Spacer(modifier = Modifier.height(16.dp))
         }
@@ -218,30 +223,33 @@ private fun AnimeDetailsContent(anime: AnimeDetails) {
             Text(
                 text = "Background",
                 style = MaterialTheme.typography.subtitle1,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = background,
-                style = MaterialTheme.typography.body2
+                style = MaterialTheme.typography.body2,
             )
         }
     }
 }
 
 @Composable
-private fun InfoRow(label: String, value: String) {
+private fun InfoRow(
+    label: String,
+    value: String,
+) {
     Row(
-        modifier = Modifier.padding(vertical = 2.dp)
+        modifier = Modifier.padding(vertical = 2.dp),
     ) {
         Text(
             text = "$label: ",
             style = MaterialTheme.typography.caption,
-            color = MaterialTheme.colors.onSurface.copy(alpha = 0.7f)
+            color = MaterialTheme.colors.onSurface.copy(alpha = 0.7f),
         )
         Text(
             text = value,
-            style = MaterialTheme.typography.caption
+            style = MaterialTheme.typography.caption,
         )
     }
 }

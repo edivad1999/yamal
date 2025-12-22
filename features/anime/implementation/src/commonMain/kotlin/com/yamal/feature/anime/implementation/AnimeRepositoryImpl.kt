@@ -7,14 +7,15 @@ import com.yamal.feature.anime.api.model.Season
 import com.yamal.feature.anime.api.model.UserListStatus
 import com.yamal.feature.anime.api.model.toDomain
 import com.yamal.feature.anime.implementation.mapping.toModel
-import com.yamal.platform.utils.MalPagingSource
 import com.yamal.platform.network.api.ApiService
 import com.yamal.platform.network.api.apiCallScope
 import com.yamal.platform.network.api.model.Anime
 import com.yamal.platform.network.api.model.RankedAnime
+import com.yamal.platform.utils.MalPagingSource
 
-class AnimeRepositoryImpl(private val apiService: ApiService) : AnimeRepository {
-
+class AnimeRepositoryImpl(
+    private val apiService: ApiService,
+) : AnimeRepository {
     override fun getRanking(): MalPagingSource<RankedAnime, GenericAnime> =
         MalPagingSource(apiCall = { pageSize, offset ->
             apiCallScope {

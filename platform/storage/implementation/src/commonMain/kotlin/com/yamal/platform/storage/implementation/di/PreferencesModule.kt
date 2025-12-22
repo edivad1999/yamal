@@ -8,14 +8,14 @@ import org.koin.core.module.Module
 import org.koin.dsl.module
 
 object PreferencesModule {
+    operator fun invoke() =
+        module {
+            provideSettingsFactory()
 
-    operator fun invoke() = module {
-        provideSettingsFactory()
-
-        single<PreferencesDatasource> {
-            PreferencesDatasourceImpl(get<SettingsFactory>().createSettings())
+            single<PreferencesDatasource> {
+                PreferencesDatasourceImpl(get<SettingsFactory>().createSettings())
+            }
         }
-    }
 }
 
 expect fun Module.provideSettingsFactory(): KoinDefinition<SettingsFactory>

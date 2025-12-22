@@ -1,11 +1,11 @@
 package com.yamal.feature.login.implementation
 
-import com.yamal.platform.utils.PKCEGenerator
 import com.yamal.feature.login.api.LoginRepository
 import com.yamal.platform.network.api.ApiService
 import com.yamal.platform.network.api.BuildConstants
 import com.yamal.platform.network.api.apiCallScope
 import com.yamal.platform.storage.api.PreferencesDatasource
+import com.yamal.platform.utils.PKCEGenerator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
@@ -18,7 +18,6 @@ class LoginRepositoryImpl(
     private val apiService: ApiService,
     private val preferencesDatasource: PreferencesDatasource,
 ) : LoginRepository {
-
     private val codeChallenge = PKCEGenerator.generate(PKCE_LENGTH)
     private val userAuthenticated =
         flow {
@@ -48,7 +47,6 @@ class LoginRepositoryImpl(
     }
 
     companion object {
-
         const val MAL_AUTH_URL = "https://myanimelist.net/v1/oauth2/authorize"
         const val RESPONSE_TYPE_PARAM = "code"
         const val PKCE_LENGTH = 128

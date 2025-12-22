@@ -1,26 +1,10 @@
-import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.jetbrainsCompose)
-    alias(libs.plugins.kotlinCompose)
+    id("yamal.application")
 }
 
 kotlin {
-    jvmToolchain(libs.versions.jdk.get().toInt())
-    androidTarget()
-    jvm("desktop")
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64(),
-    ).forEach { iosTarget ->
-        iosTarget.binaries.framework {
-            baseName = "ComposeApp"
-        }
-    }
 
     sourceSets {
         val desktopMain by getting
@@ -81,25 +65,7 @@ android {
         applicationId = "com.yamal"
         versionCode = 1
         versionName = "1.0"
-        minSdk = libs.versions.minSdk.get().toInt()
     }
-    compileSdk = libs.versions.compileSdk.get().toInt()
-    buildFeatures {
-        compose = true
-    }
-
-
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-        }
-    }
-
 }
 
 compose.desktop {

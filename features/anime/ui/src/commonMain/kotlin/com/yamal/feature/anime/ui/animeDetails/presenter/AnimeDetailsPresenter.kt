@@ -19,11 +19,10 @@ class AnimeDetailsPresenter(
     private val animeRepository: AnimeRepository,
     private val animeId: Int,
 ) : Presenter<AnimeDetailsUi, AnimeDetailsUi, AnimeDetailsIntent, Nothing>() {
-
     private fun getAnimeDetails() {
         updateInternalState {
             it.copy(
-                loading = true
+                loading = true,
             )
         }
         viewModelScope.launch {
@@ -32,17 +31,19 @@ class AnimeDetailsPresenter(
                     updateInternalState {
                         it.copy(
                             error = apiError,
-                            loading = false
+                            loading = false,
                         )
                     }
-                }, ifRight = { animeDetails ->
-                updateInternalState {
-                    it.copy(
-                        anime = animeDetails,
-                        loading = false
-                    )
-                }
-            })
+                },
+                ifRight = { animeDetails ->
+                    updateInternalState {
+                        it.copy(
+                            anime = animeDetails,
+                            loading = false,
+                        )
+                    }
+                },
+            )
         }
     }
 
@@ -60,6 +61,5 @@ class AnimeDetailsPresenter(
 }
 
 sealed interface AnimeDetailsIntent {
-
     object Refresh : AnimeDetailsIntent
 }

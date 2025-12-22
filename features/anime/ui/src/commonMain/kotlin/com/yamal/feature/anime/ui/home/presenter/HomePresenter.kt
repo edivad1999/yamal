@@ -6,10 +6,11 @@ import com.yamal.mvi.Presenter
 import kotlinx.coroutines.flow.StateFlow
 
 @Stable
-class HomeState()
+class HomeState
 
-class HomePresenter(private val animeRepository: AnimeRepository) : Presenter<HomeState, HomeState, Nothing, Nothing>() {
-
+class HomePresenter(
+    private val animeRepository: AnimeRepository,
+) : Presenter<HomeState, HomeState, Nothing, Nothing>() {
     override fun initialInternalState(): HomeState = HomeState()
 
     override val state: StateFlow<HomeState> = getInternalState()

@@ -17,7 +17,7 @@ indent_size = 2
 indent_size = 2
 
 [{*.kt,*.kts}]
-ktlint_code_style = ktlint
+ktlint_code_style = ktlint_official
 ktlint_standard_ij_kotlin_packages_to_use_import_on_demand = disabled #to be enabled
 ktlint_custom-rule-set = enabled # Enable all rules in the `custom-rule-set` rule set (not provided by KtLint)
 ij_kotlin_allow_trailing_comma = true

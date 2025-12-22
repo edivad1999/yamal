@@ -5,6 +5,7 @@ import com.yamal.platform.storage.implementation.factory.SettingsFactoryDesktop
 import org.koin.core.definition.KoinDefinition
 import org.koin.core.module.Module
 
-actual fun Module.provideSettingsFactory(): KoinDefinition<SettingsFactory> = single {
-    SettingsFactoryDesktop()
-}
+actual fun Module.provideSettingsFactory(): KoinDefinition<SettingsFactory> =
+    single {
+        SettingsFactoryDesktop()
+    }

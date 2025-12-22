@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.androidLibrary) apply false
     alias(libs.plugins.kotlinMultiplatform) apply false
     alias(libs.plugins.kotlinSerialization) apply false
+    alias(libs.plugins.ktlintGradle) apply false
     id("com.codingfeline.buildkonfig") version "0.17.1" apply false
     id("com.google.gms.google-services") version "4.4.4" apply false
 }

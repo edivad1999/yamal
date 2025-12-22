@@ -34,18 +34,20 @@ object AnimeSeasonal
 object AnimeRanking
 
 @Serializable
-data class AnimeDetails(val animeId: Int)
+data class AnimeDetails(
+    val animeId: Int,
+)
 
 @Composable
 fun YamalNavGraph(
     navController: NavHostController = rememberNavController(),
     startDestination: Any = Login,
     authCodeFlow: StateFlow<String?>,
-    launchBrowser: (String) -> Unit
+    launchBrowser: (String) -> Unit,
 ) {
     NavHost(
         navController = navController,
-        startDestination = startDestination
+        startDestination = startDestination,
     ) {
         composable<Login> {
             LoginScreen(
@@ -55,7 +57,7 @@ fun YamalNavGraph(
                     }
                 },
                 authCodeFlow = authCodeFlow,
-                launchBrowser = launchBrowser
+                launchBrowser = launchBrowser,
             )
         }
 
@@ -69,7 +71,7 @@ fun YamalNavGraph(
                 },
                 onNavigateToUserList = {
                     navController.navigate(UserAnimeList)
-                }
+                },
             )
         }
 
@@ -80,7 +82,7 @@ fun YamalNavGraph(
                 },
                 onAnimeClick = { animeId ->
                     navController.navigate(AnimeDetails(animeId))
-                }
+                },
             )
         }
 
@@ -91,7 +93,7 @@ fun YamalNavGraph(
                 },
                 onAnimeClick = { animeId ->
                     navController.navigate(AnimeDetails(animeId))
-                }
+                },
             )
         }
 
@@ -102,7 +104,7 @@ fun YamalNavGraph(
                 },
                 onAnimeClick = { animeId ->
                     navController.navigate(AnimeDetails(animeId))
-                }
+                },
             )
         }
 
@@ -112,7 +114,7 @@ fun YamalNavGraph(
                 animeId = animeDetails.animeId,
                 onNavigateBack = {
                     navController.popBackStack()
-                }
+                },
             )
         }
     }

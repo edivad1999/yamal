@@ -63,17 +63,18 @@ fun LoginScreen(
     }
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(32.dp),
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .padding(32.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
     ) {
         Icon(
             imageVector = Icons.Default.Person,
             contentDescription = null,
             modifier = Modifier.size(120.dp),
-            tint = MaterialTheme.colors.primary
+            tint = MaterialTheme.colors.primary,
         )
 
         Spacer(modifier = Modifier.height(32.dp))
@@ -81,7 +82,7 @@ fun LoginScreen(
         Text(
             text = "Welcome to YAMAL",
             style = MaterialTheme.typography.h4,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -90,7 +91,7 @@ fun LoginScreen(
             text = "Yet Another MyAnimeList Client",
             style = MaterialTheme.typography.subtitle1,
             textAlign = TextAlign.Center,
-            color = MaterialTheme.colors.onSurface.copy(alpha = 0.7f)
+            color = MaterialTheme.colors.onSurface.copy(alpha = 0.7f),
         )
 
         Spacer(modifier = Modifier.height(48.dp))
@@ -98,7 +99,7 @@ fun LoginScreen(
         Button(
             onClick = {
                 presenter.processIntent(LoginIntent.OpenLoginBrowser(state.authorizationUrl))
-            }
+            },
         ) {
             Text("Login with MyAnimeList")
         }

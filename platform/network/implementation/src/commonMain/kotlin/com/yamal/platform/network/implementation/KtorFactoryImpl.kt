@@ -27,7 +27,6 @@ class KtorFactoryImpl(
     private val preferencesDatasource: PreferencesDatasource,
     private val buildConstants: BuildConstants,
 ) : KtorFactory {
-
     override fun createClient() =
         HttpClient {
             install(ContentNegotiation) {
@@ -65,15 +64,16 @@ class KtorFactoryImpl(
                     }
                     refreshTokens {
                         val oldRefreshToken = preferencesDatasource.getAccessToken()?.refreshToken ?: return@refreshTokens null
-                        client.refreshToken(
-                            clientId = buildConstants.malClientId,
-                            refreshToken = oldRefreshToken,
-                        ) {
-                            markAsRefreshTokenRequest()
-                        }.let {
-                            preferencesDatasource.setAccessToken(it)
-                            BearerTokens(it.accessToken, it.refreshToken)
-                        }
+                        client
+                            .refreshToken(
+                                clientId = buildConstants.malClientId,
+                                refreshToken = oldRefreshToken,
+                            ) {
+                                markAsRefreshTokenRequest()
+                            }.let {
+                                preferencesDatasource.setAccessToken(it)
+                                BearerTokens(it.accessToken, it.refreshToken)
+                            }
                     }
                 }
             }

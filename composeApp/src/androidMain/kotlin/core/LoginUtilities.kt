@@ -7,7 +7,6 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
 
 actual object LoginUtilities : KoinComponent, AuthCodeHandler() {
-
     actual fun launchBrowser(url: String) {
         val context: Context = get()
         Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {

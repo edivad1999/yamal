@@ -80,8 +80,6 @@ class YamalColors(
                     "#ffffff",
                 )
 
-
-
             fun dark(): NeutralColors = NeutralColorsFactory.fromPalette(palette, isDark = true)
 
             fun light(): NeutralColors = NeutralColorsFactory.fromPalette(palette, isDark = false)

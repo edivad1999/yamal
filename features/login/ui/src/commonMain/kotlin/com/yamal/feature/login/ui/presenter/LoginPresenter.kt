@@ -15,27 +15,35 @@ data class LoginState(
 )
 
 sealed interface LoginIntent {
-    data class OpenLoginBrowser(val url: String) : LoginIntent
+    data class OpenLoginBrowser(
+        val url: String,
+    ) : LoginIntent
 
-    data class AuthorizationComplete(val code: String) : LoginIntent
+    data class AuthorizationComplete(
+        val code: String,
+    ) : LoginIntent
 }
 
 sealed interface LoginEffect {
-    data class OpenBrowser(val url: String) : LoginEffect
+    data class OpenBrowser(
+        val url: String,
+    ) : LoginEffect
 }
 
-class LoginPresenter(private val loginRepository: LoginRepository) : Presenter<LoginState, LoginState, LoginIntent, LoginEffect>() {
-
+class LoginPresenter(
+    private val loginRepository: LoginRepository,
+) : Presenter<LoginState, LoginState, LoginIntent, LoginEffect>() {
     private val isLoggedIn = loginRepository.isUserAuthenticated()
 
     override val state: StateFlow<LoginState> =
-        isLoggedIn.map {
-            LoginState(it, loginRepository.getAuthorizationUrl())
-        }.stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
-            initialValue = initialInternalState(),
-        )
+        isLoggedIn
+            .map {
+                LoginState(it, loginRepository.getAuthorizationUrl())
+            }.stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5000),
+                initialValue = initialInternalState(),
+            )
 
     override fun initialInternalState(): LoginState = LoginState(false, loginRepository.getAuthorizationUrl())
 

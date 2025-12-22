@@ -10,23 +10,23 @@ import kotlinx.serialization.json.Json
 import org.koin.dsl.module
 
 object NetworkModule {
-
-    operator fun invoke() = module {
-        single<BuildConstants> {
-            BuildConstantsImpl()
-        }
-        single {
-            Json {
-                coerceInputValues = true
-                isLenient = true
-                ignoreUnknownKeys = true
+    operator fun invoke() =
+        module {
+            single<BuildConstants> {
+                BuildConstantsImpl()
+            }
+            single {
+                Json {
+                    coerceInputValues = true
+                    isLenient = true
+                    ignoreUnknownKeys = true
+                }
+            }
+            single<KtorFactory> {
+                KtorFactoryImpl(json = get(), preferencesDatasource = get(), buildConstants = get())
+            }
+            single<ApiService> {
+                ApiServiceImpl(httpClient = get<KtorFactory>().createClient(), buildConstants = get())
             }
         }
-        single<KtorFactory> {
-            KtorFactoryImpl(json = get(), preferencesDatasource = get(), buildConstants = get())
-        }
-        single<ApiService> {
-            ApiServiceImpl(httpClient = get<KtorFactory>().createClient(), buildConstants = get())
-        }
-    }
 }

@@ -13,6 +13,7 @@ class LibraryMultiplatformModulePlugin : Plugin<Project> {
             with(pluginManager) {
                 apply("org.jetbrains.kotlin.multiplatform")
                 apply("com.android.library")
+                apply("yamal.ktlint")
             }
 
             extensions.configure<LibraryExtension> {

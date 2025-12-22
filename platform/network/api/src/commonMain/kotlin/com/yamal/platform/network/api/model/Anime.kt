@@ -33,7 +33,9 @@ data class Anime(
     @SerialName("studios") val studios: List<AnimeStudioNetwork> = emptyList(),
 )
 
-enum class AnimeRequestField(val serializableValue: String) {
+enum class AnimeRequestField(
+    val serializableValue: String,
+) {
     Mean("mean"),
     NumScoringUsers("num_scoring_users"),
     MyListStatus("my_list_status"),
@@ -65,21 +67,55 @@ enum class AnimeRequestField(val serializableValue: String) {
     RelatedAnime("related_anime"),
     RelatedManga("related_manga"),
     Recommendations("recommendations"),
-    Statistics("statistics")
-
+    Statistics("statistics"),
     ;
 
     companion object {
+        fun animeRankingFields(): List<AnimeRequestField> =
+            listOf(
+                Mean,
+                NumListUsers,
+                MyListStatus,
+                MediaType,
+                StartDate,
+                EndDate,
+                NumberOfEpisodes,
+            )
 
-        fun animeRankingFields(): List<AnimeRequestField> = listOf(
-            Mean, NumListUsers, MyListStatus, MediaType, StartDate, EndDate, NumberOfEpisodes
-        )
-
-        fun animeDetailsFields(): List<AnimeRequestField> = listOf(
-            Id, Title, MainPicture, AlternativeTitles, StartDate, EndDate, Synopsis, Mean, Rank, Popularity, NumListUsers, Nsfw, Genres, CreatedAt,
-            UpdatedAt, MediaType, Status, MyListStatus, NumberOfEpisodes, StartSeason, Broadcast, Source, AverageEpisodeDuration, Rating, Studios,
-            Pictures, Background, RelatedAnime, RelatedManga, Recommendations, Statistics
-        )
+        fun animeDetailsFields(): List<AnimeRequestField> =
+            listOf(
+                Id,
+                Title,
+                MainPicture,
+                AlternativeTitles,
+                StartDate,
+                EndDate,
+                Synopsis,
+                Mean,
+                Rank,
+                Popularity,
+                NumListUsers,
+                Nsfw,
+                Genres,
+                CreatedAt,
+                UpdatedAt,
+                MediaType,
+                Status,
+                MyListStatus,
+                NumberOfEpisodes,
+                StartSeason,
+                Broadcast,
+                Source,
+                AverageEpisodeDuration,
+                Rating,
+                Studios,
+                Pictures,
+                Background,
+                RelatedAnime,
+                RelatedManga,
+                Recommendations,
+                Statistics,
+            )
     }
 }
 

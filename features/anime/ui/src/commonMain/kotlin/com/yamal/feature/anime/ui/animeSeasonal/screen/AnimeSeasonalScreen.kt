@@ -53,26 +53,27 @@ fun AnimeSeasonalScreen(
                         Icon(Icons.Default.ArrowBack, contentDescription = "Back")
                     }
                 },
-                backgroundColor = MaterialTheme.colors.primary
+                backgroundColor = MaterialTheme.colors.primary,
             )
-        }
+        },
     ) { paddingValues ->
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues),
         ) {
             if (state.animeSeason.isNotEmpty()) {
                 ScrollableTabRow(
                     selectedTabIndex = selectedTabIndex,
                     backgroundColor = MaterialTheme.colors.surface,
-                    edgePadding = 16.dp
+                    edgePadding = 16.dp,
                 ) {
                     state.animeSeason.forEachIndexed { index, (season, _) ->
                         Tab(
                             selected = selectedTabIndex == index,
                             onClick = { selectedTabIndex = index },
-                            text = { Text("${season.season.name} ${season.year}") }
+                            text = { Text("${season.season.name} ${season.year}") },
                         )
                     }
                 }
@@ -83,14 +84,15 @@ fun AnimeSeasonalScreen(
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
                     contentPadding = PaddingValues(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
                     items(lazyPagingItems.itemCount) { index ->
                         lazyPagingItems[index]?.let { anime ->
                             Box(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .clickable { onAnimeClick(anime.id) }
+                                modifier =
+                                    Modifier
+                                        .fillMaxWidth()
+                                        .clickable { onAnimeClick(anime.id) },
                             ) {
                                 GenericAnimeCard(anime)
                             }
@@ -101,24 +103,27 @@ fun AnimeSeasonalScreen(
                         is LoadState.Loading -> {
                             item {
                                 Box(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(16.dp),
-                                    contentAlignment = Alignment.Center
+                                    modifier =
+                                        Modifier
+                                            .fillMaxWidth()
+                                            .padding(16.dp),
+                                    contentAlignment = Alignment.Center,
                                 ) {
                                     CircularProgressIndicator()
                                 }
                             }
                         }
+
                         is LoadState.Error -> {
                             item {
                                 Text(
                                     text = "Error loading more items",
                                     modifier = Modifier.padding(16.dp),
-                                    color = MaterialTheme.colors.error
+                                    color = MaterialTheme.colors.error,
                                 )
                             }
                         }
+
                         else -> {}
                     }
                 }

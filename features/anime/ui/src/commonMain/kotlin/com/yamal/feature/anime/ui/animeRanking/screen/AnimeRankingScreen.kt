@@ -47,23 +47,25 @@ fun AnimeRankingScreen(
                         Icon(Icons.Default.ArrowBack, contentDescription = "Back")
                     }
                 },
-                backgroundColor = MaterialTheme.colors.primary
+                backgroundColor = MaterialTheme.colors.primary,
             )
-        }
+        },
     ) { paddingValues ->
         LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues),
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues),
             contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             items(lazyPagingItems.itemCount) { index ->
                 lazyPagingItems[index]?.let { anime ->
                     Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable { onAnimeClick(anime.id) }
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .clickable { onAnimeClick(anime.id) },
                     ) {
                         GenericAnimeCard(anime)
                     }
@@ -74,24 +76,27 @@ fun AnimeRankingScreen(
                 is LoadState.Loading -> {
                     item {
                         Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(32.dp),
-                            contentAlignment = Alignment.Center
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .padding(32.dp),
+                            contentAlignment = Alignment.Center,
                         ) {
                             CircularProgressIndicator()
                         }
                     }
                 }
+
                 is LoadState.Error -> {
                     item {
                         Text(
                             text = "Error loading anime ranking",
                             modifier = Modifier.padding(16.dp),
-                            color = MaterialTheme.colors.error
+                            color = MaterialTheme.colors.error,
                         )
                     }
                 }
+
                 else -> {}
             }
 
@@ -99,24 +104,27 @@ fun AnimeRankingScreen(
                 is LoadState.Loading -> {
                     item {
                         Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(16.dp),
-                            contentAlignment = Alignment.Center
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .padding(16.dp),
+                            contentAlignment = Alignment.Center,
                         ) {
                             CircularProgressIndicator()
                         }
                     }
                 }
+
                 is LoadState.Error -> {
                     item {
                         Text(
                             text = "Error loading more items",
                             modifier = Modifier.padding(16.dp),
-                            color = MaterialTheme.colors.error
+                            color = MaterialTheme.colors.error,
                         )
                     }
                 }
+
                 else -> {}
             }
         }

@@ -5,8 +5,9 @@ import com.yamal.platform.network.api.model.AccessToken
 import com.yamal.platform.storage.api.PreferencesDatasource
 import com.yamal.platform.storage.implementation.extensions.string
 
-class PreferencesDatasourceImpl(settings: Settings) : PreferencesDatasource {
-
+class PreferencesDatasourceImpl(
+    settings: Settings,
+) : PreferencesDatasource {
     private var access: String by settings.string()
     private var refresh: String by settings.string()
 

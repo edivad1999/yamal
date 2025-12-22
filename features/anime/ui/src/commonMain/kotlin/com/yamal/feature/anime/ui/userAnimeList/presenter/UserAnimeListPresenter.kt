@@ -7,9 +7,9 @@ import androidx.paging.PagingData
 import com.yamal.feature.anime.api.AnimeRepository
 import com.yamal.feature.anime.api.model.GenericAnime
 import com.yamal.feature.anime.api.model.UserListStatus
+import com.yamal.feature.anime.ui.core.presenterPager
 import com.yamal.feature.login.api.LoginRepository
 import com.yamal.mvi.Presenter
-import com.yamal.feature.anime.ui.core.presenterPager
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -32,15 +32,15 @@ data class StatusAnimeList(
 
 @Immutable
 sealed interface UserAnimeListIntent {
-
-    data class OnSelectStatus(val status: UserListStatus) : UserAnimeListIntent
+    data class OnSelectStatus(
+        val status: UserListStatus,
+    ) : UserAnimeListIntent
 }
 
 class UserAnimeListPresenter(
     private val animeRepository: AnimeRepository,
     private val loginRepository: LoginRepository,
 ) : Presenter<UserListStatus, UserAnimeListUi, UserAnimeListIntent, Nothing>() {
-
     private val userAnimeList =
         loginRepository.isUserAuthenticated().distinctUntilChanged().map {
             UserListStatus.entries.map {

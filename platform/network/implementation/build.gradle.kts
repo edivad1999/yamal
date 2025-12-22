@@ -7,9 +7,10 @@ plugins {
     kotlin("plugin.serialization")
     id("com.codingfeline.buildkonfig")
 }
-val localProperties = Properties().apply {
-    load(localPropertiesFile.reader())
-}
+val localProperties =
+    Properties().apply {
+        load(localPropertiesFile.reader())
+    }
 
 kotlin {
     sourceSets.commonMain.dependencies {
@@ -42,7 +43,7 @@ buildkonfig {
         buildConfigField(
             type = FieldSpec.Type.STRING,
             name = "malClientId",
-            value = localProperties.getProperty("malClientId")
+            value = localProperties.getProperty("malClientId"),
         )
     }
 }

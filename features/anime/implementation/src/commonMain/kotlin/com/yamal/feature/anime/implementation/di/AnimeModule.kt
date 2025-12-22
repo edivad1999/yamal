@@ -5,10 +5,10 @@ import com.yamal.feature.anime.implementation.AnimeRepositoryImpl
 import org.koin.dsl.module
 
 object AnimeModule {
-
-    operator fun invoke() = module {
-        single<AnimeRepository> {
-            AnimeRepositoryImpl(apiService = get())
+    operator fun invoke() =
+        module {
+            single<AnimeRepository> {
+                AnimeRepositoryImpl(apiService = get())
+            }
         }
-    }
 }

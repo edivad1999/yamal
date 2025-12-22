@@ -13,7 +13,6 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.coil.compose)
-
         }
     }
 }

@@ -36,32 +36,33 @@ fun HomeScreen(
         topBar = {
             TopAppBar(
                 title = { Text("YAMAL") },
-                backgroundColor = MaterialTheme.colors.primary
+                backgroundColor = MaterialTheme.colors.primary,
             )
-        }
+        },
     ) { paddingValues ->
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
+                    .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             Text(
                 text = "Discover Anime",
-                style = MaterialTheme.typography.h5
+                style = MaterialTheme.typography.h5,
             )
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
             ) {
                 HomeCard(
                     modifier = Modifier.weight(1f),
                     title = "Seasonal",
                     subtitle = "Current season anime",
                     icon = Icons.Default.DateRange,
-                    onClick = onNavigateToSeasonal
+                    onClick = onNavigateToSeasonal,
                 )
 
                 HomeCard(
@@ -69,7 +70,7 @@ fun HomeScreen(
                     title = "Ranking",
                     subtitle = "Top rated anime",
                     icon = Icons.Default.Star,
-                    onClick = onNavigateToRanking
+                    onClick = onNavigateToRanking,
                 )
             }
 
@@ -77,7 +78,7 @@ fun HomeScreen(
 
             Text(
                 text = "Your Library",
-                style = MaterialTheme.typography.h5
+                style = MaterialTheme.typography.h5,
             )
 
             HomeCard(
@@ -85,7 +86,7 @@ fun HomeScreen(
                 title = "My Anime List",
                 subtitle = "Your watched and planned anime",
                 icon = Icons.Default.List,
-                onClick = onNavigateToUserList
+                onClick = onNavigateToUserList,
             )
         }
     }
@@ -103,30 +104,30 @@ private fun HomeCard(
     Card(
         modifier = modifier,
         elevation = 4.dp,
-        onClick = onClick
+        onClick = onClick,
     ) {
         Column(
             modifier = Modifier.padding(16.dp),
-            horizontalAlignment = Alignment.Start
+            horizontalAlignment = Alignment.Start,
         ) {
             Icon(
                 imageVector = icon,
                 contentDescription = null,
                 modifier = Modifier.size(32.dp),
-                tint = MaterialTheme.colors.primary
+                tint = MaterialTheme.colors.primary,
             )
 
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
                 text = title,
-                style = MaterialTheme.typography.h6
+                style = MaterialTheme.typography.h6,
             )
 
             Text(
                 text = subtitle,
                 style = MaterialTheme.typography.caption,
-                color = MaterialTheme.colors.onSurface.copy(alpha = 0.7f)
+                color = MaterialTheme.colors.onSurface.copy(alpha = 0.7f),
             )
         }
     }

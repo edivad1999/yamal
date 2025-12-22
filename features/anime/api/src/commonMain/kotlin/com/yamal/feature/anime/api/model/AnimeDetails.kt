@@ -49,11 +49,17 @@ data class AnimeDetails(
     val statistics: Statistics?,
 )
 
-data class AnimeSeason(val year: String, val season: Season) {
+data class AnimeSeason(
+    val year: String,
+    val season: Season,
+) {
     companion object
 }
 
-data class NamedIdObject(val id: Int, val name: String)
+data class NamedIdObject(
+    val id: Int,
+    val name: String,
+)
 
 data class AlternativeTitles(
     val synonyms: List<String>,
@@ -101,7 +107,9 @@ data class MyListStatus(
     val updatedAt: String? = null,
 )
 
-enum class RelationType(val serialName: String) {
+enum class RelationType(
+    val serialName: String,
+) {
     Sequel("sequel"),
     Prequel("prequel"),
     AlternativeSetting("alternative_setting"),
@@ -110,140 +118,157 @@ enum class RelationType(val serialName: String) {
     ParentStory("parent_story"),
     Summary("summary"),
     FullStory("full_story"),
-    ;
 }
 
-fun PictureNetwork.toPicture() = Picture(
-    large = this.large,
-    medium = this.medium
-)
+fun PictureNetwork.toPicture() =
+    Picture(
+        large = this.large,
+        medium = this.medium,
+    )
 
-fun AlternativeTitlesNetwork.toAlternativeTitles() = AlternativeTitles(
-    synonyms = synonyms ?: emptyList(),
-    en = en,
-    ja = ja
-)
+fun AlternativeTitlesNetwork.toAlternativeTitles() =
+    AlternativeTitles(
+        synonyms = synonyms ?: emptyList(),
+        en = en,
+        ja = ja,
+    )
 
-fun GenreNetwork.toGenre() = Genre(
-    id = id,
-    name = name
-)
+fun GenreNetwork.toGenre() =
+    Genre(
+        id = id,
+        name = name,
+    )
 
-fun MyListStatusNetwork.toMyListStatus() = MyListStatus(
-    status = status,
-    score = score,
-    numEpisodeWatched = numEpisodeWatched,
-    isRewatching = isRewatching,
-    startDate = startDate,
-    finishDate = finishDate,
-    priority = priority,
-    numTimesRewatched = numTimesRewatched,
-    rewatchValue = rewatchValue
-)
+fun MyListStatusNetwork.toMyListStatus() =
+    MyListStatus(
+        status = status,
+        score = score,
+        numEpisodeWatched = numEpisodeWatched,
+        isRewatching = isRewatching,
+        startDate = startDate,
+        finishDate = finishDate,
+        priority = priority,
+        numTimesRewatched = numTimesRewatched,
+        rewatchValue = rewatchValue,
+    )
 
-fun BroadcastNetwork.toBroadcast() = Broadcast(
-    dayOfTheWeek, startTime
-)
+fun BroadcastNetwork.toBroadcast() =
+    Broadcast(
+        dayOfTheWeek,
+        startTime,
+    )
 
-fun AnimeStudioNetwork.toAnimeStudio() = AnimeStudio(
-    id, name
-)
+fun AnimeStudioNetwork.toAnimeStudio() =
+    AnimeStudio(
+        id,
+        name,
+    )
 
-fun AnimeRecommendationAggregationEdgeBase.toAnimeRecommendation() = AnimeRecommendation(
-    node = GenericAnime(
-        id = node.id,
-        title = node.title,
-        mainPicture = node.mainPictureNetwork?.toPicture(),
-        rank = node.rank,
-        members = node.numListUsers,
-        mean = node.mean,
-        mediaType = MediaType.fromSerializedValue(node.mediaType),
-        userVote = node.myListStatusNetwork?.score,
-        startDate = node.startDate,
-        endDate = node.endDate,
-        numberOfEpisodes = node.numEpisodes
-    ),
-    numRecommendations = numRecommendations
-)
+fun AnimeRecommendationAggregationEdgeBase.toAnimeRecommendation() =
+    AnimeRecommendation(
+        node =
+            GenericAnime(
+                id = node.id,
+                title = node.title,
+                mainPicture = node.mainPictureNetwork?.toPicture(),
+                rank = node.rank,
+                members = node.numListUsers,
+                mean = node.mean,
+                mediaType = MediaType.fromSerializedValue(node.mediaType),
+                userVote = node.myListStatusNetwork?.score,
+                startDate = node.startDate,
+                endDate = node.endDate,
+                numberOfEpisodes = node.numEpisodes,
+            ),
+        numRecommendations = numRecommendations,
+    )
 
-fun StatisticsNetwork.toStatistics() = Statistics(
-    numListUsers, statsStatus
-)
+fun StatisticsNetwork.toStatistics() =
+    Statistics(
+        numListUsers,
+        statsStatus,
+    )
 
-fun StartSeason.toAnimeSeason() = AnimeSeason(
-    year.toString(),
-    Season.entries.first { it.serialName == season }
-)
+fun StartSeason.toAnimeSeason() =
+    AnimeSeason(
+        year.toString(),
+        Season.entries.first { it.serialName == season },
+    )
 
-fun RelatedAnimeEdge.toRelatedAnime() = RelatedItem<GenericAnime>(
-    node = GenericAnime(
-        id = node.id,
-        title = node.title,
-        mainPicture = node.mainPictureNetwork?.toPicture(),
-        rank = node.rank,
-        members = node.numListUsers,
-        mean = node.mean,
-        mediaType = MediaType.fromSerializedValue(node.mediaType),
-        userVote = node.myListStatusNetwork?.score,
-        startDate = node.startDate,
-        endDate = node.endDate,
-        numberOfEpisodes = node.numEpisodes
-    ),
-    relation = Relation(RelationType.entries.first { it.serialName == relation_type }, relation_type_formatted ?: "")
-)
+fun RelatedAnimeEdge.toRelatedAnime() =
+    RelatedItem<GenericAnime>(
+        node =
+            GenericAnime(
+                id = node.id,
+                title = node.title,
+                mainPicture = node.mainPictureNetwork?.toPicture(),
+                rank = node.rank,
+                members = node.numListUsers,
+                mean = node.mean,
+                mediaType = MediaType.fromSerializedValue(node.mediaType),
+                userVote = node.myListStatusNetwork?.score,
+                startDate = node.startDate,
+                endDate = node.endDate,
+                numberOfEpisodes = node.numEpisodes,
+            ),
+        relation = Relation(RelationType.entries.first { it.serialName == relation_type }, relation_type_formatted ?: ""),
+    )
 
-fun RelatedMangaEdge.toRelatedManga() = RelatedItem<GenericManga>(
-    node = GenericManga(
-        id = node.id,
-        title = node.title,
-        mainPicture = node.mainPictureNetwork?.toPicture(),
-        rank = node.rank,
-        members = node.numListUsers,
-        mean = node.mean,
-        mediaType = MediaType.fromSerializedValue(node.mediaType),
-        userVote = node.myListStatusNetwork?.score,
-        startDate = node.startDate,
-        endDate = node.endDate,
-        numberOfVolumes = node.numVolumes,
-        numberOfChapters = node.numChapters
-    ),
-    relation = Relation(RelationType.entries.first { it.serialName == relation_type }, relation_type_formatted ?: "")
-)
+fun RelatedMangaEdge.toRelatedManga() =
+    RelatedItem<GenericManga>(
+        node =
+            GenericManga(
+                id = node.id,
+                title = node.title,
+                mainPicture = node.mainPictureNetwork?.toPicture(),
+                rank = node.rank,
+                members = node.numListUsers,
+                mean = node.mean,
+                mediaType = MediaType.fromSerializedValue(node.mediaType),
+                userVote = node.myListStatusNetwork?.score,
+                startDate = node.startDate,
+                endDate = node.endDate,
+                numberOfVolumes = node.numVolumes,
+                numberOfChapters = node.numChapters,
+            ),
+        relation = Relation(RelationType.entries.first { it.serialName == relation_type }, relation_type_formatted ?: ""),
+    )
 
-fun AnimeDetailsNetwork.toDomain() = AnimeDetails(
-    id = id,
-    title = title,
-    mainPicture = mainPictureNetwork?.toPicture(),
-    alternativeTitles = alternativeTitlesNetwork?.toAlternativeTitles(),
-    startDate = startDate,
-    endDate = endDate,
-    synopsis = synopsis,
-    mean = mean,
-    rank = rank,
-    popularity = popularity,
-    numListUsers = numListUsers,
-    numScoringUsers = numScoringUsers,
-    nsfw = nsfw,
-    genre = genreNetworks.map { it.toGenre() },
-    createdAt = createdAt,
-    updatedAt = updatedAt,
-    mediaType = MediaType.fromSerializedValue(mediaType),
-    status = status,
-    myListStatus = myListStatusNetwork?.toMyListStatus(),
-    numEpisodes = numEpisodes,
-    startSeason = startSeason?.toAnimeSeason(),
-    broadcast = broadcastNetwork?.toBroadcast(),
-    source = source,
-    averageEpisodeDuration = averageEpisodeDuration,
-    rating = rating,
-    studios = studios.map { it.toAnimeStudio() },
-    pictures = pictureNetworks.map { it.toPicture() },
-    background = background,
-    relatedAnime = relatedAnime.map { it.toRelatedAnime() },
-    relatedManga = relatedManga.map { it.toRelatedManga() },
-    recommendations = recommendations.map { it.toAnimeRecommendation() },
-    statistics = statisticsNetwork?.toStatistics()
-)
+fun AnimeDetailsNetwork.toDomain() =
+    AnimeDetails(
+        id = id,
+        title = title,
+        mainPicture = mainPictureNetwork?.toPicture(),
+        alternativeTitles = alternativeTitlesNetwork?.toAlternativeTitles(),
+        startDate = startDate,
+        endDate = endDate,
+        synopsis = synopsis,
+        mean = mean,
+        rank = rank,
+        popularity = popularity,
+        numListUsers = numListUsers,
+        numScoringUsers = numScoringUsers,
+        nsfw = nsfw,
+        genre = genreNetworks.map { it.toGenre() },
+        createdAt = createdAt,
+        updatedAt = updatedAt,
+        mediaType = MediaType.fromSerializedValue(mediaType),
+        status = status,
+        myListStatus = myListStatusNetwork?.toMyListStatus(),
+        numEpisodes = numEpisodes,
+        startSeason = startSeason?.toAnimeSeason(),
+        broadcast = broadcastNetwork?.toBroadcast(),
+        source = source,
+        averageEpisodeDuration = averageEpisodeDuration,
+        rating = rating,
+        studios = studios.map { it.toAnimeStudio() },
+        pictures = pictureNetworks.map { it.toPicture() },
+        background = background,
+        relatedAnime = relatedAnime.map { it.toRelatedAnime() },
+        relatedManga = relatedManga.map { it.toRelatedManga() },
+        recommendations = recommendations.map { it.toAnimeRecommendation() },
+        statistics = statisticsNetwork?.toStatistics(),
+    )
 
 typealias Genre = NamedIdObject
 typealias AnimeStudio = NamedIdObject

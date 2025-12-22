@@ -30,7 +30,6 @@ enum class MediaType {
     ;
 
     companion object {
-
         fun fromSerializedValue(string: String?) =
             when (string) {
                 "unknown" -> Unknown
@@ -45,9 +44,11 @@ enum class MediaType {
     }
 }
 
-enum class Season(val serialName: String) {
+enum class Season(
+    val serialName: String,
+) {
     Winter("winter"),
     Spring("spring"),
     Summer("summer"),
-    Fall("fall")
+    Fall("fall"),
 }

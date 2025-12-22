@@ -12,7 +12,6 @@ import com.yamal.platform.network.implementation.di.NetworkModule
 import com.yamal.platform.storage.implementation.di.PreferencesModule
 
 object AppModules {
-
     fun exportModules() =
         listOf(
             HomePresentationModule(),

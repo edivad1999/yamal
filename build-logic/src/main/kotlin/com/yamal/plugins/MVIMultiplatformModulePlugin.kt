@@ -7,7 +7,6 @@ import org.gradle.kotlin.dsl.configure
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 class MVIMultiplatformModulePlugin : Plugin<Project> {
-
     override fun apply(target: Project) {
         with(target) {
             with(pluginManager) {
@@ -15,12 +14,19 @@ class MVIMultiplatformModulePlugin : Plugin<Project> {
                 apply("com.android.library")
                 apply("org.jetbrains.compose")
                 apply("org.jetbrains.kotlin.plugin.compose")
+                apply("yamal.ktlint")
             }
             extensions.configure<LibraryExtension> {
                 configureKotlinAndroid(this)
             }
             extensions.configure(KotlinMultiplatformExtension::class.java) {
-                jvmToolchain(libs.findVersion("jdk").get().toString().toInt())
+                jvmToolchain(
+                    libs
+                        .findVersion("jdk")
+                        .get()
+                        .toString()
+                        .toInt(),
+                )
                 iosX64()
                 iosArm64()
                 iosSimulatorArm64()

@@ -51,19 +51,20 @@ fun UserAnimeListScreen(
                         Icon(Icons.Default.ArrowBack, contentDescription = "Back")
                     }
                 },
-                backgroundColor = MaterialTheme.colors.primary
+                backgroundColor = MaterialTheme.colors.primary,
             )
-        }
+        },
     ) { paddingValues ->
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues),
         ) {
             if (!state.isLoggedIn) {
                 Box(
                     modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
+                    contentAlignment = Alignment.Center,
                 ) {
                     Text("Please login to view your anime list")
                 }
@@ -73,7 +74,7 @@ fun UserAnimeListScreen(
                 ScrollableTabRow(
                     selectedTabIndex = selectedIndex,
                     backgroundColor = MaterialTheme.colors.surface,
-                    edgePadding = 16.dp
+                    edgePadding = 16.dp,
                 ) {
                     UserListStatus.entries.forEachIndexed { index, status ->
                         Tab(
@@ -81,7 +82,7 @@ fun UserAnimeListScreen(
                             onClick = {
                                 presenter.processIntent(UserAnimeListIntent.OnSelectStatus(status))
                             },
-                            text = { Text(formatStatusName(status)) }
+                            text = { Text(formatStatusName(status)) },
                         )
                     }
                 }
@@ -94,14 +95,15 @@ fun UserAnimeListScreen(
                     LazyColumn(
                         modifier = Modifier.fillMaxSize(),
                         contentPadding = PaddingValues(16.dp),
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
                     ) {
                         items(lazyPagingItems.itemCount) { index ->
                             lazyPagingItems[index]?.let { anime ->
                                 Box(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .clickable { onAnimeClick(anime.id) }
+                                    modifier =
+                                        Modifier
+                                            .fillMaxWidth()
+                                            .clickable { onAnimeClick(anime.id) },
                                 ) {
                                     GenericAnimeCard(anime)
                                 }
@@ -112,24 +114,27 @@ fun UserAnimeListScreen(
                             is LoadState.Loading -> {
                                 item {
                                     Box(
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .padding(32.dp),
-                                        contentAlignment = Alignment.Center
+                                        modifier =
+                                            Modifier
+                                                .fillMaxWidth()
+                                                .padding(32.dp),
+                                        contentAlignment = Alignment.Center,
                                     ) {
                                         CircularProgressIndicator()
                                     }
                                 }
                             }
+
                             is LoadState.Error -> {
                                 item {
                                     Text(
                                         text = "Error loading anime list",
                                         modifier = Modifier.padding(16.dp),
-                                        color = MaterialTheme.colors.error
+                                        color = MaterialTheme.colors.error,
                                     )
                                 }
                             }
+
                             else -> {}
                         }
 
@@ -137,24 +142,27 @@ fun UserAnimeListScreen(
                             is LoadState.Loading -> {
                                 item {
                                     Box(
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .padding(16.dp),
-                                        contentAlignment = Alignment.Center
+                                        modifier =
+                                            Modifier
+                                                .fillMaxWidth()
+                                                .padding(16.dp),
+                                        contentAlignment = Alignment.Center,
                                     ) {
                                         CircularProgressIndicator()
                                     }
                                 }
                             }
+
                             is LoadState.Error -> {
                                 item {
                                     Text(
                                         text = "Error loading more items",
                                         modifier = Modifier.padding(16.dp),
-                                        color = MaterialTheme.colors.error
+                                        color = MaterialTheme.colors.error,
                                     )
                                 }
                             }
+
                             else -> {}
                         }
                     }
@@ -164,12 +172,11 @@ fun UserAnimeListScreen(
     }
 }
 
-private fun formatStatusName(status: UserListStatus): String {
-    return when (status) {
+private fun formatStatusName(status: UserListStatus): String =
+    when (status) {
         UserListStatus.Watching -> "Watching"
         UserListStatus.Completed -> "Completed"
         UserListStatus.OnHold -> "On Hold"
         UserListStatus.Dropped -> "Dropped"
         UserListStatus.PlanToWatch -> "Plan to Watch"
     }
-}
