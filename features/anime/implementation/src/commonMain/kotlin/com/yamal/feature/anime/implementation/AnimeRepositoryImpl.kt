@@ -7,11 +7,11 @@ import com.yamal.feature.anime.api.model.Season
 import com.yamal.feature.anime.api.model.UserListStatus
 import com.yamal.feature.anime.api.model.toDomain
 import com.yamal.feature.anime.implementation.mapping.toModel
-import com.yamal.feature.core.MalPagingSource
-import com.yamal.feature.network.api.ApiService
-import com.yamal.feature.network.api.apiCallScope
-import com.yamal.feature.network.api.model.Anime
-import com.yamal.feature.network.api.model.RankedAnime
+import com.yamal.platform.utils.MalPagingSource
+import com.yamal.platform.network.api.ApiService
+import com.yamal.platform.network.api.apiCallScope
+import com.yamal.platform.network.api.model.Anime
+import com.yamal.platform.network.api.model.RankedAnime
 
 class AnimeRepositoryImpl(private val apiService: ApiService) : AnimeRepository {
 

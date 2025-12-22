@@ -37,19 +37,28 @@ kotlin {
         }
         commonMain.dependencies {
             implementation(projects.shared)
+            implementation(projects.platform.designsystem)
+            implementation(projects.platform.mvi)
+            implementation(projects.features.navigation)
+            implementation(projects.features.anime.ui)
+            implementation(projects.features.login.ui)
             implementation(project.dependencies.platform(libs.koin.bom))
 
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
+            implementation(compose.materialIconsExtended)
             implementation(compose.components.resources)
             implementation(libs.insetsx)
             implementation(libs.koin.compose)
+            implementation(libs.koin.core)
 
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.napier)
             implementation(libs.paging.runtime)
+            implementation(libs.paging.compose)
             implementation(libs.lifecycle.viewmodel.compose)
+            implementation(libs.navigation.compose)
 
             implementation(libs.coil)
             implementation(libs.coil.network)

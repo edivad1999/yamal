@@ -33,10 +33,10 @@ kotlin {
     }
 }
 android {
-    namespace = "com.yamal.feature.network.implementation"
+    namespace = "com.yamal.platform.network.implementation"
 }
 buildkonfig {
-    packageName = "com.yamal.feature.network.implementation"
+    packageName = "com.yamal.platform.network.implementation"
 
     defaultConfigs {
         buildConfigField(

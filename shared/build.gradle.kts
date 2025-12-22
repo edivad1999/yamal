@@ -4,9 +4,6 @@ plugins {
 kotlin {
 
     sourceSets.commonMain.dependencies {
-        // Presentation
-        api(projects.presentation)
-
         // Platform
         api(projects.platform.network.api)
         implementation(projects.platform.network.implementation)
@@ -18,9 +15,11 @@ kotlin {
         // Features
         api(projects.features.login.api)
         implementation(projects.features.login.implementation)
+        api(projects.features.login.ui)
 
         api(projects.features.anime.api)
         implementation(projects.features.anime.implementation)
+        api(projects.features.anime.ui)
     }
 }
 android {

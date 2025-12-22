@@ -1,18 +1,18 @@
 package com.yamal.feature.anime.api.model
 
-import com.yamal.feature.network.api.model.AlternativeTitlesNetwork
-import com.yamal.feature.network.api.model.AnimeDetailsNetwork
-import com.yamal.feature.network.api.model.AnimeRecommendationAggregationEdgeBase
-import com.yamal.feature.network.api.model.AnimeStudioNetwork
-import com.yamal.feature.network.api.model.BroadcastNetwork
-import com.yamal.feature.network.api.model.GenreNetwork
-import com.yamal.feature.network.api.model.MyListStatusNetwork
-import com.yamal.feature.network.api.model.PictureNetwork
-import com.yamal.feature.network.api.model.RelatedAnimeEdge
-import com.yamal.feature.network.api.model.RelatedMangaEdge
-import com.yamal.feature.network.api.model.StartSeason
-import com.yamal.feature.network.api.model.StatisticsNetwork
-import com.yamal.feature.network.api.model.StatsStatus
+import com.yamal.platform.network.api.model.AlternativeTitlesNetwork
+import com.yamal.platform.network.api.model.AnimeDetailsNetwork
+import com.yamal.platform.network.api.model.AnimeRecommendationAggregationEdgeBase
+import com.yamal.platform.network.api.model.AnimeStudioNetwork
+import com.yamal.platform.network.api.model.BroadcastNetwork
+import com.yamal.platform.network.api.model.GenreNetwork
+import com.yamal.platform.network.api.model.MyListStatusNetwork
+import com.yamal.platform.network.api.model.PictureNetwork
+import com.yamal.platform.network.api.model.RelatedAnimeEdge
+import com.yamal.platform.network.api.model.RelatedMangaEdge
+import com.yamal.platform.network.api.model.StartSeason
+import com.yamal.platform.network.api.model.StatisticsNetwork
+import com.yamal.platform.network.api.model.StatsStatus
 
 data class AnimeDetails(
     val id: Int,

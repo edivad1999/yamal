@@ -41,12 +41,13 @@ include(":platform:network:implementation")
 include(":platform:storage:api")
 include(":platform:storage:implementation")
 
-// Presentation
-include(":presentation")
-
 // Features
+include(":features:navigation")
+
 include(":features:login:api")
 include(":features:login:implementation")
+include(":features:login:ui")
 
 include(":features:anime:api")
 include(":features:anime:implementation")
+include(":features:anime:ui")

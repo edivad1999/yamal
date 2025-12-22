@@ -5,9 +5,9 @@ import com.yamal.feature.anime.api.model.AnimeDetails
 import com.yamal.feature.anime.api.model.GenericAnime
 import com.yamal.feature.anime.api.model.Season
 import com.yamal.feature.anime.api.model.UserListStatus
-import com.yamal.feature.core.MalPagingSource
-import com.yamal.feature.network.api.model.Anime
-import com.yamal.feature.network.api.model.RankedAnime
+import com.yamal.platform.utils.MalPagingSource
+import com.yamal.platform.network.api.model.Anime
+import com.yamal.platform.network.api.model.RankedAnime
 
 interface AnimeRepository {
 

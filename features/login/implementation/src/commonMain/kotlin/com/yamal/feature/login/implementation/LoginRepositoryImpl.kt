@@ -1,11 +1,11 @@
 package com.yamal.feature.login.implementation
 
-import com.yamal.feature.core.PKCEGenerator
+import com.yamal.platform.utils.PKCEGenerator
 import com.yamal.feature.login.api.LoginRepository
-import com.yamal.feature.network.api.ApiService
-import com.yamal.feature.network.api.BuildConstants
-import com.yamal.feature.network.api.apiCallScope
-import com.yamal.feature.preferences.api.PreferencesDatasource
+import com.yamal.platform.network.api.ApiService
+import com.yamal.platform.network.api.BuildConstants
+import com.yamal.platform.network.api.apiCallScope
+import com.yamal.platform.storage.api.PreferencesDatasource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
