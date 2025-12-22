@@ -7,20 +7,20 @@ kotlin {
         // Presentation
         api(projects.presentation)
 
+        // Platform
+        api(projects.platform.network.api)
+        implementation(projects.platform.network.implementation)
+
+        api(projects.platform.storage.api)
+        implementation(projects.platform.storage.implementation)
+        api(projects.platform.designsystem)
+
         // Features
+        api(projects.features.login.api)
+        implementation(projects.features.login.implementation)
 
-        api(projects.core.network.api)
-        implementation(projects.core.network.implementation)
-
-        api(projects.feature.login.api)
-        implementation(projects.feature.login.implementation)
-
-        api(projects.feature.anime.api)
-        implementation(projects.feature.anime.implementation)
-
-        api(projects.core.preferences.api)
-        implementation(projects.core.preferences.implementation)
-        api(projects.feature.designSystem)
+        api(projects.features.anime.api)
+        implementation(projects.features.anime.implementation)
     }
 }
 android {
