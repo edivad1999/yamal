@@ -10,15 +10,13 @@ kotlin {
     sourceSets.commonMain.dependencies {
         implementation(projects.platform.utils)
         implementation(projects.platform.mvi)
+        implementation(projects.platform.designsystem)
         implementation(projects.features.anime.api)
         implementation(projects.features.login.api)
-
+        implementation(compose.material)
         implementation(libs.paging.runtime)
         implementation(libs.paging.compose)
         api(compose.runtime)
-        implementation(compose.foundation)
-        implementation(compose.material)
-        implementation(compose.materialIconsExtended)
         implementation(project.dependencies.platform(libs.koin.bom))
         implementation(libs.koin.compose)
         implementation(libs.bundles.arrow)

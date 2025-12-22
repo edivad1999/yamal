@@ -7,10 +7,11 @@ plugins {
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material)
-            implementation(compose.ui)
+            api(compose.runtime)
+            api(compose.foundation)
+            api(compose.material)
+            api(compose.materialIconsExtended)
+            api(compose.ui)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.coil.compose)
         }

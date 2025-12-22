@@ -4,15 +4,14 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.Card
-import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
@@ -25,9 +24,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import com.yamal.designSystem.components.YamalCard
+import com.yamal.designSystem.theme.YamalTheme
 
-@Composable
-fun HomeScreen(
+@Composable fun HomeScreen(
     onNavigateToSeasonal: () -> Unit,
     onNavigateToRanking: () -> Unit,
     onNavigateToUserList: () -> Unit,
@@ -35,22 +35,20 @@ fun HomeScreen(
     Scaffold(
         topBar = {
             TopAppBar(
+                windowInsets = WindowInsets.statusBars,
                 title = { Text("YAMAL") },
-                backgroundColor = MaterialTheme.colors.primary,
+                backgroundColor = YamalTheme.colors.paletteColors.color6,
             )
         },
     ) { paddingValues ->
         Column(
-            modifier =
-                Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues)
-                    .padding(16.dp),
+            modifier = Modifier.fillMaxSize().padding(paddingValues).padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             Text(
                 text = "Discover Anime",
-                style = MaterialTheme.typography.h5,
+                style = YamalTheme.typography.h4,
+                color = YamalTheme.colors.neutralColors.title,
             )
 
             Row(
@@ -78,7 +76,8 @@ fun HomeScreen(
 
             Text(
                 text = "Your Library",
-                style = MaterialTheme.typography.h5,
+                style = YamalTheme.typography.h4,
+                color = YamalTheme.colors.neutralColors.title,
             )
 
             HomeCard(
@@ -92,42 +91,40 @@ fun HomeScreen(
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
-@Composable
-private fun HomeCard(
+@Composable private fun HomeCard(
     modifier: Modifier = Modifier,
     title: String,
     subtitle: String,
     icon: ImageVector,
     onClick: () -> Unit,
 ) {
-    Card(
+    YamalCard(
         modifier = modifier,
-        elevation = 4.dp,
         onClick = onClick,
+        hoverable = true,
     ) {
         Column(
-            modifier = Modifier.padding(16.dp),
             horizontalAlignment = Alignment.Start,
         ) {
             Icon(
                 imageVector = icon,
                 contentDescription = null,
                 modifier = Modifier.size(32.dp),
-                tint = MaterialTheme.colors.primary,
+                tint = YamalTheme.colors.paletteColors.color6,
             )
 
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
                 text = title,
-                style = MaterialTheme.typography.h6,
+                style = YamalTheme.typography.h5,
+                color = YamalTheme.colors.neutralColors.title,
             )
 
             Text(
                 text = subtitle,
-                style = MaterialTheme.typography.caption,
-                color = MaterialTheme.colors.onSurface.copy(alpha = 0.7f),
+                style = YamalTheme.typography.body,
+                color = YamalTheme.colors.neutralColors.secondaryText,
             )
         }
     }

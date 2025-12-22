@@ -4,19 +4,19 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
@@ -34,6 +34,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
+import com.yamal.designSystem.components.YamalCard
+import com.yamal.designSystem.theme.YamalTheme
 import com.yamal.feature.anime.api.model.AnimeDetails
 import com.yamal.feature.anime.ui.animeDetails.presenter.AnimeDetailsIntent
 import com.yamal.feature.anime.ui.animeDetails.presenter.AnimeDetailsPresenter
@@ -55,11 +57,13 @@ fun AnimeDetailsScreen(
     Scaffold(
         topBar = {
             TopAppBar(
+                windowInsets = WindowInsets.statusBars,
                 title = {
                     Text(
                         text = state.anime?.title ?: "Anime Details",
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
+                        color = YamalTheme.colors.neutralColors.primaryText,
                     )
                 },
                 navigationIcon = {
@@ -67,7 +71,7 @@ fun AnimeDetailsScreen(
                         Icon(Icons.Default.ArrowBack, contentDescription = "Back")
                     }
                 },
-                backgroundColor = MaterialTheme.colors.primary,
+                backgroundColor = YamalTheme.colors.paletteColors.color6,
             )
         },
     ) { paddingValues ->
@@ -87,7 +91,7 @@ fun AnimeDetailsScreen(
                 state.error != null -> {
                     Text(
                         text = "Error: ${state.error}",
-                        color = MaterialTheme.colors.error,
+                        color = YamalTheme.colors.functionalColors.error,
                         modifier =
                             Modifier
                                 .align(Alignment.Center)
@@ -115,16 +119,13 @@ private fun AnimeDetailsContent(anime: AnimeDetails) {
         Row(
             modifier = Modifier.fillMaxWidth(),
         ) {
-            Card(
-                elevation = 4.dp,
+            YamalCard(
+                modifier = Modifier.width(150.dp),
             ) {
                 AsyncImage(
                     model = anime.mainPicture?.large ?: anime.mainPicture?.medium,
                     contentDescription = anime.title,
-                    modifier =
-                        Modifier
-                            .width(150.dp)
-                            .height(220.dp),
+                    modifier = Modifier.height(220.dp),
                     contentScale = ContentScale.Crop,
                 )
             }
@@ -136,8 +137,9 @@ private fun AnimeDetailsContent(anime: AnimeDetails) {
             ) {
                 Text(
                     text = anime.title,
-                    style = MaterialTheme.typography.h6,
+                    style = YamalTheme.typography.h5,
                     fontWeight = FontWeight.Bold,
+                    color = YamalTheme.colors.neutralColors.title,
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
@@ -149,14 +151,15 @@ private fun AnimeDetailsContent(anime: AnimeDetails) {
                         Icon(
                             imageVector = Icons.Default.Star,
                             contentDescription = null,
-                            tint = MaterialTheme.colors.primary,
+                            tint = YamalTheme.colors.paletteColors.color6,
                             modifier = Modifier.size(20.dp),
                         )
                         Spacer(modifier = Modifier.width(4.dp))
                         Text(
                             text = ((score * 100).toInt() / 100.0).toString(),
-                            style = MaterialTheme.typography.body1,
+                            style = YamalTheme.typography.body,
                             fontWeight = FontWeight.Bold,
+                            color = YamalTheme.colors.neutralColors.primaryText,
                         )
                     }
                 }
@@ -180,13 +183,15 @@ private fun AnimeDetailsContent(anime: AnimeDetails) {
         if (anime.genre.isNotEmpty()) {
             Text(
                 text = "Genres",
-                style = MaterialTheme.typography.subtitle1,
+                style = YamalTheme.typography.bodyLarge,
                 fontWeight = FontWeight.Bold,
+                color = YamalTheme.colors.neutralColors.title,
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = anime.genre.joinToString(", ") { it.name },
-                style = MaterialTheme.typography.body2,
+                style = YamalTheme.typography.body,
+                color = YamalTheme.colors.neutralColors.primaryText,
             )
             Spacer(modifier = Modifier.height(16.dp))
         }
@@ -194,13 +199,15 @@ private fun AnimeDetailsContent(anime: AnimeDetails) {
         if (anime.studios.isNotEmpty()) {
             Text(
                 text = "Studios",
-                style = MaterialTheme.typography.subtitle1,
+                style = YamalTheme.typography.bodyLarge,
                 fontWeight = FontWeight.Bold,
+                color = YamalTheme.colors.neutralColors.title,
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = anime.studios.joinToString(", ") { it.name },
-                style = MaterialTheme.typography.body2,
+                style = YamalTheme.typography.body,
+                color = YamalTheme.colors.neutralColors.primaryText,
             )
             Spacer(modifier = Modifier.height(16.dp))
         }
@@ -208,13 +215,15 @@ private fun AnimeDetailsContent(anime: AnimeDetails) {
         anime.synopsis?.let { synopsis ->
             Text(
                 text = "Synopsis",
-                style = MaterialTheme.typography.subtitle1,
+                style = YamalTheme.typography.bodyLarge,
                 fontWeight = FontWeight.Bold,
+                color = YamalTheme.colors.neutralColors.title,
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = synopsis,
-                style = MaterialTheme.typography.body2,
+                style = YamalTheme.typography.body,
+                color = YamalTheme.colors.neutralColors.primaryText,
             )
             Spacer(modifier = Modifier.height(16.dp))
         }
@@ -222,13 +231,15 @@ private fun AnimeDetailsContent(anime: AnimeDetails) {
         anime.background?.let { background ->
             Text(
                 text = "Background",
-                style = MaterialTheme.typography.subtitle1,
+                style = YamalTheme.typography.bodyLarge,
                 fontWeight = FontWeight.Bold,
+                color = YamalTheme.colors.neutralColors.title,
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = background,
-                style = MaterialTheme.typography.body2,
+                style = YamalTheme.typography.body,
+                color = YamalTheme.colors.neutralColors.primaryText,
             )
         }
     }
@@ -244,12 +255,13 @@ private fun InfoRow(
     ) {
         Text(
             text = "$label: ",
-            style = MaterialTheme.typography.caption,
-            color = MaterialTheme.colors.onSurface.copy(alpha = 0.7f),
+            style = YamalTheme.typography.small,
+            color = YamalTheme.colors.neutralColors.secondaryText,
         )
         Text(
             text = value,
-            style = MaterialTheme.typography.caption,
+            style = YamalTheme.typography.small,
+            color = YamalTheme.colors.neutralColors.primaryText,
         )
     }
 }

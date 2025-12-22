@@ -3,15 +3,16 @@ package com.yamal.feature.anime.ui.components
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
+import com.yamal.designSystem.components.YamalDivider
 import com.yamal.feature.anime.api.model.GenericAnime
 
 @Composable
@@ -32,6 +33,6 @@ fun GenericAnimeCard(genericAnime: GenericAnime) {
             )
         }
         Spacer(modifier = Modifier.height(16.dp))
-        Divider()
+        YamalDivider(modifier = Modifier.fillMaxWidth())
     }
 }

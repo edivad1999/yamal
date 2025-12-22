@@ -7,9 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.Button
 import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
@@ -21,6 +19,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.yamal.designSystem.components.YamalButton
+import com.yamal.designSystem.components.YamalButtonSize
+import com.yamal.designSystem.components.YamalButtonType
+import com.yamal.designSystem.theme.YamalTheme
 import com.yamal.feature.login.ui.presenter.LoginEffect
 import com.yamal.feature.login.ui.presenter.LoginIntent
 import com.yamal.feature.login.ui.presenter.LoginPresenter
@@ -74,34 +76,36 @@ fun LoginScreen(
             imageVector = Icons.Default.Person,
             contentDescription = null,
             modifier = Modifier.size(120.dp),
-            tint = MaterialTheme.colors.primary,
+            tint = YamalTheme.colors.paletteColors.color6,
         )
 
         Spacer(modifier = Modifier.height(32.dp))
 
         Text(
             text = "Welcome to YAMAL",
-            style = MaterialTheme.typography.h4,
+            style = YamalTheme.typography.h3,
             textAlign = TextAlign.Center,
+            color = YamalTheme.colors.neutralColors.title,
         )
 
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(
             text = "Yet Another MyAnimeList Client",
-            style = MaterialTheme.typography.subtitle1,
+            style = YamalTheme.typography.bodyLarge,
             textAlign = TextAlign.Center,
-            color = MaterialTheme.colors.onSurface.copy(alpha = 0.7f),
+            color = YamalTheme.colors.neutralColors.secondaryText,
         )
 
         Spacer(modifier = Modifier.height(48.dp))
 
-        Button(
+        YamalButton(
+            text = "Login with MyAnimeList",
             onClick = {
                 presenter.processIntent(LoginIntent.OpenLoginBrowser(state.authorizationUrl))
             },
-        ) {
-            Text("Login with MyAnimeList")
-        }
+            type = YamalButtonType.Primary,
+            size = YamalButtonSize.Large,
+        )
     }
 }

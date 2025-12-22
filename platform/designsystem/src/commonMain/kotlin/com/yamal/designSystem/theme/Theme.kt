@@ -23,6 +23,7 @@ fun YamalTheme(
             if (isDark) YamalColors.dark() else YamalColors.light()
         }
     val typography: YamalTypography = remember { YamalTypography() }
+
     CompositionLocalProvider(
         LocalTextSelectionColors provides
             TextSelectionColors(
@@ -32,7 +33,6 @@ fun YamalTheme(
         LocalContentAlpha provides 1f,
         LocalYamalColors provides colors,
         LocalYamalTypography provides typography,
-//        LocalShapes provides shapes,
     ) {
         MaterialTheme(
             colors = colors.toColors(isDark),

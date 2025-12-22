@@ -166,6 +166,10 @@ class YamalPaletteColorBuilder(
         )
 }
 
+/**
+ * Factory for creating neutral color palettes following Ant Design guidelines.
+ * Uses a 13-level grayscale from pure black to pure white.
+ */
 object NeutralColorsFactory {
     fun String.toComposeColor(): Color =
         Color(
@@ -180,25 +184,35 @@ object NeutralColorsFactory {
 
         return if (isDark) {
             YamalColors.NeutralColors(
-                title = colors[11],
-                primaryText = colors[10],
-                secondaryText = colors[9],
-                disableText = colors[6],
-                border = colors[5],
-                divider = colors[4],
-                background = colors[1],
-                tableHeader = colors[0],
+                title = colors[11], // #fafafa
+                primaryText = colors[10], // #f5f5f5
+                secondaryText = colors[6], // #8c8c8c
+                disableText = colors[5], // #595959
+                border = colors[4], // #434343
+                divider = colors[3], // #262626
+                background = colors[1], // #141414
+                tableHeader = colors[2], // #1f1f1f
+                containerBg = colors[2], // #1f1f1f
+                fill = colors[4], // #434343
+                fillSecondary = colors[3], // #262626
+                fillTertiary = colors[2], // #1f1f1f
+                fillQuaternary = colors[1], // #141414
             )
         } else {
             YamalColors.NeutralColors(
-                title = colors[1],
-                primaryText = colors[2],
-                secondaryText = colors[3],
-                disableText = colors[6],
-                border = colors[7],
-                divider = colors[8],
-                background = colors[11],
-                tableHeader = colors[12],
+                title = colors[1], // #141414
+                primaryText = colors[2], // #1f1f1f
+                secondaryText = colors[5], // #595959
+                disableText = colors[6], // #8c8c8c
+                border = colors[8], // #d9d9d9
+                divider = colors[9], // #f0f0f0
+                background = colors[12], // #ffffff
+                tableHeader = colors[11], // #fafafa
+                containerBg = colors[11], // #fafafa
+                fill = colors[9], // #f0f0f0
+                fillSecondary = colors[10], // #f5f5f5
+                fillTertiary = colors[11], // #fafafa
+                fillQuaternary = colors[12], // #ffffff
             )
         }
     }
