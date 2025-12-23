@@ -7,3 +7,25 @@ import org.gradle.kotlin.dsl.getByType
 
 val Project.libs
     get(): VersionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
+
+val Project.jdkVersion
+    get() =
+        libs
+            .findVersion("jdk")
+            .get()
+            .toString()
+            .toInt()
+val Project.compileSdkVersion
+    get() =
+        libs
+            .findVersion("compileSdk")
+            .get()
+            .toString()
+            .toInt()
+val Project.minSdkVersion
+    get() =
+        libs
+            .findVersion("minSdk")
+            .get()
+            .toString()
+            .toInt()

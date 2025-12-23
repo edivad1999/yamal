@@ -19,25 +19,15 @@ class MVIMultiplatformModulePlugin : Plugin<Project> {
 
             extensions.configure<KotlinMultiplatformExtension> {
                 androidLibrary {
-                    compileSdk = libs.findVersion("compileSdk").get().toString().toInt()
-                    minSdk = libs.findVersion("minSdk").get().toString().toInt()
+                    compileSdk = compileSdkVersion
+                    minSdk = minSdkVersion
                 }
-
-                jvmToolchain(
-                    libs
-                        .findVersion("jdk")
-                        .get()
-                        .toString()
-                        .toInt(),
-                )
+                jvmToolchain(jdkVersion)
                 iosX64()
                 iosArm64()
                 iosSimulatorArm64()
                 jvm("desktop")
 
-                sourceSets.androidMain.dependencies {
-                    implementation(libs.findLibrary("koin-android").get())
-                }
                 sourceSets.commonMain.dependencies {
                     implementation(project.dependencies.platform(libs.findLibrary("koin-bom").get()))
                     implementation(libs.findLibrary("koin-core").get())

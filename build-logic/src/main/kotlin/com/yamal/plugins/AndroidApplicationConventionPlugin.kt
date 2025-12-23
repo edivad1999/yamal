@@ -1,17 +1,14 @@
 package com.yamal.plugins
 
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
-import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.getByType
+import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidExtension
 
 class AndroidApplicationConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
-            val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
             pluginManager.apply {
                 apply("com.android.application")
                 apply("org.jetbrains.kotlin.android")
@@ -19,24 +16,22 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                 apply("yamal.ktlint")
             }
 
+            extensions.configure<KotlinAndroidExtension> {
+                jvmToolchain(jdkVersion)
+            }
             extensions.configure<BaseAppModuleExtension> {
                 namespace = "com.yamal.android"
-                compileSdk = 36
+                compileSdk = this@with.compileSdkVersion
 
                 defaultConfig {
                     applicationId = "com.yamal"
-                    minSdk = 24
-                    targetSdk = 36
+                    minSdk = minSdkVersion
                     versionCode = 1
                     versionName = "1.0"
                 }
 
                 buildFeatures {
                     compose = true
-                }
-
-                composeOptions {
-                    kotlinCompilerExtensionVersion = libs.findVersion("compose.compiler").get().toString()
                 }
 
                 packaging {
@@ -49,11 +44,6 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                     getByName("release") {
                         isMinifyEnabled = false
                     }
-                }
-
-                compileOptions {
-                    sourceCompatibility = JavaVersion.VERSION_17
-                    targetCompatibility = JavaVersion.VERSION_17
                 }
             }
         }

@@ -19,11 +19,11 @@ class SharedMultiplatformModulePlugin : Plugin<Project> {
 
             extensions.configure<KotlinMultiplatformExtension> {
                 androidLibrary {
-                    compileSdk = 36
-                    minSdk = 24
+                    compileSdk = compileSdkVersion
+                    minSdk = minSdkVersion
                 }
 
-                jvmToolchain(17)
+                jvmToolchain(jdkVersion)
                 jvm("desktop")
 
                 listOf(

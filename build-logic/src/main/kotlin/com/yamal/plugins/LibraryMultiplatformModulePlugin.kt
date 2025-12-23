@@ -7,7 +7,6 @@ import org.gradle.kotlin.dsl.configure
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 class LibraryMultiplatformModulePlugin : Plugin<Project> {
-
     override fun apply(target: Project) {
         with(target) {
             with(pluginManager) {
@@ -18,8 +17,8 @@ class LibraryMultiplatformModulePlugin : Plugin<Project> {
 
             extensions.configure<KotlinMultiplatformExtension> {
                 androidLibrary {
-                    compileSdk = libs.findVersion("compileSdk").get().toString().toInt()
-                    minSdk = libs.findVersion("minSdk").get().toString().toInt()
+                    compileSdk = compileSdkVersion
+                    minSdk = minSdkVersion
                 }
 
                 listOf(
@@ -28,7 +27,7 @@ class LibraryMultiplatformModulePlugin : Plugin<Project> {
                     iosSimulatorArm64(),
                 )
 
-                jvmToolchain(libs.findVersion("jdk").get().toString().toInt())
+                jvmToolchain(jdkVersion)
                 jvm("desktop")
                 sourceSets.commonMain.dependencies {
                     implementation(project.dependencies.platform(libs.findLibrary("koin-bom").get()))

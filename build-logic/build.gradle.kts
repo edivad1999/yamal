@@ -37,5 +37,9 @@ gradlePlugin {
             id = "yamal.android.application"
             implementationClass = "com.yamal.plugins.AndroidApplicationConventionPlugin"
         }
+        register("designSystemIconsPlugin") {
+            id = "yamal.designSystem.icons"
+            implementationClass = "com.yamal.plugins.DesignIconsPlugin"
+        }
     }
 }
