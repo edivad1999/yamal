@@ -6,6 +6,7 @@ import org.gradle.api.Project
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.tasks.Copy
+import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.OutputFile
@@ -14,6 +15,7 @@ import org.gradle.kotlin.dsl.register
 import org.gradle.work.DisableCachingByDefault
 import org.jetbrains.kotlin.konan.properties.suffix
 import java.net.URL
+import java.util.Locale
 import java.util.zip.ZipFile
 
 class DesignIconsPlugin : Plugin<Project> {
@@ -65,8 +67,17 @@ class DesignIconsPlugin : Plugin<Project> {
 
                     include("**/*.svg")
                 }
+            val generateTypeSafeIcons =
+                tasks.register<GenerateTypeSafeIconsTask>("generateTypeSafeIcons") {
+                    group = "design assets"
+                    description = "Generates type-safe icon extensions"
+
+                    inputDir.set(layout.projectDirectory.dir("src/commonMain/composeResources/files"))
+                    outputFile.set(layout.projectDirectory.file("src/commonMain/kotlin/com/yamal/designSystem/icons/TypeSafeIcons.kt"))
+                }
+
             tasks.named("generateIcons") {
-                dependsOn(copyIcons)
+                dependsOn(generateTypeSafeIcons)
             }
             Unit
         }
@@ -134,5 +145,63 @@ abstract class ExtractDesignIconsTask : DefaultTask() {
                     }
                 }
         }
+    }
+}
+
+@DisableCachingByDefault()
+abstract class GenerateTypeSafeIconsTask : DefaultTask() {
+    @get:InputDirectory
+    abstract val inputDir: DirectoryProperty
+
+    @get:OutputFile
+    abstract val outputFile: RegularFileProperty
+
+    @TaskAction
+    fun generate() {
+        val dir = inputDir.get().asFile
+        val outFile = outputFile.get().asFile
+        outFile.parentFile.mkdirs()
+
+        // Map to categories
+        val iconsByCategory = mutableMapOf<String, MutableList<Pair<String, String>>>()
+
+        dir.listFiles { f -> f.extension == "svg" }?.forEach { file ->
+            val name = file.nameWithoutExtension
+            val parts = name.split("_")
+            if (parts.size < 2) return@forEach
+            val iconName = parts.dropLast(1).joinToString("_") // account-book
+            val category = parts.last().capitalize(Locale.ROOT) // Filled / Outlined / TwoTone
+
+            val propertyName = iconName.split("-").joinToString("") { it.replaceFirstChar(Char::uppercase) }
+            iconsByCategory.getOrPut(category) { mutableListOf() }.add(propertyName to file.name)
+        }
+
+        // Generate Kotlin file
+        outFile.writeText(
+            buildString {
+                appendLine("@file:Suppress(\"ktlint\", \"unused\")")
+                appendLine("package com.yamal.designSystem.icons")
+                appendLine()
+                appendLine("import yamal.platform.designsystem.generated.resources.Res")
+                appendLine()
+                appendLine("class IconPainter(val path: String)")
+                appendLine()
+                appendLine("object Icons {")
+
+                listOf("Filled", "Outlined", "Twotone").forEach { category ->
+                    appendLine("    object $category {")
+
+                    iconsByCategory[category]?.forEach { (propName, fileName) ->
+                        appendLine(
+                            "        val $propName: IconPainter get() = IconPainter(Res.getUri(\"files/$fileName\"))",
+                        )
+                    }
+
+                    appendLine("    }")
+                }
+
+                appendLine("}")
+            },
+        )
     }
 }

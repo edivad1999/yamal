@@ -7,10 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -22,6 +19,8 @@ import androidx.compose.ui.unit.dp
 import com.yamal.designSystem.components.YamalButton
 import com.yamal.designSystem.components.YamalButtonSize
 import com.yamal.designSystem.components.YamalButtonType
+import com.yamal.designSystem.icons.Icon
+import com.yamal.designSystem.icons.Icons
 import com.yamal.designSystem.theme.YamalTheme
 import com.yamal.feature.login.ui.presenter.LoginEffect
 import com.yamal.feature.login.ui.presenter.LoginIntent
@@ -73,7 +72,7 @@ fun LoginScreen(
         verticalArrangement = Arrangement.Center,
     ) {
         Icon(
-            imageVector = Icons.Default.Person,
+            Icons.Filled.Profile,
             contentDescription = null,
             modifier = Modifier.size(120.dp),
             tint = YamalTheme.colors.paletteColors.color6,

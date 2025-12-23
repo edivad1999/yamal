@@ -68,6 +68,6 @@ private val DefaultIconSizeModifier = Modifier.size(24.dp)
 @Preview
 private fun IconPreview() {
     YamalTheme {
-        Icon(Account, null)
+        Icon(Icons.Filled.Profile, null)
     }
 }
