@@ -26,9 +26,10 @@ dependencyResolutionManagement {
     }
 }
 
-include(":composeApp")
-
-include(":shared")
+// App modules
+include(":app:shared")
+include(":app:android")
+include(":app:desktop")
 
 // Platform
 include(":platform:mvi")

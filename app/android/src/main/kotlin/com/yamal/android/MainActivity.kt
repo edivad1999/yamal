@@ -1,0 +1,28 @@
+package com.yamal.android
+
+import App
+import android.content.Intent
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import core.LoginUtilities
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
+        super.onCreate(savedInstanceState)
+        setContent {
+            App()
+        }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        if (intent.data?.toString()?.startsWith("yamal") == true) {
+            intent.data?.getQueryParameter("code")?.let {
+                LoginUtilities.parseUrlResult(it)
+            }
+        }
+        super.onNewIntent(intent)
+    }
+}

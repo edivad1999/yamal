@@ -13,6 +13,10 @@ val localProperties =
     }
 
 kotlin {
+    androidLibrary {
+        namespace = "com.yamal.platform.network.implementation"
+    }
+
     sourceSets.commonMain.dependencies {
         implementation(projects.platform.network.api)
         implementation(projects.platform.storage.api)
@@ -33,9 +37,7 @@ kotlin {
         implementation(libs.ktor.cio)
     }
 }
-android {
-    namespace = "com.yamal.platform.network.implementation"
-}
+
 buildkonfig {
     packageName = "com.yamal.platform.network.implementation"
 

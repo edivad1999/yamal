@@ -1,6 +1,6 @@
 package com.yamal.plugins
 
-import com.android.build.gradle.LibraryExtension
+import com.android.build.api.dsl.androidLibrary
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
@@ -11,15 +11,18 @@ class MVIMultiplatformModulePlugin : Plugin<Project> {
         with(target) {
             with(pluginManager) {
                 apply("org.jetbrains.kotlin.multiplatform")
-                apply("com.android.library")
+                apply("com.android.kotlin.multiplatform.library")
                 apply("org.jetbrains.compose")
                 apply("org.jetbrains.kotlin.plugin.compose")
                 apply("yamal.ktlint")
             }
-            extensions.configure<LibraryExtension> {
-                configureKotlinAndroid(this)
-            }
-            extensions.configure(KotlinMultiplatformExtension::class.java) {
+
+            extensions.configure<KotlinMultiplatformExtension> {
+                androidLibrary {
+                    compileSdk = libs.findVersion("compileSdk").get().toString().toInt()
+                    minSdk = libs.findVersion("minSdk").get().toString().toInt()
+                }
+
                 jvmToolchain(
                     libs
                         .findVersion("jdk")
@@ -30,7 +33,6 @@ class MVIMultiplatformModulePlugin : Plugin<Project> {
                 iosX64()
                 iosArm64()
                 iosSimulatorArm64()
-                androidTarget()
                 jvm("desktop")
 
                 sourceSets.androidMain.dependencies {

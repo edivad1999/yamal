@@ -3,11 +3,11 @@ plugins {
     alias(libs.plugins.kotlinSerialization)
 }
 
-android {
-    namespace = "com.yamal.feature.navigation"
-}
-
 kotlin {
+    androidLibrary {
+        namespace = "com.yamal.feature.navigation"
+    }
+
     sourceSets.commonMain.dependencies {
         implementation(compose.runtime)
         implementation(compose.foundation)

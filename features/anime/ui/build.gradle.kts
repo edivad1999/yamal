@@ -2,11 +2,11 @@ plugins {
     id("yamal.mvi")
 }
 
-android {
-    namespace = "com.yamal.feature.anime.ui"
-}
-
 kotlin {
+    androidLibrary {
+        namespace = "com.yamal.feature.anime.ui"
+    }
+
     sourceSets.commonMain.dependencies {
         implementation(projects.platform.utils)
         implementation(projects.platform.mvi)

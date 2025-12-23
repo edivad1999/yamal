@@ -40,7 +40,7 @@ class YamalColors(
     ) {
         companion object {
             /** Lime green - Yamal brand color */
-            private val brandColor = Color(0xFFa0d911)
+            private val brandColor = Color(0xFF1161D9)
 
             fun build(colors: NeutralColors) = YamalPaletteColorBuilder(brandColor, colors.background).generate()
         }
@@ -71,7 +71,7 @@ class YamalColors(
         companion object {
             private val warningColor = Color(0xFFfaad14)
             private val errorColor = Color(0xFFff4d4f)
-            private val infoColor = Color(0xFF1677ff)
+            private val infoColor = Color(0xFF5CFF16)
 
             fun build(
                 paletteColors: PaletteColors,

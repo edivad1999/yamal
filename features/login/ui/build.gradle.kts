@@ -2,11 +2,11 @@ plugins {
     id("yamal.mvi")
 }
 
-android {
-    namespace = "com.yamal.feature.login.ui"
-}
-
 kotlin {
+    androidLibrary {
+        namespace = "com.yamal.feature.login.ui"
+    }
+
     sourceSets.commonMain.dependencies {
         implementation(projects.platform.mvi)
         implementation(projects.features.login.api)
