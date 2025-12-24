@@ -12,15 +12,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.ScrollableTabRow
 import androidx.compose.material.Tab
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -32,6 +29,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.yamal.designSystem.icons.Icon
+import com.yamal.designSystem.icons.Icons
 import com.yamal.designSystem.theme.YamalTheme
 import com.yamal.feature.anime.ui.animeSeasonal.presenter.AnimeSeasonalPresenter
 import com.yamal.feature.anime.ui.components.GenericAnimeCard
@@ -53,7 +52,7 @@ fun AnimeSeasonalScreen(
                 title = { Text("Seasonal Anime", color = YamalTheme.colors.neutralColors.primaryText) },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.Outlined.ArrowLeft, contentDescription = "Back")
                     }
                 },
                 backgroundColor = YamalTheme.colors.paletteColors.color6,

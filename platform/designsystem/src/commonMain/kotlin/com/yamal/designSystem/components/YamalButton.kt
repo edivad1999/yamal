@@ -16,14 +16,12 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Icon
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Search
+import com.yamal.designSystem.icons.Icon
+import com.yamal.designSystem.icons.Icons
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
@@ -385,10 +383,10 @@ private fun YamalButtonShapesPreview() {
                 YamalButton(text = "Default", shape = YamalButtonShape.Default, onClick = {})
                 YamalButton(text = "Round", shape = YamalButtonShape.Round, onClick = {})
                 YamalButton(shape = YamalButtonShape.Circle, onClick = {}) {
-                    Icon(Icons.Default.Search, contentDescription = null, modifier = Modifier.size(16.dp))
+                    Icon(Icons.Outlined.Search, contentDescription = null, modifier = Modifier.size(16.dp))
                 }
                 YamalButton(shape = YamalButtonShape.Circle, type = YamalButtonType.Primary, onClick = {}) {
-                    Icon(Icons.Default.Add, contentDescription = null, modifier = Modifier.size(16.dp))
+                    Icon(Icons.Outlined.Plus, contentDescription = null, modifier = Modifier.size(16.dp))
                 }
             }
         }

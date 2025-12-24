@@ -19,14 +19,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Warning
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.getValue
@@ -36,8 +30,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import com.yamal.designSystem.icons.Icon
+import com.yamal.designSystem.icons.IconPainter
+import com.yamal.designSystem.icons.Icons
 import com.yamal.designSystem.theme.Dimension
 import com.yamal.designSystem.theme.YamalTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -77,7 +73,7 @@ fun YamalAlert(
     showIcon: Boolean = false,
     closable: Boolean = false,
     onClose: (() -> Unit)? = null,
-    icon: ImageVector? = null,
+    icon: IconPainter? = null,
     action: @Composable (() -> Unit)? = null,
     banner: Boolean = false,
 ) {
@@ -123,10 +119,10 @@ fun YamalAlert(
     // Default icon based on type
     val defaultIcon =
         when (type) {
-            YamalAlertType.Success -> Icons.Default.CheckCircle
-            YamalAlertType.Info -> Icons.Default.Info
-            YamalAlertType.Warning -> Icons.Default.Warning
-            YamalAlertType.Error -> Icons.Default.Warning
+            YamalAlertType.Success -> Icons.Filled.CheckCircle
+            YamalAlertType.Info -> Icons.Filled.InfoCircle
+            YamalAlertType.Warning -> Icons.Filled.Warning
+            YamalAlertType.Error -> Icons.Filled.Alert
         }
 
     val actualIcon = icon ?: defaultIcon
@@ -154,7 +150,7 @@ fun YamalAlert(
         ) {
             if (actualShowIcon) {
                 Icon(
-                    imageVector = actualIcon,
+                    icon = actualIcon,
                     contentDescription = null,
                     modifier =
                         Modifier
@@ -192,7 +188,7 @@ fun YamalAlert(
             if (closable) {
                 Spacer(Modifier.width(Dimension.Spacing.sm))
                 Icon(
-                    imageVector = Icons.Default.Close,
+                    icon = Icons.Outlined.Close,
                     contentDescription = "Close",
                     modifier =
                         Modifier
@@ -223,7 +219,7 @@ fun YamalAnimatedAlert(
     showIcon: Boolean = false,
     closable: Boolean = false,
     onClose: (() -> Unit)? = null,
-    icon: ImageVector? = null,
+    icon: IconPainter? = null,
     action: @Composable (() -> Unit)? = null,
     banner: Boolean = false,
 ) {

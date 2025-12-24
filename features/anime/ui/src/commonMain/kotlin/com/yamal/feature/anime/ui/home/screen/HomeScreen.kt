@@ -15,16 +15,15 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.List
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.yamal.designSystem.components.YamalCard
+import com.yamal.designSystem.icons.Icon
+import com.yamal.designSystem.icons.IconPainter
+import com.yamal.designSystem.icons.Icons
 import com.yamal.designSystem.theme.YamalTheme
 
 @Composable fun HomeScreen(
@@ -59,7 +58,7 @@ import com.yamal.designSystem.theme.YamalTheme
                     modifier = Modifier.weight(1f),
                     title = "Seasonal",
                     subtitle = "Current season anime",
-                    icon = Icons.Default.DateRange,
+                    icon = Icons.Outlined.Calendar,
                     onClick = onNavigateToSeasonal,
                 )
 
@@ -67,7 +66,7 @@ import com.yamal.designSystem.theme.YamalTheme
                     modifier = Modifier.weight(1f),
                     title = "Ranking",
                     subtitle = "Top rated anime",
-                    icon = Icons.Default.Star,
+                    icon = Icons.Outlined.Star,
                     onClick = onNavigateToRanking,
                 )
             }
@@ -84,7 +83,7 @@ import com.yamal.designSystem.theme.YamalTheme
                 modifier = Modifier.fillMaxWidth(),
                 title = "My Anime List",
                 subtitle = "Your watched and planned anime",
-                icon = Icons.Default.List,
+                icon = Icons.Outlined.UnorderedList,
                 onClick = onNavigateToUserList,
             )
         }
@@ -95,7 +94,7 @@ import com.yamal.designSystem.theme.YamalTheme
     modifier: Modifier = Modifier,
     title: String,
     subtitle: String,
-    icon: ImageVector,
+    icon: IconPainter,
     onClick: () -> Unit,
 ) {
     YamalCard(
@@ -107,7 +106,7 @@ import com.yamal.designSystem.theme.YamalTheme
             horizontalAlignment = Alignment.Start,
         ) {
             Icon(
-                imageVector = icon,
+                icon = icon,
                 contentDescription = null,
                 modifier = Modifier.size(32.dp),
                 tint = YamalTheme.colors.paletteColors.color6,

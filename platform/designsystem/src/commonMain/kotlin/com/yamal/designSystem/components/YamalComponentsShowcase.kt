@@ -11,15 +11,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Icon
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.Send
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -28,6 +21,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.yamal.designSystem.icons.Icon
+import com.yamal.designSystem.icons.Icons
 import com.yamal.designSystem.theme.Dimension
 import com.yamal.designSystem.theme.YamalTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -170,7 +165,7 @@ private fun ButtonsSection() {
             YamalButton(text = "Default", shape = YamalButtonShape.Default, onClick = {})
             YamalButton(text = "Round", shape = YamalButtonShape.Round, onClick = {})
             YamalButton(shape = YamalButtonShape.Circle, onClick = {}) {
-                Icon(Icons.Default.Search, contentDescription = null, modifier = Modifier.size(16.dp))
+                Icon(Icons.Outlined.Search, contentDescription = null, modifier = Modifier.size(16.dp))
             }
         }
     }
@@ -410,7 +405,7 @@ private fun BadgesSection() {
                 YamalAvatar(text = "U")
             }
             YamalBadge(dot = true) {
-                Icon(Icons.Default.Favorite, contentDescription = null)
+                Icon(Icons.Outlined.Heart, contentDescription = null)
             }
         }
 
@@ -453,10 +448,10 @@ private fun AvatarsSection() {
         Text("With Icon", style = YamalTheme.typography.bodyMedium)
         Row(horizontalArrangement = Arrangement.spacedBy(Dimension.Spacing.sm)) {
             YamalAvatar(
-                icon = { Icon(Icons.Default.Person, contentDescription = null) },
+                icon = { Icon(Icons.Filled.Profile, contentDescription = null) },
             )
             YamalAvatar(
-                icon = { Icon(Icons.Default.Star, contentDescription = null) },
+                icon = { Icon(Icons.Outlined.Star, contentDescription = null) },
                 shape = YamalAvatarShape.Square,
             )
         }

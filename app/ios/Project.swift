@@ -34,85 +34,16 @@ let project = Project(
                     set -e
                     cd "$SRCROOT/../.."
 
-                    echo "Building Kotlin Multiplatform Framework..."
+                    echo "Building and embedding Kotlin Multiplatform Framework..."
                     echo "PLATFORM_NAME: $PLATFORM_NAME"
                     echo "ARCHS: $ARCHS"
                     echo "CONFIGURATION: $CONFIGURATION"
+                    echo "TARGET_BUILD_DIR: $TARGET_BUILD_DIR"
 
-                    # Determine the architecture
-                    if [ "$PLATFORM_NAME" = "iphonesimulator" ]; then
-                        if [ "$ARCHS" = "arm64" ] || [ "$NATIVE_ARCH" = "arm64" ]; then
-                            ARCH_NAME="iosSimulatorArm64"
-                        else
-                            ARCH_NAME="iosX64"
-                        fi
-                    else
-                        ARCH_NAME="iosArm64"
-                    fi
-
-                    echo "Target architecture: $ARCH_NAME"
-
-                    # Build the framework
-                    if [ "$CONFIGURATION" = "Debug" ]; then
-                        ./gradlew :app:shared:linkDebugFramework$ARCH_NAME
-                        FRAMEWORK_PATH="app/shared/build/bin/$ARCH_NAME/debugFramework/ComposeApp.framework"
-                    else
-                        ./gradlew :app:shared:linkReleaseFramework$ARCH_NAME
-                        FRAMEWORK_PATH="app/shared/build/bin/$ARCH_NAME/releaseFramework/ComposeApp.framework"
-                    fi
-
-                    # Ensure framework was built
-                    if [ ! -d "$FRAMEWORK_PATH" ]; then
-                        echo "error: Framework not found at $FRAMEWORK_PATH"
-                        exit 1
-                    fi
-
-                    # Copy framework to a consistent location for Xcode to find
-                    DEST_PATH="$BUILT_PRODUCTS_DIR/ComposeApp.framework"
-                    rm -rf "$DEST_PATH"
-                    cp -R "$FRAMEWORK_PATH" "$DEST_PATH"
-
-                    echo "Framework copied to $DEST_PATH"
+                    # Use the official Gradle task that handles framework building, embedding, signing, and resource syncing
+                    ./gradlew :app:shared:embedAndSignAppleFrameworkForXcode
                     """,
                     name: "Compile Kotlin Multiplatform Framework",
-                    basedOnDependencyAnalysis: false
-                ),
-                .post(
-                    script: """
-                    # Embed the framework in the app bundle
-                    FRAMEWORK_PATH="$BUILT_PRODUCTS_DIR/ComposeApp.framework"
-                    APP_PATH="$BUILT_PRODUCTS_DIR/$FULL_PRODUCT_NAME"
-                    APP_FRAMEWORKS_PATH="$APP_PATH/Frameworks"
-
-                    echo "Embedding framework into app bundle..."
-                    echo "Framework source: $FRAMEWORK_PATH"
-                    echo "App destination: $APP_FRAMEWORKS_PATH"
-
-                    if [ -d "$FRAMEWORK_PATH" ]; then
-                        # Create Frameworks directory in app bundle
-                        mkdir -p "$APP_FRAMEWORKS_PATH"
-
-                        # Remove old framework if exists
-                        rm -rf "$APP_FRAMEWORKS_PATH/ComposeApp.framework"
-
-                        # Copy framework to app bundle
-                        cp -R "$FRAMEWORK_PATH" "$APP_FRAMEWORKS_PATH/"
-
-                        echo "Framework embedded at: $APP_FRAMEWORKS_PATH/ComposeApp.framework"
-
-                        # Update framework's install name
-                        install_name_tool -id "@rpath/ComposeApp.framework/ComposeApp" "$APP_FRAMEWORKS_PATH/ComposeApp.framework/ComposeApp"
-
-                        # Code sign the framework
-                        if [ -n "$EXPANDED_CODE_SIGN_IDENTITY" ] && [ "$CODE_SIGNING_ALLOWED" != "NO" ]; then
-                            codesign --force --deep --sign "$EXPANDED_CODE_SIGN_IDENTITY" "$APP_FRAMEWORKS_PATH/ComposeApp.framework"
-                        fi
-                    else
-                        echo "error: ComposeApp.framework not found at $FRAMEWORK_PATH"
-                        exit 1
-                    fi
-                    """,
-                    name: "Embed Kotlin Framework",
                     basedOnDependencyAnalysis: false
                 )
             ],
@@ -124,7 +55,10 @@ let project = Project(
                     "SWIFT_VERSION": "5.9",
                     "LD_RUNPATH_SEARCH_PATHS": ["$(inherited)", "@executable_path/Frameworks"],
                     "VALIDATE_PRODUCT": "NO",
-                    "FRAMEWORK_SEARCH_PATHS": ["$(inherited)", "$(BUILT_PRODUCTS_DIR)"],
+                    "FRAMEWORK_SEARCH_PATHS": [
+                        "$(inherited)",
+                        "$(SRCROOT)/../../app/shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)"
+                    ],
                     "OTHER_LDFLAGS": ["$(inherited)", "-framework", "ComposeApp"]
                 ]
             )

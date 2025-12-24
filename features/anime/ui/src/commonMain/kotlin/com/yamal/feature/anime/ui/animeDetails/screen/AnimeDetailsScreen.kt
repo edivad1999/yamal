@@ -15,14 +15,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -35,6 +31,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.yamal.designSystem.components.YamalCard
+import com.yamal.designSystem.icons.Icon
+import com.yamal.designSystem.icons.Icons
 import com.yamal.designSystem.theme.YamalTheme
 import com.yamal.feature.anime.api.model.AnimeDetails
 import com.yamal.feature.anime.ui.animeDetails.presenter.AnimeDetailsIntent
@@ -68,7 +66,7 @@ fun AnimeDetailsScreen(
                 },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.Outlined.Backward, contentDescription = "Back")
                     }
                 },
                 backgroundColor = YamalTheme.colors.paletteColors.color6,
@@ -149,7 +147,7 @@ private fun AnimeDetailsContent(anime: AnimeDetails) {
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Icon(
-                            imageVector = Icons.Default.Star,
+                            icon = Icons.Outlined.Star,
                             contentDescription = null,
                             tint = YamalTheme.colors.paletteColors.color6,
                             modifier = Modifier.size(20.dp),

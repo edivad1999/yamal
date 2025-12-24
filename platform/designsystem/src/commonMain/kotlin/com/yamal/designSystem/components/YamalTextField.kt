@@ -9,15 +9,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Clear
+import com.yamal.designSystem.icons.Icon
+import com.yamal.designSystem.icons.Icons
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.remember
@@ -128,7 +127,7 @@ fun YamalInput(
                 {
                     IconButton(onClick = { onValueChange("") }) {
                         Icon(
-                            imageVector = Icons.Default.Clear,
+                            icon = Icons.Outlined.Close,
                             contentDescription = "Clear",
                             tint = colors.neutralColors.disableText,
                         )
