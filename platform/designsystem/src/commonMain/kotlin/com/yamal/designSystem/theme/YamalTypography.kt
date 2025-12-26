@@ -17,6 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
  */
 @Immutable class YamalTypography {
     // Display / Title styles
+
     /** Display Large: 38sp, used for large titles */
     val displayLarge: TextStyle =
         TextStyle(

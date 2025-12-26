@@ -1,6 +1,6 @@
 package com.yamal.plugins
 
-import com.android.build.api.dsl.androidLibrary
+import com.android.build.gradle.LibraryExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
@@ -11,23 +11,29 @@ class LibraryMultiplatformModulePlugin : Plugin<Project> {
         with(target) {
             with(pluginManager) {
                 apply("org.jetbrains.kotlin.multiplatform")
-                apply("com.android.kotlin.multiplatform.library")
+                apply("com.android.library")
                 apply("yamal.ktlint")
             }
 
-            extensions.configure<KotlinMultiplatformExtension> {
-                androidLibrary {
-                    compileSdk = compileSdkVersion
-                    minSdk = minSdkVersion
-                }
+            extensions.configure<LibraryExtension> {
+                configureKotlinAndroid(this)
+            }
 
+            extensions.configure(KotlinMultiplatformExtension::class.java) {
                 listOf(
                     iosX64(),
                     iosArm64(),
                     iosSimulatorArm64(),
                 )
 
-                jvmToolchain(jdkVersion)
+                jvmToolchain(
+                    libs
+                        .findVersion("jdk")
+                        .get()
+                        .toString()
+                        .toInt(),
+                )
+                androidTarget()
                 jvm("desktop")
                 sourceSets.commonMain.dependencies {
                     implementation(project.dependencies.platform(libs.findLibrary("koin-bom").get()))

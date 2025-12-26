@@ -56,8 +56,8 @@ kotlin {
             api(libs.ktor.ios)
         }
     }
+}
 
-    androidLibrary {
-        namespace = "com.yamal.shared"
-    }
+android {
+    namespace = "com.yamal.shared"
 }

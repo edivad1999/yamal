@@ -3,10 +3,6 @@ plugins {
 }
 
 kotlin {
-    androidLibrary {
-        namespace = "com.yamal.feature.anime.ui"
-    }
-
     sourceSets.commonMain.dependencies {
         implementation(projects.platform.utils)
         implementation(projects.platform.mvi)
@@ -30,4 +26,8 @@ kotlin {
     sourceSets.androidMain.dependencies {
         implementation(libs.koin.android)
     }
+}
+
+android {
+    namespace = "com.yamal.feature.anime.ui"
 }

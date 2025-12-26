@@ -3,10 +3,10 @@ plugins {
 }
 
 kotlin {
-    androidLibrary {
-        namespace = "com.yamal.feature.login.api"
-    }
-
     sourceSets.commonMain.dependencies {
     }
+}
+
+android {
+    namespace = "com.yamal.feature.login.api"
 }

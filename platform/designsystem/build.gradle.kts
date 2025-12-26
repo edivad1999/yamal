@@ -6,17 +6,11 @@ plugins {
 }
 
 kotlin {
-
-    androidLibrary {
-        androidResources.enable = true
-        namespace = "com.yamal.designSystem"
-    }
-
     sourceSets {
         commonMain.dependencies {
             api(compose.runtime)
             api(compose.foundation)
-            api(compose.material)
+            implementation(compose.material)
             implementation(compose.components.resources)
             api(compose.ui)
             implementation(compose.components.uiToolingPreview)
@@ -25,11 +19,16 @@ kotlin {
         }
     }
 }
-dependencies {
-    // https://youtrack.jetbrains.com/issue/KTIJ-32720/Support-common-org.jetbrains.compose.ui.tooling.preview.Preview-in-IDEA-and-Android-Studio#focus=Comments-27-11400795.0-0
-    // For the new Android-KMP plugin, use androidRuntimeClasspath instead of debugImplementation
-    "androidRuntimeClasspath"(libs.androidx.ui.tooling)
+
+android {
+    androidResources.enable = true
+    namespace = "com.yamal.designSystem"
 }
+
+dependencies {
+//    debugImplementation(libs.androidx.ui.tooling)
+    debugImplementation(compose.uiTooling)
+}
+
 compose.resources {
-    publicResClass = true
 }

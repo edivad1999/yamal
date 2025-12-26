@@ -17,15 +17,15 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
             }
 
             extensions.configure<KotlinAndroidExtension> {
-                jvmToolchain(jdkVersion)
+                jvmToolchain(libs.findVersion("jdk").get().toString().toInt())
             }
             extensions.configure<BaseAppModuleExtension> {
                 namespace = "com.yamal.android"
-                compileSdk = this@with.compileSdkVersion
+                compileSdk = libs.findVersion("compileSdk").get().toString().toInt()
 
                 defaultConfig {
                     applicationId = "com.yamal"
-                    minSdk = minSdkVersion
+                    minSdk = libs.findVersion("minSdk").get().toString().toInt()
                     versionCode = 1
                     versionName = "1.0"
                 }

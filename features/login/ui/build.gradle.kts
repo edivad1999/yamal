@@ -3,10 +3,6 @@ plugins {
 }
 
 kotlin {
-    androidLibrary {
-        namespace = "com.yamal.feature.login.ui"
-    }
-
     sourceSets.commonMain.dependencies {
         implementation(projects.platform.mvi)
         implementation(projects.features.login.api)
@@ -16,9 +12,14 @@ kotlin {
         implementation(libs.bundles.arrow)
         implementation(libs.napier)
         implementation(libs.kotlinx.coroutines.core)
+        implementation(compose.material)
     }
 
     sourceSets.androidMain.dependencies {
         implementation(libs.koin.android)
     }
+}
+
+android {
+    namespace = "com.yamal.feature.login.ui"
 }

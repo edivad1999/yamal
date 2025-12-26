@@ -1,6 +1,6 @@
 package com.yamal.plugins
 
-import com.android.build.api.dsl.androidLibrary
+import com.android.build.gradle.LibraryExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
@@ -11,19 +11,19 @@ class SharedMultiplatformModulePlugin : Plugin<Project> {
         with(target) {
             pluginManager.apply {
                 apply("org.jetbrains.kotlin.multiplatform")
-                apply("com.android.kotlin.multiplatform.library")
+                apply("com.android.library")
                 apply("org.jetbrains.compose")
                 apply("org.jetbrains.kotlin.plugin.compose")
                 apply("yamal.ktlint")
             }
 
-            extensions.configure<KotlinMultiplatformExtension> {
-                androidLibrary {
-                    compileSdk = compileSdkVersion
-                    minSdk = minSdkVersion
-                }
+            extensions.configure<LibraryExtension> {
+                configureKotlinAndroid(this)
+            }
 
-                jvmToolchain(jdkVersion)
+            extensions.configure<KotlinMultiplatformExtension> {
+                jvmToolchain(libs.findVersion("jdk").get().toString().toInt())
+                androidTarget()
                 jvm("desktop")
 
                 listOf(

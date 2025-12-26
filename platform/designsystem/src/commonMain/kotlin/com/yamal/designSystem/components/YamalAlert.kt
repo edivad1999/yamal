@@ -31,6 +31,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.yamal.designSystem.components.button.ButtonColor
+import com.yamal.designSystem.components.button.ButtonFill
+import com.yamal.designSystem.components.button.ButtonSize
+import com.yamal.designSystem.components.button.YamalButton
 import com.yamal.designSystem.icons.Icon
 import com.yamal.designSystem.icons.IconPainter
 import com.yamal.designSystem.icons.Icons
@@ -381,8 +385,9 @@ private fun YamalAlertWithActionPreview() {
                     action = {
                         YamalButton(
                             text = "UNDO",
-                            type = YamalButtonType.Text,
-                            size = YamalButtonSize.Small,
+                            color = ButtonColor.Primary,
+                            fill = ButtonFill.None,
+                            size = ButtonSize.Small,
                             onClick = {},
                         )
                     },

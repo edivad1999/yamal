@@ -15,8 +15,6 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
-import com.yamal.designSystem.icons.Icon
-import com.yamal.designSystem.icons.Icons
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.remember
@@ -25,6 +23,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import com.yamal.designSystem.icons.Icon
+import com.yamal.designSystem.icons.Icons
 import com.yamal.designSystem.theme.Dimension
 import com.yamal.designSystem.theme.YamalTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview

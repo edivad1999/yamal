@@ -4,10 +4,6 @@ plugins {
 }
 
 kotlin {
-    androidLibrary {
-        namespace = "com.yamal.feature.navigation"
-    }
-
     sourceSets.commonMain.dependencies {
         implementation(compose.runtime)
         implementation(compose.foundation)
@@ -25,4 +21,8 @@ kotlin {
         // Platform modules
         implementation(projects.platform.designsystem)
     }
+}
+
+android {
+    namespace = "com.yamal.feature.navigation"
 }

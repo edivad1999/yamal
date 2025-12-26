@@ -12,13 +12,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -30,7 +30,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import com.yamal.designSystem.components.YamalCard
+import com.yamal.designSystem.components.card.YamalCard
+import com.yamal.designSystem.components.navBar.YamalNavBar
 import com.yamal.designSystem.icons.Icon
 import com.yamal.designSystem.icons.Icons
 import com.yamal.designSystem.theme.YamalTheme
@@ -54,8 +55,8 @@ fun AnimeDetailsScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                windowInsets = WindowInsets.statusBars,
+            YamalNavBar(
+                modifier = Modifier.windowInsetsPadding(WindowInsets.statusBars),
                 title = {
                     Text(
                         text = state.anime?.title ?: "Anime Details",
@@ -64,12 +65,11 @@ fun AnimeDetailsScreen(
                         color = YamalTheme.colors.neutralColors.primaryText,
                     )
                 },
-                navigationIcon = {
+                left = {
                     IconButton(onClick = onNavigateBack) {
                         Icon(Icons.Outlined.Backward, contentDescription = "Back")
                     }
                 },
-                backgroundColor = YamalTheme.colors.paletteColors.color6,
             )
         },
     ) { paddingValues ->

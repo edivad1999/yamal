@@ -33,6 +33,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.yamal.designSystem.components.button.ButtonSize
 import com.yamal.designSystem.theme.Dimension
 import com.yamal.designSystem.theme.YamalTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -262,14 +263,15 @@ fun YamalSkeletonButton(
     modifier: Modifier = Modifier,
     active: Boolean = true,
     shape: YamalSkeletonButtonShape = YamalSkeletonButtonShape.Default,
-    size: YamalButtonSize = YamalButtonSize.Middle,
+    size: ButtonSize = ButtonSize.Middle,
     block: Boolean = false,
 ) {
     val height =
         when (size) {
-            YamalButtonSize.Small -> 24.dp
-            YamalButtonSize.Middle -> 32.dp
-            YamalButtonSize.Large -> 40.dp
+            ButtonSize.Mini -> 24.dp
+            ButtonSize.Small -> 32.dp
+            ButtonSize.Middle -> 40.dp
+            ButtonSize.Large -> 48.dp
         }
 
     val width =

@@ -16,9 +16,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.yamal.designSystem.components.YamalButton
-import com.yamal.designSystem.components.YamalButtonSize
-import com.yamal.designSystem.components.YamalButtonType
+import com.yamal.designSystem.components.button.ButtonColor
+import com.yamal.designSystem.components.button.ButtonSize
+import com.yamal.designSystem.components.button.YamalButton
 import com.yamal.designSystem.icons.Icon
 import com.yamal.designSystem.icons.Icons
 import com.yamal.designSystem.theme.YamalTheme
@@ -103,8 +103,8 @@ fun LoginScreen(
             onClick = {
                 presenter.processIntent(LoginIntent.OpenLoginBrowser(state.authorizationUrl))
             },
-            type = YamalButtonType.Primary,
-            size = YamalButtonSize.Large,
+            color = ButtonColor.Primary,
+            size = ButtonSize.Large,
         )
     }
 }

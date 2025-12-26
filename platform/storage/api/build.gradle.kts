@@ -3,11 +3,11 @@ plugins {
 }
 
 kotlin {
-    androidLibrary {
-        namespace = "com.yamal.feature.preferences.api"
-    }
-
     sourceSets.commonMain.dependencies {
         implementation(projects.platform.network.api)
     }
+}
+
+android {
+    namespace = "com.yamal.feature.preferences.api"
 }

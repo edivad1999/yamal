@@ -5,7 +5,6 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFileProperty
-import org.gradle.api.tasks.Copy
 import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.OutputDirectory
@@ -13,7 +12,7 @@ import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 import org.gradle.kotlin.dsl.register
 import org.gradle.work.DisableCachingByDefault
-import org.jetbrains.kotlin.konan.properties.suffix
+import java.io.File
 import java.net.URL
 import java.util.Locale
 import java.util.zip.ZipFile
@@ -23,7 +22,7 @@ class DesignIconsPlugin : Plugin<Project> {
         with(project) {
             tasks.register("generateIcons") {
                 group = "design assets"
-                description = "Regenerates Design SVG icons"
+                description = "Regenerates Design icons from SVG to XML vector drawables"
             }
 
             val download =
@@ -44,35 +43,24 @@ class DesignIconsPlugin : Plugin<Project> {
                         ),
                     )
                 }
-            val copyIcons =
-                tasks.register<Copy>("copyIconsToResources") {
+            val convertToXml =
+                tasks.register<ConvertSvgToXmlTask>("convertSvgToXml") {
                     group = "design assets"
-                    description = "Copies extracted SVG icons into commonMain resources"
+                    description = "Converts SVG icons to Android XML vector drawables"
 
-                    // Input: the output of the extract task
-                    from(layout.buildDirectory.dir("ant-design-icons/extracted/icons"))
+                    dependsOn(extract)
 
-                    eachFile {
-                        path =
-                            this.path
-                                .removeSuffix(".svg")
-                                .split("/")
-                                .reversed()
-                                .joinToString("_")
-                                .suffix("svg")
-                    }
-                    // Output: your commonMain resources folder
-                    into(layout.projectDirectory.dir("src/commonMain/composeResources/files"))
-                    includeEmptyDirs = false // prevents Gradle from creating empty dirs
-
-                    include("**/*.svg")
+                    inputDir.set(extract.flatMap { it.outputDir })
+                    outputDir.set(layout.projectDirectory.dir("src/commonMain/composeResources/drawable"))
                 }
             val generateTypeSafeIcons =
                 tasks.register<GenerateTypeSafeIconsTask>("generateTypeSafeIcons") {
                     group = "design assets"
                     description = "Generates type-safe icon extensions"
 
-                    inputDir.set(layout.projectDirectory.dir("src/commonMain/composeResources/files"))
+                    dependsOn(convertToXml)
+
+                    inputDir.set(layout.projectDirectory.dir("src/commonMain/composeResources/drawable"))
                     outputFile.set(layout.projectDirectory.file("src/commonMain/kotlin/com/yamal/designSystem/icons/TypeSafeIcons.kt"))
                 }
 
@@ -149,6 +137,85 @@ abstract class ExtractDesignIconsTask : DefaultTask() {
 }
 
 @DisableCachingByDefault()
+abstract class ConvertSvgToXmlTask : DefaultTask() {
+    @get:InputDirectory
+    abstract val inputDir: DirectoryProperty
+
+    @get:OutputDirectory
+    abstract val outputDir: DirectoryProperty
+
+    @TaskAction
+    fun convert() {
+        val inDir = inputDir.get().asFile
+        val outDir = outputDir.get().asFile
+        outDir.mkdirs()
+
+        // Clear existing files
+        outDir.listFiles()?.forEach { it.delete() }
+
+        var convertedCount = 0
+
+        inDir.walkTopDown()
+            .filter { it.isFile && it.extension == "svg" }
+            .forEach { svgFile ->
+                val category = svgFile.parentFile.name // filled, outlined, twotone
+                val iconName = svgFile.nameWithoutExtension
+
+                // Create resource-safe name: ic_iconname_category
+                // Resource names must be lowercase and use underscores
+                val resourceName = "ic_${iconName.lowercase().replace("-", "_")}_$category"
+                val xmlFile = File(outDir, "$resourceName.xml")
+
+                val xmlContent = convertSvgToXml(svgFile)
+                if (xmlContent != null) {
+                    xmlFile.writeText(xmlContent)
+                    convertedCount++
+                } else {
+                    logger.warn("Failed to convert: ${svgFile.name}")
+                }
+            }
+
+        logger.lifecycle("Converted $convertedCount SVG icons to XML vector drawables")
+    }
+
+    private fun convertSvgToXml(svgFile: File): String? {
+        val content = svgFile.readText()
+
+        // Extract viewBox dimensions
+        val viewBoxRegex = """viewBox="([^"]+)"""".toRegex()
+        val viewBoxMatch = viewBoxRegex.find(content)
+        val viewBox = viewBoxMatch?.groupValues?.get(1)?.split(" ") ?: return null
+
+        if (viewBox.size < 4) return null
+
+        val viewportWidth = viewBox[2]
+        val viewportHeight = viewBox[3]
+
+        // Extract all path data
+        val pathRegex = """<path[^>]*d="([^"]+)"[^>]*/>""".toRegex()
+        val paths = pathRegex.findAll(content).map { it.groupValues[1] }.toList()
+
+        if (paths.isEmpty()) return null
+
+        return buildString {
+            appendLine("""<vector xmlns:android="http://schemas.android.com/apk/res/android"""")
+            appendLine("""    android:width="24dp"""")
+            appendLine("""    android:height="24dp"""")
+            appendLine("""    android:viewportWidth="$viewportWidth"""")
+            appendLine("""    android:viewportHeight="$viewportHeight">""")
+
+            paths.forEach { pathData ->
+                appendLine("""    <path""")
+                appendLine("""        android:fillColor="#000000"""")
+                appendLine("""        android:pathData="$pathData"/>""")
+            }
+
+            appendLine("</vector>")
+        }
+    }
+}
+
+@DisableCachingByDefault()
 abstract class GenerateTypeSafeIconsTask : DefaultTask() {
     @get:InputDirectory
     abstract val inputDir: DirectoryProperty
@@ -162,18 +229,23 @@ abstract class GenerateTypeSafeIconsTask : DefaultTask() {
         val outFile = outputFile.get().asFile
         outFile.parentFile.mkdirs()
 
-        // Map to categories
+        // Map to categories: Filled, Outlined, Twotone
         val iconsByCategory = mutableMapOf<String, MutableList<Pair<String, String>>>()
 
-        dir.listFiles { f -> f.extension == "svg" }?.forEach { file ->
-            val name = file.nameWithoutExtension
-            val parts = name.split("_")
-            if (parts.size < 2) return@forEach
-            val iconName = parts.dropLast(1).joinToString("_") // account-book
-            val category = parts.last().capitalize(Locale.ROOT) // Filled / Outlined / TwoTone
+        dir.listFiles { f -> f.extension == "xml" }?.forEach { file ->
+            val name = file.nameWithoutExtension // ic_setting_filled
+            if (!name.startsWith("ic_")) return@forEach
 
-            val propertyName = iconName.split("-").joinToString("") { it.replaceFirstChar(Char::uppercase) }
-            iconsByCategory.getOrPut(category) { mutableListOf() }.add(propertyName to file.name)
+            val parts = name.removePrefix("ic_").split("_")
+            if (parts.size < 2) return@forEach
+
+            val category = parts.last().replaceFirstChar { it.titlecase(Locale.ROOT) } // Filled / Outlined / Twotone
+            val iconName = parts.dropLast(1).joinToString("_") // setting, account_book
+
+            // Convert to PascalCase property name
+            val propertyName = iconName.split("_").joinToString("") { it.replaceFirstChar(Char::uppercase) }
+
+            iconsByCategory.getOrPut(category) { mutableListOf() }.add(propertyName to name)
         }
 
         // Generate Kotlin file
@@ -182,18 +254,20 @@ abstract class GenerateTypeSafeIconsTask : DefaultTask() {
                 appendLine("@file:Suppress(\"ktlint\", \"unused\")")
                 appendLine("package com.yamal.designSystem.icons")
                 appendLine()
+                appendLine("import org.jetbrains.compose.resources.DrawableResource")
                 appendLine("import yamal.platform.designsystem.generated.resources.Res")
+                appendLine("import yamal.platform.designsystem.generated.resources.*")
                 appendLine()
-                appendLine("class IconPainter(val path: String)")
+                appendLine("class IconPainter(val drawable: DrawableResource)")
                 appendLine()
                 appendLine("object Icons {")
 
                 listOf("Filled", "Outlined", "Twotone").forEach { category ->
                     appendLine("    object $category {")
 
-                    iconsByCategory[category]?.forEach { (propName, fileName) ->
+                    iconsByCategory[category]?.sortedBy { it.first }?.forEach { (propName, resourceName) ->
                         appendLine(
-                            "        val $propName: IconPainter get() = IconPainter(Res.getUri(\"files/$fileName\"))",
+                            "        val $propName: IconPainter get() = IconPainter(Res.drawable.$resourceName)",
                         )
                     }
 

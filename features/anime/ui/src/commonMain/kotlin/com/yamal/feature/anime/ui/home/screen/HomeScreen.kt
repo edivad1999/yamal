@@ -11,16 +11,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
-import androidx.compose.material.Icon
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import com.yamal.designSystem.components.YamalCard
+import com.yamal.designSystem.components.card.YamalCard
+import com.yamal.designSystem.components.navBar.YamalNavBar
 import com.yamal.designSystem.icons.Icon
 import com.yamal.designSystem.icons.IconPainter
 import com.yamal.designSystem.icons.Icons
@@ -33,10 +32,9 @@ import com.yamal.designSystem.theme.YamalTheme
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(
-                windowInsets = WindowInsets.statusBars,
+            YamalNavBar(
+                modifier = Modifier.windowInsetsPadding(WindowInsets.statusBars),
                 title = { Text("YAMAL") },
-                backgroundColor = YamalTheme.colors.paletteColors.color6,
             )
         },
     ) { paddingValues ->
@@ -100,7 +98,6 @@ import com.yamal.designSystem.theme.YamalTheme
     YamalCard(
         modifier = modifier,
         onClick = onClick,
-        hoverable = true,
     ) {
         Column(
             horizontalAlignment = Alignment.Start,

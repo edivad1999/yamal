@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.IconButton
@@ -17,7 +18,6 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.ScrollableTabRow
 import androidx.compose.material.Tab
 import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -29,6 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.yamal.designSystem.components.navBar.YamalNavBar
 import com.yamal.designSystem.icons.Icon
 import com.yamal.designSystem.icons.Icons
 import com.yamal.designSystem.theme.YamalTheme
@@ -47,15 +48,14 @@ fun AnimeSeasonalScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                windowInsets = WindowInsets.statusBars,
+            YamalNavBar(
+                modifier = Modifier.windowInsetsPadding(WindowInsets.statusBars),
                 title = { Text("Seasonal Anime", color = YamalTheme.colors.neutralColors.primaryText) },
-                navigationIcon = {
+                left = {
                     IconButton(onClick = onNavigateBack) {
                         Icon(Icons.Outlined.ArrowLeft, contentDescription = "Back")
                     }
                 },
-                backgroundColor = YamalTheme.colors.paletteColors.color6,
             )
         },
     ) { paddingValues ->

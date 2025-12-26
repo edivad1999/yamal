@@ -1,7 +1,6 @@
 package com.yamal.designSystem.components
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
@@ -15,6 +14,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.yamal.designSystem.components.button.ButtonColor
+import com.yamal.designSystem.components.button.ButtonSize
+import com.yamal.designSystem.components.button.YamalButton
 import com.yamal.designSystem.theme.Dimension
 import com.yamal.designSystem.theme.YamalTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -172,21 +174,21 @@ private fun YamalSpaceHorizontalPreview() {
             ) {
                 Text("Small spacing:")
                 YamalSpace(size = YamalSpaceSize.Small) {
-                    YamalButton(text = "Button 1", onClick = {}, type = YamalButtonType.Primary)
-                    YamalButton(text = "Button 2", onClick = {}, type = YamalButtonType.Default)
-                    YamalButton(text = "Button 3", onClick = {}, type = YamalButtonType.Default)
+                    YamalButton(text = "Button 1", onClick = {}, color = ButtonColor.Primary)
+                    YamalButton(text = "Button 2", onClick = {}, color = ButtonColor.Default)
+                    YamalButton(text = "Button 3", onClick = {}, color = ButtonColor.Default)
                 }
 
                 Text("Middle spacing:")
                 YamalSpace(size = YamalSpaceSize.Middle) {
-                    YamalButton(text = "Button 1", onClick = {}, type = YamalButtonType.Primary)
-                    YamalButton(text = "Button 2", onClick = {}, type = YamalButtonType.Default)
+                    YamalButton(text = "Button 1", onClick = {}, color = ButtonColor.Primary)
+                    YamalButton(text = "Button 2", onClick = {}, color = ButtonColor.Default)
                 }
 
                 Text("Large spacing:")
                 YamalSpace(size = YamalSpaceSize.Large) {
-                    YamalButton(text = "Button 1", onClick = {}, type = YamalButtonType.Primary)
-                    YamalButton(text = "Button 2", onClick = {}, type = YamalButtonType.Default)
+                    YamalButton(text = "Button 1", onClick = {}, color = ButtonColor.Primary)
+                    YamalButton(text = "Button 2", onClick = {}, color = ButtonColor.Default)
                 }
             }
         }
@@ -203,9 +205,9 @@ private fun YamalSpaceVerticalPreview() {
                 direction = YamalSpaceDirection.Vertical,
                 size = YamalSpaceSize.Middle,
             ) {
-                YamalButton(text = "Button 1", onClick = {}, type = YamalButtonType.Primary)
-                YamalButton(text = "Button 2", onClick = {}, type = YamalButtonType.Default)
-                YamalButton(text = "Button 3", onClick = {}, type = YamalButtonType.Default)
+                YamalButton(text = "Button 1", onClick = {}, color = ButtonColor.Primary)
+                YamalButton(text = "Button 2", onClick = {}, color = ButtonColor.Default)
+                YamalButton(text = "Button 3", onClick = {}, color = ButtonColor.Default)
             }
         }
     }
@@ -241,19 +243,19 @@ private fun YamalSpaceAlignPreview() {
                 Text("Align Start:")
                 YamalSpace(align = YamalSpaceAlign.Start) {
                     Text("Text", style = YamalTheme.typography.h3)
-                    YamalButton(text = "Button", onClick = {}, size = YamalButtonSize.Small)
+                    YamalButton(text = "Button", onClick = {}, size = ButtonSize.Small)
                 }
 
                 Text("Align Center:")
                 YamalSpace(align = YamalSpaceAlign.Center) {
                     Text("Text", style = YamalTheme.typography.h3)
-                    YamalButton(text = "Button", onClick = {}, size = YamalButtonSize.Small)
+                    YamalButton(text = "Button", onClick = {}, size = ButtonSize.Small)
                 }
 
                 Text("Align End:")
                 YamalSpace(align = YamalSpaceAlign.End) {
                     Text("Text", style = YamalTheme.typography.h3)
-                    YamalButton(text = "Button", onClick = {}, size = YamalButtonSize.Small)
+                    YamalButton(text = "Button", onClick = {}, size = ButtonSize.Small)
                 }
             }
         }

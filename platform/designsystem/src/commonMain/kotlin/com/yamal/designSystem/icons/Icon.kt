@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.LocalContentAlpha
 import androidx.compose.material.LocalContentColor
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -13,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.toolingGraphicsLayer
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
@@ -20,7 +22,9 @@ import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import coil3.compose.rememberAsyncImagePainter
+import com.yamal.designSystem.preview.PlatformPreviewContextConfigurationEffect
 import com.yamal.designSystem.theme.YamalTheme
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
@@ -41,7 +45,7 @@ fun Icon(
         } else {
             Modifier
         }
-    val painter = rememberAsyncImagePainter(icon.path)
+    val painter = painterResource(icon.drawable)
     Box(
         modifier
             .toolingGraphicsLayer()
@@ -67,7 +71,10 @@ private val DefaultIconSizeModifier = Modifier.size(24.dp)
 @Composable
 @Preview
 private fun IconPreview() {
+    PlatformPreviewContextConfigurationEffect()
     YamalTheme {
-        Icon(Icons.Filled.Profile, null)
+        Surface {
+            Icon(Icons.Filled.Profile, null)
+        }
     }
 }
