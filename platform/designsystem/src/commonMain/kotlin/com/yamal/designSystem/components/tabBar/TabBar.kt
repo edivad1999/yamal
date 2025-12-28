@@ -11,9 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.selectableGroup
-import androidx.compose.material.LocalContentColor
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
@@ -32,7 +29,11 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.yamal.designSystem.components.YamalBadge
+import com.yamal.designSystem.components.badge.Badge
+import com.yamal.designSystem.components.badge.BadgedBox
+import com.yamal.designSystem.components.surface.Surface
+import com.yamal.designSystem.components.text.Text
+import com.yamal.designSystem.foundation.LocalContentColor
 import com.yamal.designSystem.icons.Icon
 import com.yamal.designSystem.icons.Icons
 import com.yamal.designSystem.preview.PlatformPreviewContextConfigurationEffect
@@ -166,27 +167,20 @@ fun RowScope.YamalTabBarItem(
 
             when (badge) {
                 is TabBarBadge.Dot -> {
-                    YamalBadge(
-                        dot = true,
-                        offset = TabBarDefaults.IconBadgeOffset,
-                        content = iconComposable,
-                    )
+                    BadgedBox(badge = { Badge() }) {
+                        iconComposable()
+                    }
                 }
 
                 is TabBarBadge.Count -> {
-                    YamalBadge(
-                        count = badge.count,
-                        offset = TabBarDefaults.IconBadgeOffset,
-                        content = iconComposable,
-                    )
+                    BadgedBox(badge = { Badge { Text(badge.count.toString()) } }) {
+                        iconComposable()
+                    }
                 }
 
                 is TabBarBadge.Custom -> {
-                    Box {
+                    BadgedBox(badge = { badge.content() }) {
                         iconComposable()
-                        Box(modifier = Modifier.align(Alignment.TopEnd)) {
-                            badge.content()
-                        }
                     }
                 }
 
@@ -316,16 +310,19 @@ object TabBarDefaults {
     /** Title line height: 15sp */
     val TitleLineHeight = 15.sp
 
-    /** Badge offset for icons */
-    val IconBadgeOffset: IntOffset = IntOffset(6, -6)
+    /** Badge offset right for icons */
+    val IconBadgeOffsetRight: Dp = 6.dp
+
+    /** Badge offset top for icons */
+    val IconBadgeOffsetTop: Dp = (-6).dp
 
     /** Default container color for the tab bar. */
     val containerColor: Color
-        @Composable get() = YamalTheme.colors.neutralColors.background
+        @Composable get() = YamalTheme.colors.background
 
     /** Default content color for the tab bar. */
     val contentColor: Color
-        @Composable get() = YamalTheme.colors.neutralColors.primaryText
+        @Composable get() = YamalTheme.colors.text
 }
 
 /**
@@ -338,10 +335,10 @@ object TabBarItemDefaults {
     @Composable
     fun colors(): TabBarItemColors =
         TabBarItemColors(
-            selectedContentColor = YamalTheme.colors.paletteColors.color6,
-            unselectedContentColor = YamalTheme.colors.neutralColors.secondaryText,
+            selectedContentColor = YamalTheme.colors.primary,
+            unselectedContentColor = YamalTheme.colors.textSecondary,
             disabledContentColor =
-                YamalTheme.colors.neutralColors.secondaryText
+                YamalTheme.colors.textSecondary
                     .copy(alpha = 0.38f),
         )
 
@@ -354,10 +351,10 @@ object TabBarItemDefaults {
      */
     @Composable
     fun colors(
-        selectedContentColor: Color = YamalTheme.colors.paletteColors.color6,
-        unselectedContentColor: Color = YamalTheme.colors.neutralColors.secondaryText,
+        selectedContentColor: Color = YamalTheme.colors.primary,
+        unselectedContentColor: Color = YamalTheme.colors.textSecondary,
         disabledContentColor: Color =
-            YamalTheme.colors.neutralColors.secondaryText
+            YamalTheme.colors.textSecondary
                 .copy(alpha = 0.38f),
     ): TabBarItemColors =
         TabBarItemColors(
@@ -607,8 +604,8 @@ private fun YamalTabBarCustomColorsPreview() {
     YamalTheme {
         val customColors =
             TabBarItemDefaults.colors(
-                selectedContentColor = YamalTheme.colors.functionalColors.success,
-                unselectedContentColor = YamalTheme.colors.neutralColors.secondaryText,
+                selectedContentColor = YamalTheme.colors.success,
+                unselectedContentColor = YamalTheme.colors.textSecondary,
             )
 
         YamalTabBar {

@@ -10,10 +10,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Divider
-import androidx.compose.material.LocalContentColor
-import androidx.compose.material.ProvideTextStyle
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
@@ -26,6 +22,10 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.yamal.designSystem.components.surface.Surface
+import com.yamal.designSystem.components.text.ProvideTextStyle
+import com.yamal.designSystem.components.text.Text
+import com.yamal.designSystem.foundation.LocalContentColor
 import com.yamal.designSystem.preview.PlatformPreviewContextConfigurationEffect
 import com.yamal.designSystem.theme.YamalTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -269,12 +269,13 @@ object DividerDefaults {
 
     /**
      * Creates a [DividerColors] with the default colors.
+     * ADM uses --adm-color-border for line and --adm-color-weak for text
      */
     @Composable
     fun colors(): DividerColors =
         DividerColors(
-            lineColor = YamalTheme.colors.neutralColors.divider,
-            contentColor = YamalTheme.colors.neutralColors.secondaryText,
+            lineColor = YamalTheme.colors.border,
+            contentColor = YamalTheme.colors.weak,
         )
 
     /**
@@ -285,8 +286,8 @@ object DividerDefaults {
      */
     @Composable
     fun colors(
-        lineColor: Color = YamalTheme.colors.neutralColors.divider,
-        contentColor: Color = YamalTheme.colors.neutralColors.secondaryText,
+        lineColor: Color = YamalTheme.colors.border,
+        contentColor: Color = YamalTheme.colors.weak,
     ): DividerColors =
         DividerColors(
             lineColor = lineColor,
@@ -301,7 +302,7 @@ object DividerDefaults {
 private fun YamalDividerHorizontalPreview() {
     PlatformPreviewContextConfigurationEffect()
     YamalTheme {
-        Surface(color = YamalTheme.colors.neutralColors.background) {
+        Surface(color = YamalTheme.colors.background) {
             Column(
                 modifier = Modifier.padding(16.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -319,7 +320,7 @@ private fun YamalDividerHorizontalPreview() {
 private fun YamalDividerWithContentPreview() {
     PlatformPreviewContextConfigurationEffect()
     YamalTheme {
-        Surface(color = YamalTheme.colors.neutralColors.background) {
+        Surface(color = YamalTheme.colors.background) {
             Column(
                 modifier = Modifier.padding(16.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -343,7 +344,7 @@ private fun YamalDividerWithContentPreview() {
 private fun YamalDividerVerticalPreview() {
     PlatformPreviewContextConfigurationEffect()
     YamalTheme {
-        Surface(color = YamalTheme.colors.neutralColors.background) {
+        Surface(color = YamalTheme.colors.background) {
             Row(
                 modifier = Modifier.padding(16.dp),
                 horizontalArrangement = Arrangement.Center,
@@ -364,15 +365,15 @@ private fun YamalDividerVerticalPreview() {
 private fun YamalDividerCustomColorsPreview() {
     PlatformPreviewContextConfigurationEffect()
     YamalTheme {
-        Surface(color = YamalTheme.colors.neutralColors.background) {
+        Surface(color = YamalTheme.colors.background) {
             Column(
                 modifier = Modifier.padding(16.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 val customColors =
                     DividerDefaults.colors(
-                        lineColor = YamalTheme.colors.paletteColors.color6,
-                        contentColor = YamalTheme.colors.paletteColors.color6,
+                        lineColor = YamalTheme.colors.primary,
+                        contentColor = YamalTheme.colors.primary,
                     )
 
                 YamalDivider(colors = customColors) {

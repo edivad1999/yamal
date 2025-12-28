@@ -12,7 +12,6 @@ kotlin {
         implementation(libs.bundles.arrow)
         implementation(libs.napier)
         implementation(libs.kotlinx.coroutines.core)
-        implementation(compose.material)
     }
 
     sourceSets.androidMain.dependencies {

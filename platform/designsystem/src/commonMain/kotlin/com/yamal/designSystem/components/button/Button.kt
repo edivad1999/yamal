@@ -17,8 +17,6 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.OutlinedButton
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
@@ -27,6 +25,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
+import com.yamal.designSystem.components.surface.Surface
+import com.yamal.designSystem.components.text.Text
 import com.yamal.designSystem.icons.Icon
 import com.yamal.designSystem.icons.Icons
 import com.yamal.designSystem.theme.Dimension
@@ -158,11 +158,11 @@ fun YamalButton(
     // Determine colors based on color and fill
     val semanticColor =
         when (color) {
-            ButtonColor.Default -> colors.neutralColors.primaryText
-            ButtonColor.Primary -> colors.paletteColors.color6
-            ButtonColor.Success -> colors.functionalColors.success
-            ButtonColor.Warning -> colors.functionalColors.warning
-            ButtonColor.Danger -> colors.functionalColors.error
+            ButtonColor.Default -> colors.text
+            ButtonColor.Primary -> colors.primary
+            ButtonColor.Success -> colors.success
+            ButtonColor.Warning -> colors.warning
+            ButtonColor.Danger -> colors.danger
         }
 
     val actuallyEnabled = !disabled && !loading
@@ -179,9 +179,9 @@ fun YamalButton(
                     when (fill) {
                         ButtonFill.Solid -> {
                             if (color == ButtonColor.Default) {
-                                colors.neutralColors.primaryText
+                                colors.text
                             } else {
-                                colors.neutralColors.background
+                                colors.textLightSolid
                             }
                         }
 
@@ -209,22 +209,22 @@ fun YamalButton(
                     ButtonDefaults.buttonColors(
                         backgroundColor =
                             if (color == ButtonColor.Default) {
-                                colors.neutralColors.background
+                                colors.background
                             } else {
                                 semanticColor
                             },
                         contentColor =
                             if (color == ButtonColor.Default) {
-                                colors.neutralColors.primaryText
+                                colors.text
                             } else {
-                                colors.neutralColors.background
+                                colors.textLightSolid
                             },
-                        disabledBackgroundColor = colors.neutralColors.disableText.copy(alpha = 0.3f),
-                        disabledContentColor = colors.neutralColors.disableText,
+                        disabledBackgroundColor = colors.weak.copy(alpha = 0.3f),
+                        disabledContentColor = colors.weak,
                     ),
                 border =
                     if (color == ButtonColor.Default) {
-                        BorderStroke(1.dp, colors.neutralColors.border)
+                        BorderStroke(1.dp, colors.border)
                     } else {
                         null
                     },
@@ -251,13 +251,13 @@ fun YamalButton(
                 border =
                     BorderStroke(
                         width = 1.dp,
-                        color = if (actuallyEnabled) semanticColor else colors.neutralColors.disableText,
+                        color = if (actuallyEnabled) semanticColor else colors.weak,
                     ),
                 colors =
                     ButtonDefaults.outlinedButtonColors(
                         backgroundColor = Color.Transparent,
                         contentColor = semanticColor,
-                        disabledContentColor = colors.neutralColors.disableText,
+                        disabledContentColor = colors.weak,
                     ),
                 contentPadding = contentPadding,
             ) {
@@ -283,7 +283,7 @@ fun YamalButton(
                     ButtonDefaults.textButtonColors(
                         backgroundColor = Color.Transparent,
                         contentColor = semanticColor,
-                        disabledContentColor = colors.neutralColors.disableText,
+                        disabledContentColor = colors.weak,
                     ),
                 contentPadding = contentPadding,
             ) {
@@ -323,7 +323,7 @@ fun YamalButton(
     val textStyle =
         when (size) {
             ButtonSize.Mini -> typography.caption
-            ButtonSize.Small -> typography.footnote
+            ButtonSize.Small -> typography.captionMedium
             ButtonSize.Middle -> typography.body
             ButtonSize.Large -> typography.body
         }
@@ -351,7 +351,7 @@ fun YamalButton(
 @Composable
 private fun ButtonColorsPreview() {
     YamalTheme {
-        Surface(color = YamalTheme.colors.neutralColors.background) {
+        Surface(color = YamalTheme.colors.background) {
             Column(
                 modifier = Modifier.padding(Dimension.Spacing.md),
                 verticalArrangement = Arrangement.spacedBy(Dimension.Spacing.sm),
@@ -374,7 +374,7 @@ private fun ButtonColorsPreview() {
 @Composable
 private fun ButtonFillsPreview() {
     YamalTheme {
-        Surface(color = YamalTheme.colors.neutralColors.background) {
+        Surface(color = YamalTheme.colors.background) {
             Column(
                 modifier = Modifier.padding(Dimension.Spacing.md),
                 verticalArrangement = Arrangement.spacedBy(Dimension.Spacing.sm),
@@ -408,7 +408,7 @@ private fun ButtonFillsPreview() {
 @Composable
 private fun ButtonSizesPreview() {
     YamalTheme {
-        Surface(color = YamalTheme.colors.neutralColors.background) {
+        Surface(color = YamalTheme.colors.background) {
             Row(
                 modifier = Modifier.padding(Dimension.Spacing.md),
                 horizontalArrangement = Arrangement.spacedBy(Dimension.Spacing.sm),
@@ -427,7 +427,7 @@ private fun ButtonSizesPreview() {
 @Composable
 private fun ButtonShapesPreview() {
     YamalTheme {
-        Surface(color = YamalTheme.colors.neutralColors.background) {
+        Surface(color = YamalTheme.colors.background) {
             Row(
                 modifier = Modifier.padding(Dimension.Spacing.md),
                 horizontalArrangement = Arrangement.spacedBy(Dimension.Spacing.sm),
@@ -445,7 +445,7 @@ private fun ButtonShapesPreview() {
 @Composable
 private fun ButtonStatesPreview() {
     YamalTheme {
-        Surface(color = YamalTheme.colors.neutralColors.background) {
+        Surface(color = YamalTheme.colors.background) {
             Column(
                 modifier = Modifier.padding(Dimension.Spacing.md),
                 verticalArrangement = Arrangement.spacedBy(Dimension.Spacing.sm),
@@ -483,7 +483,7 @@ private fun ButtonStatesPreview() {
 @Composable
 private fun ButtonBlockPreview() {
     YamalTheme {
-        Surface(color = YamalTheme.colors.neutralColors.background) {
+        Surface(color = YamalTheme.colors.background) {
             Column(
                 modifier = Modifier.padding(Dimension.Spacing.md),
                 verticalArrangement = Arrangement.spacedBy(Dimension.Spacing.sm),
@@ -510,7 +510,7 @@ private fun ButtonBlockPreview() {
 @Composable
 private fun ButtonWithIconPreview() {
     YamalTheme {
-        Surface(color = YamalTheme.colors.neutralColors.background) {
+        Surface(color = YamalTheme.colors.background) {
             Row(
                 modifier = Modifier.padding(Dimension.Spacing.md),
                 horizontalArrangement = Arrangement.spacedBy(Dimension.Spacing.sm),

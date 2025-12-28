@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -19,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.yamal.designSystem.components.button.ButtonColor
 import com.yamal.designSystem.components.button.ButtonSize
 import com.yamal.designSystem.components.button.YamalButton
+import com.yamal.designSystem.components.text.Text
 import com.yamal.designSystem.icons.Icon
 import com.yamal.designSystem.icons.Icons
 import com.yamal.designSystem.theme.YamalTheme
@@ -75,16 +75,16 @@ fun LoginScreen(
             Icons.Filled.Profile,
             contentDescription = null,
             modifier = Modifier.size(120.dp),
-            tint = YamalTheme.colors.paletteColors.color6,
+            tint = YamalTheme.colors.primary,
         )
 
         Spacer(modifier = Modifier.height(32.dp))
 
         Text(
             text = "Welcome to YAMAL",
-            style = YamalTheme.typography.h3,
+            style = YamalTheme.typography.displaySmall,
             textAlign = TextAlign.Center,
-            color = YamalTheme.colors.neutralColors.title,
+            color = YamalTheme.colors.text,
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -93,7 +93,7 @@ fun LoginScreen(
             text = "Yet Another MyAnimeList Client",
             style = YamalTheme.typography.bodyLarge,
             textAlign = TextAlign.Center,
-            color = YamalTheme.colors.neutralColors.secondaryText,
+            color = YamalTheme.colors.textSecondary,
         )
 
         Spacer(modifier = Modifier.height(48.dp))

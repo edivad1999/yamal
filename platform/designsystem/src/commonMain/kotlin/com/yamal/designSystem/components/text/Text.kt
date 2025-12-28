@@ -5,10 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.text.InlineTextContent
-import androidx.compose.material.LocalContentAlpha
-import androidx.compose.material.LocalContentColor
 import androidx.compose.material.LocalTextStyle
-import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
@@ -25,6 +22,9 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import com.yamal.designSystem.components.surface.Surface
+import com.yamal.designSystem.foundation.LocalContentAlpha
+import com.yamal.designSystem.foundation.LocalContentColor
 import com.yamal.designSystem.preview.PlatformPreviewContextConfigurationEffect
 import com.yamal.designSystem.theme.YamalTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -233,7 +233,7 @@ fun ProvideTextStyle(
 private fun TextBasicPreview() {
     PlatformPreviewContextConfigurationEffect()
     YamalTheme {
-        Surface(color = YamalTheme.colors.neutralColors.background) {
+        Surface(color = YamalTheme.colors.background) {
             Column(
                 modifier = Modifier.padding(16.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -242,17 +242,17 @@ private fun TextBasicPreview() {
 
                 Text(
                     text = "Primary text color",
-                    color = YamalTheme.colors.neutralColors.primaryText,
+                    color = YamalTheme.colors.text,
                 )
 
                 Text(
                     text = "Secondary text color",
-                    color = YamalTheme.colors.neutralColors.secondaryText,
+                    color = YamalTheme.colors.textSecondary,
                 )
 
                 Text(
                     text = "Accent color",
-                    color = YamalTheme.colors.paletteColors.color6,
+                    color = YamalTheme.colors.primary,
                 )
             }
         }
@@ -264,7 +264,7 @@ private fun TextBasicPreview() {
 private fun TextTypographyPreview() {
     PlatformPreviewContextConfigurationEffect()
     YamalTheme {
-        Surface(color = YamalTheme.colors.neutralColors.background) {
+        Surface(color = YamalTheme.colors.background) {
             Column(
                 modifier = Modifier.padding(16.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -272,49 +272,49 @@ private fun TextTypographyPreview() {
                 Text(
                     text = "Display Large",
                     style = YamalTheme.typography.displayLarge,
-                    color = YamalTheme.colors.neutralColors.title,
+                    color = YamalTheme.colors.text,
                 )
 
                 Text(
                     text = "Display Medium",
                     style = YamalTheme.typography.displayMedium,
-                    color = YamalTheme.colors.neutralColors.title,
+                    color = YamalTheme.colors.text,
                 )
 
                 Text(
                     text = "Display Small",
                     style = YamalTheme.typography.displaySmall,
-                    color = YamalTheme.colors.neutralColors.title,
+                    color = YamalTheme.colors.text,
                 )
 
                 Text(
-                    text = "Heading 4",
-                    style = YamalTheme.typography.h4,
-                    color = YamalTheme.colors.neutralColors.title,
+                    text = "Title",
+                    style = YamalTheme.typography.title,
+                    color = YamalTheme.colors.text,
                 )
 
                 Text(
-                    text = "Heading 5",
-                    style = YamalTheme.typography.h5,
-                    color = YamalTheme.colors.neutralColors.title,
+                    text = "Title Small",
+                    style = YamalTheme.typography.titleSmall,
+                    color = YamalTheme.colors.text,
                 )
 
                 Text(
                     text = "Body text",
                     style = YamalTheme.typography.body,
-                    color = YamalTheme.colors.neutralColors.primaryText,
+                    color = YamalTheme.colors.text,
                 )
 
                 Text(
                     text = "Body Medium",
                     style = YamalTheme.typography.bodyMedium,
-                    color = YamalTheme.colors.neutralColors.primaryText,
+                    color = YamalTheme.colors.text,
                 )
 
                 Text(
                     text = "Small text",
                     style = YamalTheme.typography.small,
-                    color = YamalTheme.colors.neutralColors.secondaryText,
+                    color = YamalTheme.colors.textSecondary,
                 )
             }
         }
@@ -326,7 +326,7 @@ private fun TextTypographyPreview() {
 private fun TextStyleOverridesPreview() {
     PlatformPreviewContextConfigurationEffect()
     YamalTheme {
-        Surface(color = YamalTheme.colors.neutralColors.background) {
+        Surface(color = YamalTheme.colors.background) {
             Column(
                 modifier = Modifier.padding(16.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -334,38 +334,38 @@ private fun TextStyleOverridesPreview() {
                 Text(
                     text = "Bold text",
                     fontWeight = FontWeight.Bold,
-                    color = YamalTheme.colors.neutralColors.primaryText,
+                    color = YamalTheme.colors.text,
                 )
 
                 Text(
                     text = "Italic text",
                     fontStyle = FontStyle.Italic,
-                    color = YamalTheme.colors.neutralColors.primaryText,
+                    color = YamalTheme.colors.text,
                 )
 
                 Text(
                     text = "Underlined text",
                     textDecoration = TextDecoration.Underline,
-                    color = YamalTheme.colors.neutralColors.primaryText,
+                    color = YamalTheme.colors.text,
                 )
 
                 Text(
                     text = "Strikethrough text",
                     textDecoration = TextDecoration.LineThrough,
-                    color = YamalTheme.colors.neutralColors.primaryText,
+                    color = YamalTheme.colors.text,
                 )
 
                 Text(
                     text = "Center aligned text with a longer content to show alignment",
                     textAlign = TextAlign.Center,
-                    color = YamalTheme.colors.neutralColors.primaryText,
+                    color = YamalTheme.colors.text,
                 )
 
                 Text(
                     text = "This is a very long text that will be truncated with ellipsis because maxLines is set to 1",
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
-                    color = YamalTheme.colors.neutralColors.primaryText,
+                    color = YamalTheme.colors.text,
                 )
             }
         }

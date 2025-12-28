@@ -9,7 +9,6 @@ kotlin {
         implementation(projects.platform.designsystem)
         implementation(projects.features.anime.api)
         implementation(projects.features.login.api)
-        implementation(compose.material)
         implementation(libs.paging.runtime)
         implementation(libs.paging.compose)
         api(compose.runtime)

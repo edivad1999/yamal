@@ -4,48 +4,87 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBars
-import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.yamal.designSystem.components.card.YamalCard
+import com.yamal.designSystem.components.loadingIndicator.DotLoadingIndicator
+import com.yamal.designSystem.components.loadingIndicator.SpinLoadingIndicator
 import com.yamal.designSystem.components.navBar.YamalNavBar
+import com.yamal.designSystem.components.scaffold.YamalScaffold
+import com.yamal.designSystem.components.skeleton.SkeletonTitle
+import com.yamal.designSystem.components.tabBar.YamalTabBar
+import com.yamal.designSystem.components.text.Text
 import com.yamal.designSystem.icons.Icon
 import com.yamal.designSystem.icons.IconPainter
 import com.yamal.designSystem.icons.Icons
 import com.yamal.designSystem.theme.YamalTheme
 
-@Composable fun HomeScreen(
+@Composable
+fun HomeScreen(
     onNavigateToSeasonal: () -> Unit,
     onNavigateToRanking: () -> Unit,
     onNavigateToUserList: () -> Unit,
 ) {
-    Scaffold(
+    YamalScaffold(
+        bottomBar = {
+            YamalTabBar(
+                modifier = Modifier.navigationBarsPadding(),
+                items = {
+                    item(
+                        icon = { Icon(Icons.Outlined.Home, null) },
+                        label = { Text("Home") },
+                        selected = true,
+                        onClick = {},
+                    )
+                    item(
+                        icon = { Icon(Icons.Outlined.Star, null) },
+                        label = { Text("stars") },
+                        selected = true,
+                        onClick = {},
+                    )
+                    item(
+                        icon = { Icon(Icons.Outlined.Setting, null) },
+                        label = { Text("Settings") },
+                        selected = true,
+                        onClick = {},
+                    )
+                },
+            )
+        },
         topBar = {
             YamalNavBar(
-                modifier = Modifier.windowInsetsPadding(WindowInsets.statusBars),
+                modifier = Modifier.statusBarsPadding(),
                 title = { Text("YAMAL") },
             )
         },
     ) { paddingValues ->
         Column(
-            modifier = Modifier.fillMaxSize().padding(paddingValues).padding(16.dp),
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
+                    .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
+            SpinLoadingIndicator()
+            Spacer(modifier = Modifier.height(16.dp))
+            DotLoadingIndicator()
+            Spacer(modifier = Modifier.height(16.dp))
+            SkeletonTitle()
+
             Text(
                 text = "Discover Anime",
-                style = YamalTheme.typography.h4,
-                color = YamalTheme.colors.neutralColors.title,
+                style = YamalTheme.typography.title,
+                color = YamalTheme.colors.text,
             )
 
             Row(
@@ -73,8 +112,8 @@ import com.yamal.designSystem.theme.YamalTheme
 
             Text(
                 text = "Your Library",
-                style = YamalTheme.typography.h4,
-                color = YamalTheme.colors.neutralColors.title,
+                style = YamalTheme.typography.title,
+                color = YamalTheme.colors.text,
             )
 
             HomeCard(
@@ -106,21 +145,21 @@ import com.yamal.designSystem.theme.YamalTheme
                 icon = icon,
                 contentDescription = null,
                 modifier = Modifier.size(32.dp),
-                tint = YamalTheme.colors.paletteColors.color6,
+                tint = YamalTheme.colors.primary,
             )
 
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
                 text = title,
-                style = YamalTheme.typography.h5,
-                color = YamalTheme.colors.neutralColors.title,
+                style = YamalTheme.typography.titleSmall,
+                color = YamalTheme.colors.text,
             )
 
             Text(
                 text = subtitle,
                 style = YamalTheme.typography.body,
-                color = YamalTheme.colors.neutralColors.secondaryText,
+                color = YamalTheme.colors.textSecondary,
             )
         }
     }

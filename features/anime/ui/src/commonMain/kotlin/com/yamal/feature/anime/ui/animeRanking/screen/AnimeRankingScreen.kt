@@ -3,6 +3,7 @@ package com.yamal.feature.anime.ui.animeRanking.screen
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,10 +12,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.IconButton
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -23,7 +20,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.yamal.designSystem.components.button.IconButton
+import com.yamal.designSystem.components.loadingIndicator.SpinLoadingIndicator
 import com.yamal.designSystem.components.navBar.YamalNavBar
+import com.yamal.designSystem.components.scaffold.YamalScaffold
+import com.yamal.designSystem.components.text.Text
 import com.yamal.designSystem.icons.Icon
 import com.yamal.designSystem.icons.Icons
 import com.yamal.designSystem.theme.YamalTheme
@@ -40,11 +41,11 @@ fun AnimeRankingScreen(
     val state by presenter.state.collectAsState()
     val lazyPagingItems = state.ranking.collectAsLazyPagingItems()
 
-    Scaffold(
+    YamalScaffold(
         topBar = {
             YamalNavBar(
                 modifier = Modifier.windowInsetsPadding(WindowInsets.statusBars),
-                title = { Text("Top Anime", color = YamalTheme.colors.neutralColors.primaryText) },
+                title = { Text("Top Anime", color = YamalTheme.colors.text) },
                 left = {
                     IconButton(onClick = onNavigateBack) {
                         Icon(Icons.Outlined.ArrowLeft, contentDescription = "Back")
@@ -54,10 +55,7 @@ fun AnimeRankingScreen(
         },
     ) { paddingValues ->
         LazyColumn(
-            modifier =
-                Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues),
+            modifier = Modifier.fillMaxSize().padding(paddingValues),
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
@@ -84,7 +82,7 @@ fun AnimeRankingScreen(
                                     .padding(32.dp),
                             contentAlignment = Alignment.Center,
                         ) {
-                            CircularProgressIndicator()
+                            SpinLoadingIndicator()
                         }
                     }
                 }
@@ -94,7 +92,7 @@ fun AnimeRankingScreen(
                         Text(
                             text = "Error loading anime ranking",
                             modifier = Modifier.padding(16.dp),
-                            color = YamalTheme.colors.functionalColors.error,
+                            color = YamalTheme.colors.danger,
                         )
                     }
                 }
@@ -112,7 +110,7 @@ fun AnimeRankingScreen(
                                     .padding(16.dp),
                             contentAlignment = Alignment.Center,
                         ) {
-                            CircularProgressIndicator()
+                            SpinLoadingIndicator()
                         }
                     }
                 }
@@ -122,7 +120,7 @@ fun AnimeRankingScreen(
                         Text(
                             text = "Error loading more items",
                             modifier = Modifier.padding(16.dp),
-                            color = YamalTheme.colors.functionalColors.error,
+                            color = YamalTheme.colors.danger,
                         )
                     }
                 }

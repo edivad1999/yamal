@@ -9,10 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
-import androidx.compose.material.LocalContentColor
-import androidx.compose.material.ProvideTextStyle
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
@@ -25,6 +21,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.yamal.designSystem.components.surface.Surface
+import com.yamal.designSystem.components.text.ProvideTextStyle
+import com.yamal.designSystem.components.text.Text
+import com.yamal.designSystem.foundation.LocalContentColor
 import com.yamal.designSystem.preview.PlatformPreviewContextConfigurationEffect
 import com.yamal.designSystem.theme.YamalTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -307,11 +307,11 @@ object CardDefaults {
     @Composable
     fun colors(): CardColors =
         CardColors(
-            containerColor = YamalTheme.colors.neutralColors.background,
-            contentColor = YamalTheme.colors.neutralColors.primaryText,
-            titleColor = YamalTheme.colors.neutralColors.title,
-            extraColor = YamalTheme.colors.neutralColors.secondaryText,
-            borderColor = YamalTheme.colors.neutralColors.border,
+            containerColor = YamalTheme.colors.background,
+            contentColor = YamalTheme.colors.text,
+            titleColor = YamalTheme.colors.text,
+            extraColor = YamalTheme.colors.textSecondary,
+            borderColor = YamalTheme.colors.border,
         )
 
     /**
@@ -325,11 +325,11 @@ object CardDefaults {
      */
     @Composable
     fun colors(
-        containerColor: Color = YamalTheme.colors.neutralColors.background,
-        contentColor: Color = YamalTheme.colors.neutralColors.primaryText,
-        titleColor: Color = YamalTheme.colors.neutralColors.title,
-        extraColor: Color = YamalTheme.colors.neutralColors.secondaryText,
-        borderColor: Color = YamalTheme.colors.neutralColors.border,
+        containerColor: Color = YamalTheme.colors.background,
+        contentColor: Color = YamalTheme.colors.text,
+        titleColor: Color = YamalTheme.colors.text,
+        extraColor: Color = YamalTheme.colors.textSecondary,
+        borderColor: Color = YamalTheme.colors.border,
     ): CardColors =
         CardColors(
             containerColor = containerColor,
@@ -347,7 +347,7 @@ object CardDefaults {
 private fun YamalCardBasicPreview() {
     PlatformPreviewContextConfigurationEffect()
     YamalTheme {
-        Surface(color = YamalTheme.colors.neutralColors.fill) {
+        Surface(color = YamalTheme.colors.box) {
             Column(
                 modifier = Modifier.padding(16.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -360,7 +360,7 @@ private fun YamalCardBasicPreview() {
 
                 YamalCard(
                     title = { Text("With Extra") },
-                    extra = { Text("More", color = YamalTheme.colors.paletteColors.color6) },
+                    extra = { Text("More", color = YamalTheme.colors.primary) },
                 ) {
                     Text("Card content with extra action in the header.")
                 }
@@ -374,7 +374,7 @@ private fun YamalCardBasicPreview() {
 private fun YamalCardHeaderOnlyPreview() {
     PlatformPreviewContextConfigurationEffect()
     YamalTheme {
-        Surface(color = YamalTheme.colors.neutralColors.fill) {
+        Surface(color = YamalTheme.colors.box) {
             Column(
                 modifier = Modifier.padding(16.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -397,7 +397,7 @@ private fun YamalCardHeaderOnlyPreview() {
 private fun YamalCardBodyOnlyPreview() {
     PlatformPreviewContextConfigurationEffect()
     YamalTheme {
-        Surface(color = YamalTheme.colors.neutralColors.fill) {
+        Surface(color = YamalTheme.colors.box) {
             Column(
                 modifier = Modifier.padding(16.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -423,7 +423,7 @@ private fun YamalCardBodyOnlyPreview() {
 private fun YamalCardClickablePreview() {
     PlatformPreviewContextConfigurationEffect()
     YamalTheme {
-        Surface(color = YamalTheme.colors.neutralColors.fill) {
+        Surface(color = YamalTheme.colors.box) {
             Column(
                 modifier = Modifier.padding(16.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -458,15 +458,15 @@ private fun YamalCardClickablePreview() {
 private fun YamalCardCustomColorsPreview() {
     PlatformPreviewContextConfigurationEffect()
     YamalTheme {
-        Surface(color = YamalTheme.colors.neutralColors.fill) {
+        Surface(color = YamalTheme.colors.box) {
             Column(
                 modifier = Modifier.padding(16.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
                 val customColors =
                     CardDefaults.colors(
-                        containerColor = YamalTheme.colors.paletteColors.color1,
-                        titleColor = YamalTheme.colors.paletteColors.color6,
+                        containerColor = YamalTheme.colors.wathet,
+                        titleColor = YamalTheme.colors.primary,
                     )
 
                 YamalCard(

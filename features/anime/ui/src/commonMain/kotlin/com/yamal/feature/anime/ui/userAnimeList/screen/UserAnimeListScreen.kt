@@ -12,12 +12,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.IconButton
-import androidx.compose.material.Scaffold
-import androidx.compose.material.ScrollableTabRow
-import androidx.compose.material.Tab
-import androidx.compose.material.Text
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -26,7 +22,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.yamal.designSystem.components.button.ButtonColor
+import com.yamal.designSystem.components.button.ButtonFill
+import com.yamal.designSystem.components.button.ButtonSize
+import com.yamal.designSystem.components.button.IconButton
+import com.yamal.designSystem.components.button.YamalButton
+import com.yamal.designSystem.components.loadingIndicator.SpinLoadingIndicator
 import com.yamal.designSystem.components.navBar.YamalNavBar
+import com.yamal.designSystem.components.scaffold.YamalScaffold
+import com.yamal.designSystem.components.text.Text
 import com.yamal.designSystem.icons.Icon
 import com.yamal.designSystem.icons.Icons
 import com.yamal.designSystem.theme.YamalTheme
@@ -44,11 +48,11 @@ fun UserAnimeListScreen(
 ) {
     val state by presenter.state.collectAsState()
 
-    Scaffold(
+    YamalScaffold(
         topBar = {
             YamalNavBar(
                 modifier = Modifier.windowInsetsPadding(WindowInsets.statusBars),
-                title = { Text("My Anime List", color = YamalTheme.colors.neutralColors.primaryText) },
+                title = { Text("My Anime List", color = YamalTheme.colors.text) },
                 left = {
                     IconButton(onClick = onNavigateBack) {
                         Icon(Icons.Outlined.ArrowLeft, contentDescription = "Back")
@@ -58,10 +62,7 @@ fun UserAnimeListScreen(
         },
     ) { paddingValues ->
         Column(
-            modifier =
-                Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues),
+            modifier = Modifier.fillMaxSize().padding(paddingValues),
         ) {
             if (!state.isLoggedIn) {
                 Box(
@@ -70,24 +71,27 @@ fun UserAnimeListScreen(
                 ) {
                     Text(
                         "Please login to view your anime list",
-                        color = YamalTheme.colors.neutralColors.primaryText,
+                        color = YamalTheme.colors.text,
                     )
                 }
             } else {
                 val selectedIndex = UserListStatus.entries.indexOf(state.userAnimeStatus)
 
-                ScrollableTabRow(
-                    selectedTabIndex = selectedIndex,
-                    backgroundColor = YamalTheme.colors.neutralColors.background,
-                    edgePadding = 16.dp,
+                // TODO: Replace with proper Tabs component when designed
+                LazyRow(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentPadding = PaddingValues(horizontal = 16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
-                    UserListStatus.entries.forEachIndexed { index, status ->
-                        Tab(
-                            selected = selectedIndex == index,
+                    itemsIndexed(UserListStatus.entries) { index, status ->
+                        YamalButton(
+                            text = formatStatusName(status),
                             onClick = {
                                 presenter.processIntent(UserAnimeListIntent.OnSelectStatus(status))
                             },
-                            text = { Text(formatStatusName(status)) },
+                            color = if (selectedIndex == index) ButtonColor.Primary else ButtonColor.Default,
+                            fill = if (selectedIndex == index) ButtonFill.Solid else ButtonFill.Outline,
+                            size = ButtonSize.Small,
                         )
                     }
                 }
@@ -125,7 +129,7 @@ fun UserAnimeListScreen(
                                                 .padding(32.dp),
                                         contentAlignment = Alignment.Center,
                                     ) {
-                                        CircularProgressIndicator()
+                                        SpinLoadingIndicator()
                                     }
                                 }
                             }
@@ -135,7 +139,7 @@ fun UserAnimeListScreen(
                                     Text(
                                         text = "Error loading anime list",
                                         modifier = Modifier.padding(16.dp),
-                                        color = YamalTheme.colors.functionalColors.error,
+                                        color = YamalTheme.colors.danger,
                                     )
                                 }
                             }
@@ -153,7 +157,7 @@ fun UserAnimeListScreen(
                                                 .padding(16.dp),
                                         contentAlignment = Alignment.Center,
                                     ) {
-                                        CircularProgressIndicator()
+                                        SpinLoadingIndicator()
                                     }
                                 }
                             }
@@ -163,7 +167,7 @@ fun UserAnimeListScreen(
                                     Text(
                                         text = "Error loading more items",
                                         modifier = Modifier.padding(16.dp),
-                                        color = YamalTheme.colors.functionalColors.error,
+                                        color = YamalTheme.colors.danger,
                                     )
                                 }
                             }

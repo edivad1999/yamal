@@ -2,9 +2,6 @@ package com.yamal.designSystem.icons
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.LocalContentAlpha
-import androidx.compose.material.LocalContentColor
-import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -22,6 +19,9 @@ import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import coil3.compose.rememberAsyncImagePainter
+import com.yamal.designSystem.components.surface.Surface
+import com.yamal.designSystem.foundation.LocalContentAlpha
+import com.yamal.designSystem.foundation.LocalContentColor
 import com.yamal.designSystem.preview.PlatformPreviewContextConfigurationEffect
 import com.yamal.designSystem.theme.YamalTheme
 import org.jetbrains.compose.resources.painterResource

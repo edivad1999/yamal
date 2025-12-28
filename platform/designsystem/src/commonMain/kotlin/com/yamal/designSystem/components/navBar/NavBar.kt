@@ -8,11 +8,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.LocalContentAlpha
-import androidx.compose.material.ProvideTextStyle
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
@@ -21,6 +16,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.yamal.designSystem.components.surface.Surface
+import com.yamal.designSystem.components.text.ProvideTextStyle
+import com.yamal.designSystem.components.text.Text
+import com.yamal.designSystem.foundation.LocalContentAlpha
 import com.yamal.designSystem.icons.Icon
 import com.yamal.designSystem.icons.Icons
 import com.yamal.designSystem.preview.PlatformPreviewContextConfigurationEffect
@@ -56,8 +55,8 @@ fun YamalNavBar(
     onBack: (() -> Unit)? = null,
     left: @Composable (() -> Unit)? = null,
     right: @Composable (() -> Unit)? = null,
-    backgroundColor: Color = YamalTheme.colors.neutralColors.background,
-    contentColor: Color = YamalTheme.colors.neutralColors.primaryText,
+    backgroundColor: Color = YamalTheme.colors.background,
+    contentColor: Color = YamalTheme.colors.text,
     elevation: Dp = NavBarDefaults.Elevation,
 ) {
     Surface(
@@ -76,7 +75,7 @@ fun YamalNavBar(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start,
             ) {
-                CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.high) {
+                CompositionLocalProvider(LocalContentAlpha provides 1f) {
                     // Back button
                     if (back != null) {
                         Row(
@@ -111,8 +110,8 @@ fun YamalNavBar(
                 modifier = Modifier.padding(horizontal = NavBarDefaults.TitleHorizontalPadding),
                 contentAlignment = Alignment.Center,
             ) {
-                ProvideTextStyle(value = YamalTheme.typography.h5) {
-                    CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.high) {
+                ProvideTextStyle(value = YamalTheme.typography.titleSmall) {
+                    CompositionLocalProvider(LocalContentAlpha provides 1f) {
                         title()
                     }
                 }
@@ -124,7 +123,7 @@ fun YamalNavBar(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.End,
             ) {
-                CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.high) {
+                CompositionLocalProvider(LocalContentAlpha provides 1f) {
                     right?.invoke()
                 }
             }
@@ -198,7 +197,7 @@ private fun YamalNavBarWithRightPreview() {
             right = {
                 Text(
                     text = "Done",
-                    color = YamalTheme.colors.paletteColors.color6,
+                    color = YamalTheme.colors.primary,
                 )
             },
         )
@@ -256,7 +255,7 @@ private fun YamalNavBarLongTitlePreview() {
             right = {
                 Text(
                     text = "Done",
-                    color = YamalTheme.colors.paletteColors.color6,
+                    color = YamalTheme.colors.primary,
                 )
             },
         )

@@ -12,7 +12,7 @@ kotlin {
             api(compose.foundation)
             implementation(compose.material)
             implementation(compose.components.resources)
-            api(compose.ui)
+            implementation(compose.ui)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.coil.compose)
             implementation(libs.coil.svg)
