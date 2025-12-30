@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.selectableGroup
@@ -26,7 +27,6 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.yamal.designSystem.components.badge.Badge
@@ -84,7 +84,9 @@ fun YamalTabBar(
     content: @Composable RowScope.() -> Unit,
 ) {
     Surface(
-        modifier = modifier.fillMaxWidth(),
+        modifier =
+            modifier
+                .fillMaxWidth(),
         color = containerColor,
         contentColor = contentColor,
         elevation = TabBarDefaults.Elevation,
@@ -92,6 +94,7 @@ fun YamalTabBar(
         Row(
             modifier =
                 Modifier
+                    .navigationBarsPadding()
                     .fillMaxWidth()
                     .height(TabBarDefaults.Height)
                     .selectableGroup(),
@@ -286,8 +289,8 @@ class TabBarItemColors(
  * Contains default values used for [YamalTabBar] following Ant Design Mobile specs.
  */
 object TabBarDefaults {
-    /** Default height: 50dp */
-    val Height: Dp = 50.dp
+    /** Default height: 48dp (ADM: min-height: 48px) */
+    val Height: Dp = 48.dp
 
     /** Default elevation: 0dp */
     val Elevation: Dp = 0.dp
@@ -304,8 +307,8 @@ object TabBarDefaults {
     /** Title top margin (when icon present): 2dp */
     val TitleTopMargin: Dp = 2.dp
 
-    /** Title font size: 12sp (Ant Design font-size-2) */
-    val TitleFontSize = 12.sp
+    /** Title font size: 10sp (ADM: font-size-2) */
+    val TitleFontSize = 10.sp
 
     /** Title line height: 15sp */
     val TitleLineHeight = 15.sp

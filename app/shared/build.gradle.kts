@@ -35,7 +35,6 @@ kotlin {
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.components.resources)
-            implementation(libs.insetsx)
             implementation(libs.koin.compose)
             implementation(libs.koin.core)
 

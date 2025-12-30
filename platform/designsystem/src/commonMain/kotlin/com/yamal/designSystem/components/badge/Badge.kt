@@ -60,8 +60,8 @@ object BadgeDefaults {
     /** Content badge vertical padding */
     val BadgeWithContentVerticalPadding: Dp = 1.dp
 
-    /** Badge content font size */
-    val BadgeContentFontSize = 11.sp
+    /** Badge content font size: 9sp (ADM: font-size-1) */
+    val BadgeContentFontSize = 9.sp
 
     /** Badge content line height */
     val BadgeContentLineHeight = 12.sp

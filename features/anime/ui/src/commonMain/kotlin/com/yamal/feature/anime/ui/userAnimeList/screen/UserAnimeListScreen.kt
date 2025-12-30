@@ -51,13 +51,8 @@ fun UserAnimeListScreen(
     YamalScaffold(
         topBar = {
             YamalNavBar(
-                modifier = Modifier.windowInsetsPadding(WindowInsets.statusBars),
                 title = { Text("My Anime List", color = YamalTheme.colors.text) },
-                left = {
-                    IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.Outlined.ArrowLeft, contentDescription = "Back")
-                    }
-                },
+                 onBack = onNavigateBack,
             )
         },
     ) { paddingValues ->

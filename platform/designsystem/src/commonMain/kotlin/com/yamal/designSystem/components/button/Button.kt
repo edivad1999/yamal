@@ -24,7 +24,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.yamal.designSystem.components.surface.Surface
 import com.yamal.designSystem.components.text.Text
 import com.yamal.designSystem.icons.Icon
@@ -132,12 +134,13 @@ fun YamalButton(
             ButtonSize.Large -> 48.dp
         }
 
+    // ADM: padding: 7px 12px (default), mini/small: 3px 12px, large: 11px 12px
     val contentPadding =
         when (size) {
-            ButtonSize.Mini -> PaddingValues(horizontal = 8.dp, vertical = 0.dp)
-            ButtonSize.Small -> PaddingValues(horizontal = 12.dp, vertical = 4.dp)
-            ButtonSize.Middle -> PaddingValues(horizontal = 16.dp, vertical = 8.dp)
-            ButtonSize.Large -> PaddingValues(horizontal = 20.dp, vertical = 12.dp)
+            ButtonSize.Mini -> PaddingValues(horizontal = 12.dp, vertical = 3.dp)
+            ButtonSize.Small -> PaddingValues(horizontal = 12.dp, vertical = 3.dp)
+            ButtonSize.Middle -> PaddingValues(horizontal = 12.dp, vertical = 7.dp)
+            ButtonSize.Large -> PaddingValues(horizontal = 12.dp, vertical = 11.dp)
         }
 
     val buttonShape: Shape =
@@ -319,13 +322,14 @@ fun YamalButton(
     loadingIcon: (@Composable () -> Unit)? = null,
     disabled: Boolean = false,
 ) {
-    val typography = YamalTheme.typography
+    // ADM font sizes: mini=13sp (font-size-5), small=15sp (font-size-7),
+    // middle=17sp (font-size-9), large=18sp (font-size-10)
     val textStyle =
         when (size) {
-            ButtonSize.Mini -> typography.caption
-            ButtonSize.Small -> typography.captionMedium
-            ButtonSize.Middle -> typography.body
-            ButtonSize.Large -> typography.body
+            ButtonSize.Mini -> TextStyle(fontSize = 13.sp)
+            ButtonSize.Small -> TextStyle(fontSize = 15.sp)
+            ButtonSize.Middle -> TextStyle(fontSize = 17.sp)
+            ButtonSize.Large -> TextStyle(fontSize = 18.sp)
         }
 
     YamalButton(

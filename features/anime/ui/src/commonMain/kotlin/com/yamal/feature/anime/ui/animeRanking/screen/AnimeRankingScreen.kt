@@ -3,14 +3,10 @@ package com.yamal.feature.anime.ui.animeRanking.screen
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBars
-import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -20,13 +16,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.yamal.designSystem.components.button.IconButton
 import com.yamal.designSystem.components.loadingIndicator.SpinLoadingIndicator
 import com.yamal.designSystem.components.navBar.YamalNavBar
 import com.yamal.designSystem.components.scaffold.YamalScaffold
 import com.yamal.designSystem.components.text.Text
-import com.yamal.designSystem.icons.Icon
-import com.yamal.designSystem.icons.Icons
 import com.yamal.designSystem.theme.YamalTheme
 import com.yamal.feature.anime.ui.animeRanking.presenter.AnimeRankingPresenter
 import com.yamal.feature.anime.ui.components.GenericAnimeCard
@@ -44,13 +37,8 @@ fun AnimeRankingScreen(
     YamalScaffold(
         topBar = {
             YamalNavBar(
-                modifier = Modifier.windowInsetsPadding(WindowInsets.statusBars),
                 title = { Text("Top Anime", color = YamalTheme.colors.text) },
-                left = {
-                    IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.Outlined.ArrowLeft, contentDescription = "Back")
-                    }
-                },
+                onBack = onNavigateBack,
             )
         },
     ) { paddingValues ->

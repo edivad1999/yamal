@@ -1,10 +1,12 @@
 package com.yamal.designSystem.components.scaffold
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import com.yamal.designSystem.components.surface.Surface
 import com.yamal.designSystem.theme.YamalTheme
 
 /**
@@ -35,11 +37,15 @@ fun YamalScaffold(
     backgroundColor: Color = YamalTheme.colors.box,
     content: @Composable (PaddingValues) -> Unit,
 ) {
-    Scaffold(
+    Surface(
         modifier = modifier,
-        topBar = topBar,
-        bottomBar = bottomBar,
-        backgroundColor = backgroundColor,
-        content = content,
-    )
+        color = backgroundColor,
+    ) {
+        Scaffold(
+            contentWindowInsets = WindowInsets(),
+            topBar = topBar,
+            bottomBar = bottomBar,
+            content = content,
+        )
+    }
 }

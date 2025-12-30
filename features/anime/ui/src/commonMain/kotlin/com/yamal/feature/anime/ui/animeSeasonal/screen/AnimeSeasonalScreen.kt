@@ -5,12 +5,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBars
-import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -28,14 +25,11 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.yamal.designSystem.components.button.ButtonColor
 import com.yamal.designSystem.components.button.ButtonFill
 import com.yamal.designSystem.components.button.ButtonSize
-import com.yamal.designSystem.components.button.IconButton
 import com.yamal.designSystem.components.button.YamalButton
 import com.yamal.designSystem.components.loadingIndicator.SpinLoadingIndicator
 import com.yamal.designSystem.components.navBar.YamalNavBar
 import com.yamal.designSystem.components.scaffold.YamalScaffold
 import com.yamal.designSystem.components.text.Text
-import com.yamal.designSystem.icons.Icon
-import com.yamal.designSystem.icons.Icons
 import com.yamal.designSystem.theme.YamalTheme
 import com.yamal.feature.anime.ui.animeSeasonal.presenter.AnimeSeasonalPresenter
 import com.yamal.feature.anime.ui.components.GenericAnimeCard
@@ -53,13 +47,8 @@ fun AnimeSeasonalScreen(
     YamalScaffold(
         topBar = {
             YamalNavBar(
-                modifier = Modifier.windowInsetsPadding(WindowInsets.statusBars),
                 title = { Text("Seasonal Anime", color = YamalTheme.colors.text) },
-                left = {
-                    IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.Outlined.ArrowLeft, contentDescription = "Back")
-                    }
-                },
+                onBack = onNavigateBack,
             )
         },
     ) { paddingValues ->

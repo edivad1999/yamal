@@ -85,8 +85,8 @@ object TagDefaults {
             vertical = VerticalPadding,
         )
 
-    /** Font size: 12sp (--adm-font-size-3) */
-    val FontSize = 12.sp
+    /** Font size: 11sp (ADM: font-size-3) */
+    val FontSize = 11.sp
 
     /** Border radius: 2dp (--adm-tag-border-radius default) */
     val BorderRadius: Dp = 2.dp

@@ -4,18 +4,26 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.yamal.designSystem.components.surface.Surface
 import com.yamal.designSystem.components.text.ProvideTextStyle
 import com.yamal.designSystem.components.text.Text
@@ -51,22 +59,39 @@ fun YamalNavBar(
     title: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     back: String? = null,
-    backIcon: @Composable (() -> Unit)? = { Icon(Icons.Outlined.Left, contentDescription = null) },
+    backIcon: @Composable (() -> Unit)? = {
+        Icon(
+            Icons.Outlined.Left,
+            contentDescription = null,
+            modifier = Modifier.size(NavBarDefaults.BackArrowSize),
+        )
+    },
     onBack: (() -> Unit)? = null,
     left: @Composable (() -> Unit)? = null,
     right: @Composable (() -> Unit)? = null,
     backgroundColor: Color = YamalTheme.colors.background,
     contentColor: Color = YamalTheme.colors.text,
     elevation: Dp = NavBarDefaults.Elevation,
+    windowInsets: WindowInsets =
+        WindowInsets.statusBars.only(
+            WindowInsetsSides.Horizontal + WindowInsetsSides.Top,
+        ),
 ) {
     Surface(
-        modifier = modifier.fillMaxWidth(),
+        modifier =
+            modifier
+                .fillMaxWidth(),
         color = backgroundColor,
         contentColor = contentColor,
         elevation = elevation,
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth().height(NavBarDefaults.Height).padding(horizontal = NavBarDefaults.HorizontalPadding),
+            modifier =
+                Modifier
+                    .windowInsetsPadding(windowInsets)
+                    .fillMaxWidth()
+                    .height(NavBarDefaults.Height)
+                    .padding(horizontal = NavBarDefaults.HorizontalPadding),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             // Left section (flex: 1)
@@ -77,7 +102,7 @@ fun YamalNavBar(
             ) {
                 CompositionLocalProvider(LocalContentAlpha provides 1f) {
                     // Back button
-                    if (back != null) {
+                    if (back != null || onBack != null) {
                         Row(
                             modifier =
                                 Modifier
@@ -92,7 +117,7 @@ fun YamalNavBar(
                                     backIcon()
                                 }
                             }
-                            Text(text = back)
+                            back?.let { Text(text = it) }
                         }
                         if (left != null) {
                             Box(modifier = Modifier.padding(start = NavBarDefaults.BackButtonEndMargin)) {
@@ -106,11 +131,12 @@ fun YamalNavBar(
             }
 
             // Title section (flex: auto - content-based width with padding)
+            // ADM: font-size: var(--adm-font-size-10) = 18px
             Box(
                 modifier = Modifier.padding(horizontal = NavBarDefaults.TitleHorizontalPadding),
                 contentAlignment = Alignment.Center,
             ) {
-                ProvideTextStyle(value = YamalTheme.typography.titleSmall) {
+                ProvideTextStyle(value = TextStyle(fontSize = 18.sp)) {
                     CompositionLocalProvider(LocalContentAlpha provides 1f) {
                         title()
                     }
@@ -152,6 +178,9 @@ object NavBarDefaults {
 
     /** Back arrow end padding: 4dp */
     val BackArrowEndPadding: Dp = 4.dp
+
+    /** Back arrow size: 24dp (ADM: font-size: 24px) */
+    val BackArrowSize: Dp = 24.dp
 
     /** Title horizontal padding: 12dp */
     val TitleHorizontalPadding: Dp = 12.dp
