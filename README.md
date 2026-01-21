@@ -149,7 +149,7 @@ Please ensure your code passes `./gradlew ktlintCheck` before submitting.
 
 ## License
 
-*License information here*
+idk do whatever you want with it
 
 ## Acknowledgments
 
