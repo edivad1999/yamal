@@ -2,11 +2,18 @@ package com.yamal.feature.anime.ui.core
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
+import androidx.paging.PagingSource
 import androidx.paging.cachedIn
-import com.yamal.platform.utils.MalPagingSource
 import kotlinx.coroutines.CoroutineScope
 
-fun <T : Any, R : Any> MalPagingSource<T, R>.presenterPager(coroutineScope: CoroutineScope) =
-    Pager(PagingConfig(10), pagingSourceFactory = {
-        this
-    }).flow.cachedIn(coroutineScope)
+/**
+ * Creates a pager flow from a PagingSource factory function.
+ * Use this with repository methods that return PagingSource.
+ */
+fun <R : Any> presenterPager(
+    coroutineScope: CoroutineScope,
+    pagingSourceFactory: () -> PagingSource<Int, R>,
+) = Pager(
+    config = PagingConfig(pageSize = 10),
+    pagingSourceFactory = pagingSourceFactory,
+).flow.cachedIn(coroutineScope)

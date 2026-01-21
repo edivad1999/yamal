@@ -16,6 +16,10 @@ kotlin {
             // Platform
             api(projects.platform.network.api)
             implementation(projects.platform.network.implementation)
+            api(projects.platform.jikanNetwork.api)
+            implementation(projects.platform.jikanNetwork.implementation)
+            api(projects.platform.animeDatasource.api)
+            implementation(projects.platform.animeDatasource.implementation)
             api(projects.platform.storage.api)
             implementation(projects.platform.storage.implementation)
             implementation(projects.platform.designsystem)
@@ -29,6 +33,15 @@ kotlin {
             api(projects.features.anime.api)
             implementation(projects.features.anime.implementation)
             implementation(projects.features.anime.ui)
+            api(projects.features.search.api)
+            implementation(projects.features.search.implementation)
+            implementation(projects.features.search.ui)
+            api(projects.features.user.api)
+            implementation(projects.features.user.implementation)
+            implementation(projects.features.user.ui)
+            api(projects.features.manga.api)
+            implementation(projects.features.manga.implementation)
+            implementation(projects.features.manga.ui)
 
             implementation(project.dependencies.platform(libs.koin.bom))
 

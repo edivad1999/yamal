@@ -4,10 +4,10 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import arrow.core.Either
 import com.yamal.platform.network.api.ApiError
-import com.yamal.platform.network.api.model.PagingData
+import com.yamal.platform.network.api.model.list.ListMalNetwork
 
 class MalPagingSource<T : Any, R : Any>(
-    private val apiCall: suspend (pageSize: Int, offset: Int) -> Either<ApiError, PagingData<T>>,
+    private val apiCall: suspend (pageSize: Int, offset: Int) -> Either<ApiError, ListMalNetwork<T>>,
     private val map: (T) -> R,
 ) : PagingSource<Int, R>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, R> {
@@ -23,8 +23,8 @@ class MalPagingSource<T : Any, R : Any>(
                     it.data.map { networkType ->
                         map(networkType)
                     },
-                prevKey = if (it.paging.previous == null) null else (offset - pageSize).coerceAtLeast(0),
-                nextKey = if (it.paging.next == null) null else offset + pageSize,
+                prevKey = if (it.paging?.previous == null) null else (offset - pageSize).coerceAtLeast(0),
+                nextKey = if (it.paging?.next == null) null else offset + pageSize,
             )
         })
     }

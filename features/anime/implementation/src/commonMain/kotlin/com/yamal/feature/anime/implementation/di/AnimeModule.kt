@@ -8,7 +8,7 @@ object AnimeModule {
     operator fun invoke() =
         module {
             single<AnimeRepository> {
-                AnimeRepositoryImpl(apiService = get())
+                AnimeRepositoryImpl(animeDataSource = get())
             }
         }
 }

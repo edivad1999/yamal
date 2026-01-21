@@ -16,6 +16,7 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.coil.compose)
             implementation(libs.coil.svg)
+            implementation(project(":platform:utils"))
         }
     }
 }

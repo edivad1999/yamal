@@ -1,23 +1,53 @@
 package com.yamal.feature.anime.api
 
+import androidx.paging.PagingSource
 import arrow.core.Either
-import com.yamal.feature.anime.api.model.AnimeDetails
-import com.yamal.feature.anime.api.model.GenericAnime
-import com.yamal.feature.anime.api.model.Season
-import com.yamal.feature.anime.api.model.UserListStatus
-import com.yamal.platform.network.api.model.Anime
-import com.yamal.platform.network.api.model.RankedAnime
-import com.yamal.platform.utils.MalPagingSource
+import com.yamal.feature.anime.api.model.AnimeForDetailsYamal
+import com.yamal.feature.anime.api.model.AnimeForListYamal
+import com.yamal.feature.anime.api.model.AnimeListStatusYamal
+import com.yamal.feature.anime.api.model.SeasonYamal
+import com.yamal.feature.anime.api.model.UserListStatusYamal
 
 interface AnimeRepository {
-    fun getRanking(): MalPagingSource<RankedAnime, GenericAnime>
+    fun getRanking(): PagingSource<Int, AnimeForListYamal>
+
+    fun getRankingByType(rankingType: String): PagingSource<Int, AnimeForListYamal>
 
     fun getSeasonal(
-        season: Season,
+        season: SeasonYamal,
         year: String,
-    ): MalPagingSource<Anime, GenericAnime>
+    ): PagingSource<Int, AnimeForListYamal>
 
-    fun getUserAnimeList(status: UserListStatus): MalPagingSource<Anime, GenericAnime>
+    fun searchAnime(query: String): PagingSource<Int, AnimeForListYamal>
 
-    suspend fun getAnimeDetails(id: Int): Either<String, AnimeDetails>
+    fun getCurrentSeasonAnime(): PagingSource<Int, AnimeForListYamal>
+
+    fun getUpcomingSeasonAnime(): PagingSource<Int, AnimeForListYamal>
+
+    fun getUserAnimeList(status: UserListStatusYamal): PagingSource<Int, AnimeForListYamal>
+
+    suspend fun getAnimeDetails(id: Int): Either<String, AnimeForDetailsYamal>
+
+    suspend fun updateAnimeListStatus(
+        animeId: Int,
+        status: UserListStatusYamal?,
+        score: Int?,
+        numWatchedEpisodes: Int?,
+        isRewatching: Boolean? = null,
+        priority: Int? = null,
+        numTimesRewatched: Int? = null,
+        rewatchValue: Int? = null,
+        tags: String? = null,
+        comments: String? = null,
+    ): Either<String, AnimeListStatusYamal>
+
+    suspend fun deleteAnimeListStatus(animeId: Int): Either<String, Unit>
+
+    suspend fun getAnimeSuggestions(limit: Int = 10): Either<String, List<AnimeForListYamal>>
+
+    suspend fun getTrendingAnime(limit: Int = 10): Either<String, List<AnimeForListYamal>>
+
+    suspend fun getTopAnime(limit: Int = 10): Either<String, List<AnimeForListYamal>>
+
+    suspend fun getUpcomingAnime(limit: Int = 10): Either<String, List<AnimeForListYamal>>
 }

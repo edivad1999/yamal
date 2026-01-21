@@ -17,6 +17,9 @@ kotlin {
         // Feature UI modules
         implementation(projects.features.anime.ui)
         implementation(projects.features.login.ui)
+        implementation(projects.features.search.ui)
+        implementation(projects.features.user.ui)
+        implementation(projects.features.manga.ui)
 
         // Platform modules
         implementation(projects.platform.designsystem)

@@ -12,6 +12,7 @@ kotlin {
         implementation(libs.paging.runtime)
         implementation(libs.paging.compose)
         api(compose.runtime)
+        implementation(compose.material)
         implementation(project.dependencies.platform(libs.koin.bom))
         implementation(libs.koin.compose)
         implementation(libs.bundles.arrow)

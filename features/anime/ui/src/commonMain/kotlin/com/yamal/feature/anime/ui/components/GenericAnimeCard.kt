@@ -13,10 +13,10 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.yamal.designSystem.components.divider.YamalDivider
 import com.yamal.designSystem.components.text.Text
-import com.yamal.feature.anime.api.model.GenericAnime
+import com.yamal.feature.anime.api.model.AnimeForListYamal
 
 @Composable
-fun GenericAnimeCard(genericAnime: GenericAnime) {
+fun GenericAnimeCard(genericAnime: AnimeForListYamal) {
     Column {
         Spacer(modifier = Modifier.height(16.dp))
 

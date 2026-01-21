@@ -5,8 +5,8 @@ import androidx.compose.runtime.Stable
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import com.yamal.feature.anime.api.AnimeRepository
-import com.yamal.feature.anime.api.model.GenericAnime
-import com.yamal.feature.anime.api.model.UserListStatus
+import com.yamal.feature.anime.api.model.AnimeForListYamal
+import com.yamal.feature.anime.api.model.UserListStatusYamal
 import com.yamal.feature.anime.ui.core.presenterPager
 import com.yamal.feature.login.api.LoginRepository
 import com.yamal.mvi.Presenter
@@ -20,38 +20,41 @@ import kotlinx.coroutines.flow.stateIn
 
 @Stable
 data class UserAnimeListUi(
-    val userAnimeStatus: UserListStatus,
+    val userAnimeStatus: UserListStatusYamal,
     val isLoggedIn: Boolean = false,
     val userAnimeList: List<StatusAnimeList> = emptyList(),
 )
 
 data class StatusAnimeList(
-    val status: UserListStatus,
-    val list: Flow<PagingData<GenericAnime>>,
+    val status: UserListStatusYamal,
+    val list: Flow<PagingData<AnimeForListYamal>>,
 )
 
 @Immutable
 sealed interface UserAnimeListIntent {
     data class OnSelectStatus(
-        val status: UserListStatus,
+        val status: UserListStatusYamal,
     ) : UserAnimeListIntent
 }
 
 class UserAnimeListPresenter(
     private val animeRepository: AnimeRepository,
     private val loginRepository: LoginRepository,
-) : Presenter<UserListStatus, UserAnimeListUi, UserAnimeListIntent, Nothing>() {
+) : Presenter<UserListStatusYamal, UserAnimeListUi, UserAnimeListIntent, Nothing>() {
     private val userAnimeList =
         loginRepository.isUserAuthenticated().distinctUntilChanged().map {
-            UserListStatus.entries.map {
+            UserListStatusYamal.entries.map { status ->
                 StatusAnimeList(
-                    status = it,
-                    list = animeRepository.getUserAnimeList(status = it).presenterPager(viewModelScope),
+                    status = status,
+                    list =
+                        presenterPager(viewModelScope) {
+                            animeRepository.getUserAnimeList(status = status)
+                        },
                 )
             }
         }
 
-    override fun initialInternalState(): UserListStatus = UserListStatus.Completed
+    override fun initialInternalState(): UserListStatusYamal = UserListStatusYamal.Completed
 
     override val state: StateFlow<UserAnimeListUi> =
         combine(userAnimeList, getInternalState(), loginRepository.isUserAuthenticated().distinctUntilChanged()) { a, b, c ->

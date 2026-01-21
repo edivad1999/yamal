@@ -6,7 +6,7 @@ import org.koin.dsl.module
 object AnimeDetailsPresentationModule {
     operator fun invoke() =
         module {
-            single { (animeId: Int) ->
+            factory { (animeId: Int) ->
                 AnimeDetailsPresenter(get(), animeId)
             }
         }

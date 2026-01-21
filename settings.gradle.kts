@@ -39,6 +39,12 @@ include(":platform:designsystem")
 include(":platform:network:api")
 include(":platform:network:implementation")
 
+include(":platform:jikan-network:api")
+include(":platform:jikan-network:implementation")
+
+include(":platform:anime-datasource:api")
+include(":platform:anime-datasource:implementation")
+
 include(":platform:storage:api")
 include(":platform:storage:implementation")
 
@@ -52,3 +58,15 @@ include(":features:login:ui")
 include(":features:anime:api")
 include(":features:anime:implementation")
 include(":features:anime:ui")
+
+include(":features:search:api")
+include(":features:search:implementation")
+include(":features:search:ui")
+
+include(":features:user:api")
+include(":features:user:implementation")
+include(":features:user:ui")
+
+include(":features:manga:api")
+include(":features:manga:implementation")
+include(":features:manga:ui")

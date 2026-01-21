@@ -5,7 +5,7 @@ plugins {
 kotlin {
     sourceSets.commonMain.dependencies {
         implementation(projects.features.anime.api)
-        implementation(projects.platform.network.api)
+        implementation(projects.platform.animeDatasource.api)
         implementation(projects.platform.utils)
     }
 }

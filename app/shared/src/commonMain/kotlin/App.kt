@@ -9,7 +9,7 @@ import coil3.compose.setSingletonImageLoaderFactory
 import coil3.request.crossfade
 import com.yamal.designSystem.theme.YamalTheme
 import com.yamal.feature.login.ui.presenter.LoginPresenter
-import com.yamal.feature.navigation.Home
+import com.yamal.feature.navigation.HomeTab
 import com.yamal.feature.navigation.Login
 import com.yamal.feature.navigation.YamalNavGraph
 import core.LoginUtilities
@@ -36,7 +36,7 @@ fun App() {
         // If user is logged in, navigate to home
         LaunchedEffect(loginState.isLoggedIn) {
             if (loginState.isLoggedIn) {
-                navController.navigate(Home) {
+                navController.navigate(HomeTab) {
                     popUpTo<Login> { inclusive = true }
                 }
             }
@@ -44,7 +44,7 @@ fun App() {
 
         YamalNavGraph(
             navController = navController,
-            startDestination = if (loginState.isLoggedIn) Home else Login,
+            startDestination = if (loginState.isLoggedIn) HomeTab else Login,
             authCodeFlow = LoginUtilities.authCode,
             launchBrowser = { url -> LoginUtilities.launchBrowser(url) },
         )
