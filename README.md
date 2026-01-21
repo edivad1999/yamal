@@ -1,6 +1,6 @@
 # YAMAL - Yet Another MyAnimeList
 
-[![CI](https://github.com/user/yamal/actions/workflows/ci.yml/badge.svg)](https://github.com/user/yamal/actions/workflows/ci.yml)
+[![CI](https://github.com/edivad1999/yamal/actions/workflows/ci.yml/badge.svg)](https://github.com/edivad1999/yamal/actions/workflows/ci.yml)
 
 A Kotlin Multiplatform application for browsing and managing your MyAnimeList library. Built with Compose Multiplatform, targeting **Android**, **iOS**, and **Desktop**.
 
