@@ -22,9 +22,8 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data
-                    android:host="auth"
-                    android:scheme="yamal" />
+                <data android:scheme="yamal" />
+                <data android:host="yamal" />
             </intent-filter>
         </activity>
     </application>
